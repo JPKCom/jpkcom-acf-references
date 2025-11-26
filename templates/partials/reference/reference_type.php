@@ -1,77 +1,63 @@
 <?php
 /**
- * Template Partial: reference_type
+ * Template Partial: reference_attribute
  */
 
 // Exit if accessed directly
 defined( constant_name: 'ABSPATH' ) || exit;
 ?>
 
-<?php if ( get_field( 'reference_type' ) ) { ?>
+<?php if ( get_field( 'reference_type' ) ) {
 
-    <h3 class="fs-4"><?php echo __( 'Type', 'jpkcom-acf-references' ); ?></h3>
-    <?php
+    $reference_types = get_field( 'reference_type' );
 
-    $types = get_field( 'reference_type' );
+    if ( $reference_types ) {
 
-    if ( $types && is_array( value: $types ) ) {
+        echo '<h3 class="fs-4">' . __( 'Attributes', 'jpkcom-acf-references' ) . '</h3>';
 
-        $total = count( value: $types );
-        $i = 0;
+        echo '<dl>';
 
-        echo '<p class="fs-5">';
+        foreach ( $reference_types as $attr ) {
 
-        foreach ( $types as $type ) {
 
-            // Handle both array format and string format for backwards compatibility
-            if ( is_array( value: $type ) && isset( $type['label'] ) ) {
-                echo $type['label'];
-            } elseif ( is_string( value: $type ) ) {
-                // Fallback: use the value itself if it's a string
-                echo $type;
+            if ( is_numeric( value: $attr ) ) {
+
+                $term = get_term( $attr );
+
+            } elseif ( is_object( value: $attr ) && $attr instanceof WP_Term ) {
+
+                $term = $attr;
+
+            } elseif ( is_string( value: $attr ) ) {
+
+                $term = get_term_by( 'name', $attr, 'reference_type' );
+
+            } else {
+
+                continue;
+
             }
-            $i++;
 
-            if ( $i < $total ) {
-                echo ', ';
+            if ( ! $term || is_wp_error( $term ) ) {
+
+                continue;
+
+            }
+
+            echo '<dt>' . esc_html( $term->name ) . '</dt>';
+            
+            if ( ! empty( $term->description ) ) {
+
+                echo '<dd>' . nl2br( string: wp_kses_post( $term->description ) ) . '</dd>';
 
             }
 
         }
 
-        echo '</p>';
+        echo '</dl>';
+
+        echo '<hr>';
 
     }
-    ?>
 
-    <?php if ( get_field( 'reference_work_type' ) ) {
-
-        $reference_work_type = get_field( 'reference_work_type' );
-        $reference_work_type_label = '';
-
-        // Handle both array format and string format for backwards compatibility
-        $work_type_value = is_array( value: $reference_work_type ) && isset( $reference_work_type['value'] ) ? $reference_work_type['value'] : $reference_work_type;
-
-        if ( $work_type_value === 'homeoffice' ) {
-
-            $reference_work_type_label = __( 'Home office', 'jpkcom-acf-references' );
-
-        } elseif ( $work_type_value === 'onsitework' ) {
-
-            $reference_work_type_label = __( 'Onsite work', 'jpkcom-acf-references' );
-
-        } else {
-
-            $reference_work_type_label = __( 'Home office and onsite work', 'jpkcom-acf-references' );
-
-        }
-
-        echo '<p>' . __( 'Ways of working', 'jpkcom-acf-references' ) . ': ';
-        echo $reference_work_type_label;
-        echo '</p>';
-
-    } ?>
-
-    <hr>
-
-<?php } ?>
+} ?>

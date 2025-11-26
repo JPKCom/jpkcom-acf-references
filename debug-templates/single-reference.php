@@ -32,8 +32,6 @@ if ( have_posts() ) :
             <h2 class="h4 mb-3">Details</h2>
             <?php jpkcom_render_acf_fields(); ?>
 
-            <?php jpkcom_acf_references_get_template_part( slug: 'partials/debug/schema-reference' ); ?>
-
             <?php
                 if ( current_user_can( 'edit_post', get_the_ID() ) ) {
 

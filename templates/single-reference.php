@@ -9,12 +9,12 @@ defined( constant_name: 'ABSPATH' ) || exit;
 get_header();
 ?>
 
-<div id="content" class="site-content container jpkcom-acf-reference--single-job pt-3 pb-5">
+<div id="content" class="site-content container jpkcom-acf-reference--single-reference pt-3 pb-5">
     <div id="primary" class="content-area">
 
         <?php jpkcom_acf_references_breadcrumb(); ?>
 
-        <main id="main" class="site-main<?php if ( get_field('reference_featured') ) { echo ' jpkcom-acf-reference--item-featured'; } ?><?php if ( get_field('reference_closed') ) { echo ' jpkcom-acf-reference--item-closed'; } ?>"></main>
+        <main id="main" class="site-main<?php if ( get_field('reference_featured') ) { echo ' jpkcom-acf-reference--item-featured'; } ?>">
 
         <div class="row mb-3">
 
@@ -35,8 +35,6 @@ get_header();
                     </div>
 
                     <?php jpkcom_acf_references_get_template_part( slug: 'partials/layout/meta' ); ?>
-
-                    <?php jpkcom_acf_references_get_template_part( slug: 'partials/job/reference_closed' ); ?>
 
                 </div>
 
@@ -60,13 +58,7 @@ get_header();
 
                             <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_short_description' ); ?>
 
-                            <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_layout_content' ); ?>
-
-                            <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_application_description' ); ?>
-
-                            <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_application_button' ); ?>
-
-                            <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_application_shortcode' ); ?>
+                            <?php the_content(); ?>
 
                         </div>
 
@@ -88,10 +80,6 @@ get_header();
 
                         <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_location' ); ?>
 
-                        <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_base_salary_group' ); ?>
-
-                        <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_attribute' ); ?>
-
                     </div>
 
                 </div>
@@ -111,20 +99,6 @@ get_header();
                 </div>
 
             </div>
-
-            <?php jpkcom_acf_references_get_template_part( slug: 'partials/debug/schema-reference' ); ?>
-
-            <?php
-
-                $schema_json = jpkcom_acf_references_get_schema_reference_posting( post_id: get_the_ID() );
-
-                if ( $schema_json ) {
-
-                    echo '<script type="application/ld+json">' . $schema_json . '</script>';
-
-                }
-
-            ?>
 
         </main>
 

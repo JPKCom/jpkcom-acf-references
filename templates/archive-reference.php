@@ -22,7 +22,7 @@ get_header();
             <!-- Reference List -->
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-                <article id="reference-<?php the_ID(); ?>" class="jpkcom-acf-reference--item card horizontal p-0 mb-4<?php if ( get_field('reference_featured') ) { echo ' jpkcom-acf-reference--item-featured'; } ?><?php if ( get_field('reference_closed') ) { echo ' jpkcom-acf-reference--item-closed'; } ?>">
+                <article id="reference-<?php the_ID(); ?>" class="jpkcom-acf-reference--item card horizontal p-0 mb-4<?php if ( get_field('reference_featured') ) { echo ' jpkcom-acf-reference--item-featured'; } ?>">
 
                     <div class="row g-0">
 
@@ -71,8 +71,6 @@ get_header();
                                     </ul>
                                 </div>
                                 <?php } ?>
-
-                                <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_closed' ); ?>
 
                                 <p class="card-text">
                                     <a class="text-body text-decoration-none" href="<?php the_permalink(); ?>">
