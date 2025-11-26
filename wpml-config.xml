@@ -1,0 +1,66 @@
+<wpml-config>
+  <custom-types>
+    <custom-type translate="1" display-as-translated="1">reference_location</custom-type>
+    <custom-type translate="1" display-as-translated="1">reference_customer</custom-type>
+    <custom-type translate="1">reference</custom-type>
+  </custom-types>
+  <taxonomies>
+    <taxonomy translate="1" display-as-translated="1">reference-type</taxonomy>
+    <taxonomy translate="1" display-as-translated="1">reference-filter-1</taxonomy>
+    <taxonomy translate="1" display-as-translated="1">reference-filter-2</taxonomy>
+  </taxonomies>
+  <custom-fields>
+
+    <!-- Reference Details -->
+    <custom-field action="copy-once">reference_url</custom-field>
+    <custom-field action="translate">reference_short_description</custom-field>
+    <custom-field action="copy-once">reference_customer</custom-field>
+    <custom-field action="copy-once">reference_location</custom-field>
+    <custom-field action="copy-once">reference_year</custom-field>
+    <custom-field action="copy-once">reference_image_gallery</custom-field>
+    <custom-field action="copy-once">reference_type</custom-field>
+    <custom-field action="copy-once">reference_filter_1</custom-field>
+    <custom-field action="copy-once">reference_filter_2</custom-field>
+    <custom-field action="copy-once">reference_featured</custom-field>
+    <custom-field action="copy-once">reference_expiry_date</custom-field>
+
+    <!-- Reference Customer (Company) Fields -->
+    <custom-field action="copy-once">reference_customer_url</custom-field>
+    <custom-field action="copy-once">reference_customer_logo</custom-field>
+    <custom-field action="copy-once">reference_customer_references</custom-field>
+
+    <!-- Reference Location Fields -->
+    <custom-field action="translate">reference_location_place</custom-field>
+    <custom-field action="copy-once">reference_location_zip</custom-field>
+    <custom-field action="translate">reference_location_street</custom-field>
+    <custom-field action="translate">reference_location_region</custom-field>
+    <custom-field action="translate">reference_location_country</custom-field>
+    <custom-field action="copy-once">reference_location_references</custom-field>
+
+    <!-- ============================================ -->
+    <!-- ACF Internal Fields - IGNORE THESE           -->
+    <!-- These store field keys, not actual content   -->
+    <!-- ============================================ -->
+    <custom-field action="ignore">_reference_url</custom-field>
+    <custom-field action="ignore">_reference_short_description</custom-field>
+    <custom-field action="ignore">_reference_customer</custom-field>
+    <custom-field action="ignore">_reference_location</custom-field>
+    <custom-field action="ignore">_reference_year</custom-field>
+    <custom-field action="ignore">_reference_image_gallery</custom-field>
+    <custom-field action="ignore">_reference_type</custom-field>
+    <custom-field action="ignore">_reference_filter_1</custom-field>
+    <custom-field action="ignore">_reference_filter_2</custom-field>
+    <custom-field action="ignore">_reference_featured</custom-field>
+    <custom-field action="ignore">_reference_expiry_date</custom-field>
+    <custom-field action="ignore">_reference_customer_url</custom-field>
+    <custom-field action="ignore">_reference_customer_logo</custom-field>
+    <custom-field action="ignore">_reference_customer_references</custom-field>
+    <custom-field action="ignore">_reference_location_place</custom-field>
+    <custom-field action="ignore">_reference_location_zip</custom-field>
+    <custom-field action="ignore">_reference_location_street</custom-field>
+    <custom-field action="ignore">_reference_location_region</custom-field>
+    <custom-field action="ignore">_reference_location_country</custom-field>
+    <custom-field action="ignore">_reference_location_references</custom-field>
+
+  </custom-fields>
+</wpml-config>
