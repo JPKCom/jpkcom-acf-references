@@ -16,12 +16,21 @@ defined( constant_name: 'ABSPATH' ) || exit;
             $total = count( value: $types );
             $i = 0;
             foreach ( $types as $type ) {
-                // Handle both array format and string format for backwards compatibility
-                if ( is_array( value: $type ) && isset( $type['label'] ) ) {
-                    echo $type['label'];
+                $term = null;
+
+                // Handle different return formats
+                if ( is_numeric( value: $type ) ) {
+                    $term = get_term( $type );
+                } elseif ( is_object( value: $type ) && $type instanceof WP_Term ) {
+                    $term = $type;
                 } elseif ( is_string( value: $type ) ) {
-                    echo $type;
+                    $term = get_term_by( 'name', $type, 'reference-type' );
                 }
+
+                if ( $term && ! is_wp_error( $term ) ) {
+                    echo esc_html( $term->name );
+                }
+
                 $i++;
                 if ( $i < $total ) {
                     echo ',<br>';

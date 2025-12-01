@@ -58,14 +58,19 @@ if ( ! isset( $posts ) || ! is_array( value: $posts ) ) {
 
                     foreach ( $reference_types as $type ) {
 
-                        if (is_array( value: $type ) && isset( $type['label'] )) {
+                        $term = null;
 
-                            $reference_type_values[] = esc_html( $type['label'] );
-
+                        // Handle different return formats
+                        if ( is_numeric( value: $type ) ) {
+                            $term = get_term( $type );
+                        } elseif ( is_object( value: $type ) && $type instanceof WP_Term ) {
+                            $term = $type;
                         } elseif ( is_string( value: $type ) ) {
+                            $term = get_term_by( 'name', $type, 'reference-type' );
+                        }
 
-                            $reference_type_values[] = esc_html( $type );
-
+                        if ( $term && ! is_wp_error( $term ) ) {
+                            $reference_type_values[] = esc_html( $term->name );
                         }
 
                     }
