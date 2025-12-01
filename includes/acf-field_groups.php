@@ -40,7 +40,7 @@ add_action( 'acf/include_fields', function() {
 
 	acf_add_local_field_group( array(
 	'qef_simple_location_rules' => 0,
-	'key' => 'group_68dcf8044f518',
+	'key' => 'group_673c8044f518',
 	'title' => 'Kundendaten',
 	'fields' => array(
 		array(
@@ -51,7 +51,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 1,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => false,
-			'key' => 'field_68dcf805e6798',
+			'key' => 'field_673c805e6798',
 			'label' => 'Kundenwebseite',
 			'name' => 'reference_customer_url',
 			'aria-label' => '',
@@ -76,7 +76,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 1,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => false,
-			'key' => 'field_68dcf8c63df61',
+			'key' => 'field_673c8c63df61',
 			'label' => 'Kundenlogo',
 			'name' => 'reference_customer_logo',
 			'aria-label' => '',
@@ -110,7 +110,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 0,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => false,
-			'key' => 'field_68de31fde1264',
+			'key' => 'field_673e31fde1264',
 			'label' => 'Referenzen',
 			'name' => 'reference_customer_references',
 			'aria-label' => '',
@@ -268,7 +268,7 @@ add_action( 'acf/include_fields', function() {
 			'allow_in_bindings' => 1,
 			'bidirectional' => 1,
 			'bidirectional_target' => array(
-				0 => 'field_68de31fde1264',
+				0 => 'field_673e31fde1264',
 			),
 			'ui' => 1,
 		),
@@ -305,7 +305,7 @@ add_action( 'acf/include_fields', function() {
 			'allow_in_bindings' => 1,
 			'bidirectional' => 1,
 			'bidirectional_target' => array(
-				0 => 'field_68de308b46c75',
+				0 => 'field_673e308b46c75',
 			),
 			'ui' => 1,
 		),
@@ -563,7 +563,7 @@ add_action( 'acf/include_fields', function() {
 
 	acf_add_local_field_group( array(
 	'qef_simple_location_rules' => 0,
-	'key' => 'group_68dcf113ad7e1',
+	'key' => 'group_673c1113ad7e1',
 	'title' => 'Referenzort',
 	'fields' => array(
 		array(
@@ -574,7 +574,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 1,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => 1,
-			'key' => 'field_68dcf11403af0',
+			'key' => 'field_673c11403af0',
 			'label' => 'Ort',
 			'name' => 'reference_location_place',
 			'aria-label' => '',
@@ -603,7 +603,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 1,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => 1,
-			'key' => 'field_68dcf1ad9046c',
+			'key' => 'field_673c1ad9046c',
 			'label' => 'PLZ',
 			'name' => 'reference_location_zip',
 			'aria-label' => '',
@@ -634,7 +634,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 1,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => 1,
-			'key' => 'field_68dcf1d89046d',
+			'key' => 'field_673c1d89046d',
 			'label' => 'Straße und Hausnummer',
 			'name' => 'reference_location_street',
 			'aria-label' => '',
@@ -663,7 +663,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 0,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => false,
-			'key' => 'field_68de70b4be3b7',
+			'key' => 'field_673e70b4be3b7',
 			'label' => 'Region/Bundesland',
 			'name' => 'reference_location_region',
 			'aria-label' => '',
@@ -692,7 +692,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 1,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => 1,
-			'key' => 'field_68dcf1ef9046e',
+			'key' => 'field_673c1ef9046e',
 			'label' => 'Land',
 			'name' => 'reference_location_country',
 			'aria-label' => '',
@@ -721,7 +721,7 @@ add_action( 'acf/include_fields', function() {
 			'show_column' => 0,
 			'show_column_weight' => 1000,
 			'show_column_sortable' => false,
-			'key' => 'field_68de308b46c75',
+			'key' => 'field_673e308b46c75',
 			'label' => 'Referenzen',
 			'name' => 'reference_location_references',
 			'aria-label' => '',
