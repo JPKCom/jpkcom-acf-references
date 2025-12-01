@@ -45,7 +45,117 @@ defined( constant_name: 'ABSPATH' ) || exit;
             }
 
             echo '<dt>' . esc_html( $term->name ) . '</dt>';
-            
+
+            if ( ! empty( $term->description ) ) {
+
+                echo '<dd>' . nl2br( string: wp_kses_post( $term->description ) ) . '</dd>';
+
+            }
+
+        }
+
+        echo '</dl>';
+
+        echo '<hr>';
+
+    }
+
+} ?>
+
+<?php if ( get_field( 'reference_filter_1' ) ) {
+
+    $reference_filter_1 = get_field( 'reference_filter_1' );
+
+    if ( $reference_filter_1 ) {
+
+        echo '<h3 class="fs-4">' . __( 'Filter 1', 'jpkcom-acf-references' ) . '</h3>';
+
+        echo '<dl>';
+
+        foreach ( $reference_filter_1 as $attr ) {
+
+
+            if ( is_numeric( value: $attr ) ) {
+
+                $term = get_term( $attr );
+
+            } elseif ( is_object( value: $attr ) && $attr instanceof WP_Term ) {
+
+                $term = $attr;
+
+            } elseif ( is_string( value: $attr ) ) {
+
+                $term = get_term_by( 'name', $attr, 'reference-filter-1' );
+
+            } else {
+
+                continue;
+
+            }
+
+            if ( ! $term || is_wp_error( $term ) ) {
+
+                continue;
+
+            }
+
+            echo '<dt>' . esc_html( $term->name ) . '</dt>';
+
+            if ( ! empty( $term->description ) ) {
+
+                echo '<dd>' . nl2br( string: wp_kses_post( $term->description ) ) . '</dd>';
+
+            }
+
+        }
+
+        echo '</dl>';
+
+        echo '<hr>';
+
+    }
+
+} ?>
+
+<?php if ( get_field( 'reference_filter_2' ) ) {
+
+    $reference_filter_2 = get_field( 'reference_filter_2' );
+
+    if ( $reference_filter_2 ) {
+
+        echo '<h3 class="fs-4">' . __( 'Filter 2', 'jpkcom-acf-references' ) . '</h3>';
+
+        echo '<dl>';
+
+        foreach ( $reference_filter_2 as $attr ) {
+
+
+            if ( is_numeric( value: $attr ) ) {
+
+                $term = get_term( $attr );
+
+            } elseif ( is_object( value: $attr ) && $attr instanceof WP_Term ) {
+
+                $term = $attr;
+
+            } elseif ( is_string( value: $attr ) ) {
+
+                $term = get_term_by( 'name', $attr, 'reference-filter-2' );
+
+            } else {
+
+                continue;
+
+            }
+
+            if ( ! $term || is_wp_error( $term ) ) {
+
+                continue;
+
+            }
+
+            echo '<dt>' . esc_html( $term->name ) . '</dt>';
+
             if ( ! empty( $term->description ) ) {
 
                 echo '<dd>' . nl2br( string: wp_kses_post( $term->description ) ) . '</dd>';
