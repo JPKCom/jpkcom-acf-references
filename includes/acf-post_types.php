@@ -1,7 +1,14 @@
 <?php
 /**
- * Custom post type registration
+ * Custom Post Type Registration
  *
+ * Registers three custom post types for the reference system:
+ * - reference: Main reference/portfolio items
+ * - reference_customer: Customer/client information
+ * - reference_location: Location/site information
+ *
+ * @package JPKCom_ACF_References
+ * @since   1.0.0
  */
 
 declare(strict_types=1);
@@ -10,6 +17,17 @@ if ( ! defined( constant_name: 'WPINC' ) ) {
     die;
 }
 
+/**
+ * Register custom post types for references, customers, and locations.
+ *
+ * Hooks into WordPress 'init' action to register three interconnected post types:
+ * - reference_customer: Manages customer/client data (nested under references menu)
+ * - reference_location: Manages project location data (nested under references menu)
+ * - reference: Main reference post type with full public visibility
+ *
+ * @since 1.0.0
+ * @return void
+ */
 add_action( 'init', function() {
 	register_post_type( 'reference_customer', array(
 	'labels' => array(
@@ -159,7 +177,17 @@ add_action( 'init', function() {
 ) );
 } );
 
-
+/**
+ * Customize the title placeholder text for custom post types.
+ *
+ * Modifies the default "Add title" placeholder text in the post editor
+ * to provide context-specific prompts for customer and location post types.
+ *
+ * @since 1.0.0
+ * @param string  $default The default placeholder text.
+ * @param WP_Post $post    The current post object.
+ * @return string Modified placeholder text or default.
+ */
 add_filter( 'enter_title_here', function( $default, $post ) {
 	switch ( $post->post_type ) {
 		case 'reference_customer':

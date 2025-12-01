@@ -1,7 +1,18 @@
 <?php
 /**
- * ACF field group registration
+ * ACF Field Group Registration
  *
+ * Registers all Advanced Custom Fields field groups programmatically using
+ * acf_add_local_field_group(). This includes field groups for:
+ * - Customer data (reference_customer post type)
+ * - Location data (reference_location post type)
+ * - Reference metadata (reference post type)
+ *
+ * Programmatic registration provides better performance and version control
+ * compared to JSON-based field imports.
+ *
+ * @package JPKCom_ACF_References
+ * @since   1.0.0
  */
 
 declare(strict_types=1);
@@ -10,6 +21,18 @@ if ( ! defined( constant_name: 'WPINC' ) ) {
     die;
 }
 
+/**
+ * Register ACF field groups for references, customers, and locations.
+ *
+ * Hooks into ACF's 'acf/include_fields' action to programmatically register
+ * all field groups. Includes fields for:
+ * - Customer website URL and logo
+ * - Location address components (place, zip, street, region, country)
+ * - Reference metadata (URL, description, customer, location, year, gallery, taxonomies, featured status, expiry date)
+ *
+ * @since 1.0.0
+ * @return void
+ */
 add_action( 'acf/include_fields', function() {
 	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 		return;

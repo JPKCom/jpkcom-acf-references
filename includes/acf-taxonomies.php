@@ -1,7 +1,17 @@
 <?php
 /**
- * Custom taxonomy registration
+ * Custom Taxonomy Registration
  *
+ * Registers three hierarchical taxonomies for categorizing and filtering references:
+ * - reference-type: Main categorization for references (e.g., Web Development, Design)
+ * - reference-filter-1: First custom filter dimension (project-specific)
+ * - reference-filter-2: Second custom filter dimension (project-specific)
+ *
+ * All taxonomies support hierarchical organization and are available for filtering
+ * in both admin and frontend contexts.
+ *
+ * @package JPKCom_ACF_References
+ * @since   1.0.0
  */
 
 declare(strict_types=1);
@@ -10,6 +20,19 @@ if ( ! defined( constant_name: 'WPINC' ) ) {
     die;
 }
 
+/**
+ * Register custom taxonomies for reference filtering and categorization.
+ *
+ * Hooks into WordPress 'init' action to register three hierarchical taxonomies:
+ * - reference-filter-1: First custom filter dimension (configurable)
+ * - reference-filter-2: Second custom filter dimension (configurable)
+ * - reference-type: Main reference categorization taxonomy
+ *
+ * All taxonomies are hidden from public display but available in admin and REST API.
+ *
+ * @since 1.0.0
+ * @return void
+ */
 add_action( 'init', function() {
 	register_taxonomy( 'reference-filter-1', array(
 	0 => 'reference',
