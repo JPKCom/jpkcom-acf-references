@@ -61,7 +61,7 @@ Key templates:
 - `partials/reference/*.php` - reusable reference components
 - `partials/layout/*.php` - layout components (meta, pagination)
 - `partials/archive/*.php` - archive-specific components
-- `shortcodes/list.php`, `shortcodes/types.php` - shortcode templates
+- `shortcodes/list.php`, `shortcodes/types.php`, `shortcodes/filter-1.php`, `shortcodes/filter-2.php` - shortcode templates
 
 ### ACF Field Configuration
 
@@ -106,6 +106,14 @@ Registered in `includes/shortcodes.php`:
 - `title` - Section headline
 
 **`[jpkcom_acf_references_types]`** - Display reference types taxonomy as `<details>` elements:
+- `id` - CSV of term IDs (optional, shows all if omitted)
+- `style`, `class`, `title` - Same as above
+
+**`[jpkcom_acf_references_filter_1]`** - Display reference filter 1 taxonomy as `<details>` elements:
+- `id` - CSV of term IDs (optional, shows all if omitted)
+- `style`, `class`, `title` - Same as above
+
+**`[jpkcom_acf_references_filter_2]`** - Display reference filter 2 taxonomy as `<details>` elements:
 - `id` - CSV of term IDs (optional, shows all if omitted)
 - `style`, `class`, `title` - Same as above
 

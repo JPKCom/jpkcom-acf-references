@@ -5,6 +5,8 @@
  * Registers and handles the following shortcodes:
  * - [jpkcom_acf_references_list] - Filtered reference listings
  * - [jpkcom_acf_references_types] - Reference types taxonomy display
+ * - [jpkcom_acf_references_filter_1] - Reference filter 1 taxonomy display
+ * - [jpkcom_acf_references_filter_2] - Reference filter 2 taxonomy display
  *
  * @package   JPKCom_ACF_References
  * @since     1.0.0
@@ -494,6 +496,270 @@ add_action( 'init', function(): void {
                     $summary = esc_html( $term->name );
                     $desc = wp_kses_post( term_description( $term->term_id, $term->taxonomy ) );
                     echo '<details name="jpkcom-acf-references-type" class="border rounded p-3 mb-3">';
+                    echo '<summary class="px-3 fs-5"><h4 class="d-inline fs-5">' . $summary . '</h4></summary>';
+                    echo '<div class="p-3">' . ( $desc ?: '<p class="text-muted">' . esc_html__( 'No description.', 'jpkcom-acf-references' ) . '</p>' ) . '</div>';
+                    echo '</details>';
+
+                }
+
+                echo '</div>';
+
+            }
+
+        }
+
+        return (string) ob_get_clean();
+
+    } );
+
+    /**
+     * Shortcode: [jpkcom_acf_references_filter_1]
+     *
+     * Displays reference filter 1 (taxonomy terms) as expandable <details> elements.
+     * Shows term name as summary and term description as content.
+     *
+     * Attributes:
+     * - id: CSV of term IDs to display (optional, shows all if omitted)
+     * - style: Inline CSS styles for the container
+     * - class: CSS class(es) for the container
+     * - title: Optional section headline
+     *
+     * Example usage:
+     * [jpkcom_acf_references_filter_1 id="1,2,3" class="reference-filter-1" title="Filter 1"]
+     *
+     * @since 1.0.0
+     *
+     * @param array|string $atts Shortcode attributes.
+     * @return string Rendered HTML output.
+     */
+    add_shortcode( 'jpkcom_acf_references_filter_1', function( $atts ): string {
+
+        $defaults = [
+            'id'    => '', // CSV of term IDs (optional)
+            'style' => '',
+            'class' => '',
+            'title' => '',
+        ];
+
+        $atts = shortcode_atts( $defaults, (array) $atts, 'jpkcom_acf_references_filter_1' );
+
+        $ids_csv = trim( string: (string) $atts['id'] );
+        $style   = trim( string: (string) $atts['style'] );
+        $class   = trim( string: (string) $atts['class'] );
+        $title   = trim( string: (string) $atts['title'] );
+
+        $args = [
+            'taxonomy'   => 'reference-filter-1',
+            'hide_empty' => false,
+        ];
+
+        if ( $ids_csv !== '' ) {
+
+            $ids = array_filter( array: array_map( callback: 'absint', array: explode( separator: ',', string: $ids_csv ) ) );
+
+            if ( ! empty( $ids ) ) {
+
+                $args['include'] = $ids;
+
+            }
+
+        }
+
+        $terms = get_terms( $args );
+
+        // Template name
+        $template_name = 'shortcodes/filter-1.php';
+        $path = jpkcom_acf_references_locate_template( template_name: $template_name );
+
+        ob_start();
+
+        if ( $path ) {
+
+            $tpl_args = [
+                'terms' => $terms,
+                'atts'  => $atts,
+                'style' => $style,
+                'class' => $class,
+                'title' => $title,
+            ];
+
+            extract( array: $tpl_args, flags: EXTR_SKIP );
+            include $path;
+
+        } else {
+
+            // Fallback output:
+            if ( $title ) {
+
+                echo '<h2>' . esc_html( $title ) . '</h2>';
+
+            }
+
+            if ( empty( $terms ) ) {
+
+                echo '<p class="text-muted">' . esc_html__( 'No filter terms found.', 'jpkcom-acf-references' ) . '</p>';
+
+            } else {
+
+                echo '<div class="jpkcom-acf-references--filter-1';
+
+                if ( ! empty( $class ) ) {
+                    echo ' ' . esc_attr( $class );
+                }
+
+                echo '"';
+
+                if ( ! empty( $style ) ) {
+
+                    echo ' style="' . esc_attr( $style ) . '"';
+
+                }
+
+                echo '>';
+
+                if ( ! empty( $title ) ) {
+
+                    echo '<h3 class="mb-3">' . esc_html( $title ) . '</h3>';
+
+                }
+
+                foreach ( $terms as $term ) {
+
+                    $summary = esc_html( $term->name );
+                    $desc = wp_kses_post( term_description( $term->term_id, $term->taxonomy ) );
+                    echo '<details name="jpkcom-acf-references-filter-1" class="border rounded p-3 mb-3">';
+                    echo '<summary class="px-3 fs-5"><h4 class="d-inline fs-5">' . $summary . '</h4></summary>';
+                    echo '<div class="p-3">' . ( $desc ?: '<p class="text-muted">' . esc_html__( 'No description.', 'jpkcom-acf-references' ) . '</p>' ) . '</div>';
+                    echo '</details>';
+
+                }
+
+                echo '</div>';
+
+            }
+
+        }
+
+        return (string) ob_get_clean();
+
+    } );
+
+    /**
+     * Shortcode: [jpkcom_acf_references_filter_2]
+     *
+     * Displays reference filter 2 (taxonomy terms) as expandable <details> elements.
+     * Shows term name as summary and term description as content.
+     *
+     * Attributes:
+     * - id: CSV of term IDs to display (optional, shows all if omitted)
+     * - style: Inline CSS styles for the container
+     * - class: CSS class(es) for the container
+     * - title: Optional section headline
+     *
+     * Example usage:
+     * [jpkcom_acf_references_filter_2 id="1,2,3" class="reference-filter-2" title="Filter 2"]
+     *
+     * @since 1.0.0
+     *
+     * @param array|string $atts Shortcode attributes.
+     * @return string Rendered HTML output.
+     */
+    add_shortcode( 'jpkcom_acf_references_filter_2', function( $atts ): string {
+
+        $defaults = [
+            'id'    => '', // CSV of term IDs (optional)
+            'style' => '',
+            'class' => '',
+            'title' => '',
+        ];
+
+        $atts = shortcode_atts( $defaults, (array) $atts, 'jpkcom_acf_references_filter_2' );
+
+        $ids_csv = trim( string: (string) $atts['id'] );
+        $style   = trim( string: (string) $atts['style'] );
+        $class   = trim( string: (string) $atts['class'] );
+        $title   = trim( string: (string) $atts['title'] );
+
+        $args = [
+            'taxonomy'   => 'reference-filter-2',
+            'hide_empty' => false,
+        ];
+
+        if ( $ids_csv !== '' ) {
+
+            $ids = array_filter( array: array_map( callback: 'absint', array: explode( separator: ',', string: $ids_csv ) ) );
+
+            if ( ! empty( $ids ) ) {
+
+                $args['include'] = $ids;
+
+            }
+
+        }
+
+        $terms = get_terms( $args );
+
+        // Template name
+        $template_name = 'shortcodes/filter-2.php';
+        $path = jpkcom_acf_references_locate_template( template_name: $template_name );
+
+        ob_start();
+
+        if ( $path ) {
+
+            $tpl_args = [
+                'terms' => $terms,
+                'atts'  => $atts,
+                'style' => $style,
+                'class' => $class,
+                'title' => $title,
+            ];
+
+            extract( array: $tpl_args, flags: EXTR_SKIP );
+            include $path;
+
+        } else {
+
+            // Fallback output:
+            if ( $title ) {
+
+                echo '<h2>' . esc_html( $title ) . '</h2>';
+
+            }
+
+            if ( empty( $terms ) ) {
+
+                echo '<p class="text-muted">' . esc_html__( 'No filter terms found.', 'jpkcom-acf-references' ) . '</p>';
+
+            } else {
+
+                echo '<div class="jpkcom-acf-references--filter-2';
+
+                if ( ! empty( $class ) ) {
+                    echo ' ' . esc_attr( $class );
+                }
+
+                echo '"';
+
+                if ( ! empty( $style ) ) {
+
+                    echo ' style="' . esc_attr( $style ) . '"';
+
+                }
+
+                echo '>';
+
+                if ( ! empty( $title ) ) {
+
+                    echo '<h3 class="mb-3">' . esc_html( $title ) . '</h3>';
+
+                }
+
+                foreach ( $terms as $term ) {
+
+                    $summary = esc_html( $term->name );
+                    $desc = wp_kses_post( term_description( $term->term_id, $term->taxonomy ) );
+                    echo '<details name="jpkcom-acf-references-filter-2" class="border rounded p-3 mb-3">';
                     echo '<summary class="px-3 fs-5"><h4 class="d-inline fs-5">' . $summary . '</h4></summary>';
                     echo '<div class="p-3">' . ( $desc ?: '<p class="text-muted">' . esc_html__( 'No description.', 'jpkcom-acf-references' ) . '</p>' ) . '</div>';
                     echo '</details>';
