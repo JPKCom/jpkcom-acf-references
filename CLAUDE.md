@@ -61,7 +61,7 @@ Key templates:
 - `partials/reference/*.php` - reusable reference components
 - `partials/layout/*.php` - layout components (meta, pagination)
 - `partials/archive/*.php` - archive-specific components
-- `shortcodes/list.php`, `shortcodes/attributes.php` - shortcode templates
+- `shortcodes/list.php`, `shortcodes/types.php` - shortcode templates
 
 ### ACF Field Configuration
 

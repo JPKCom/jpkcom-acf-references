@@ -434,7 +434,7 @@ add_action( 'init', function(): void {
         $terms = get_terms( $args );
 
         // Template name
-        $template_name = 'shortcodes/attributes.php';
+        $template_name = 'shortcodes/types.php';
         $path = jpkcom_acf_references_locate_template( template_name: $template_name );
 
         ob_start();
