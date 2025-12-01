@@ -13,7 +13,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
 
     if ( $reference_types ) {
 
-        echo '<h3 class="fs-4">' . __( 'Attributes', 'jpkcom-acf-references' ) . '</h3>';
+        echo '<h3 class="fs-4">' . __( 'Type', 'jpkcom-acf-references' ) . '</h3>';
 
         echo '<dl>';
 
