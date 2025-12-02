@@ -209,11 +209,15 @@ $list_id = 'reference-filter-' . uniqid();
                 }
 
             }
+
+            // Check if this reference is featured
+            $is_featured = get_field( 'reference_featured', $post_item->ID );
+            $featured_class = $is_featured ? ' jpkcom-acf-reference--item-featured' : '';
             ?>
 
             <li
                 id="post-<?php echo esc_attr( $post_item->ID ); ?>"
-                class="jpkcom-acf-ref-item border-bottom py-3"
+                class="jpkcom-acf-ref-item border-bottom py-3<?php echo esc_attr( $featured_class ); ?>"
                 <?php echo esc_attr( $filter_attributes['data-reference-type'] ) ? 'data-reference-type="' . esc_attr( $filter_attributes['data-reference-type'] ) . '"' : ''; ?>
                 <?php echo esc_attr( $filter_attributes['data-reference-filter-1'] ) ? 'data-reference-filter-1="' . esc_attr( $filter_attributes['data-reference-filter-1'] ) . '"' : ''; ?>
                 <?php echo esc_attr( $filter_attributes['data-reference-filter-2'] ) ? 'data-reference-filter-2="' . esc_attr( $filter_attributes['data-reference-filter-2'] ) . '"' : ''; ?>
