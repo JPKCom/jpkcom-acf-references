@@ -74,8 +74,8 @@ add_action( 'init', function(): void {
      * Displays a filtered list of reference postings with optional filtering and sorting.
      *
      * Attributes:
-     * - type: CSV of reference_type values (e.g., "FULL_TIME,PART_TIME")
-     * - company: CSV of company post IDs (e.g., "12,34,56")
+     * - type: CSV of reference-type taxonomy term IDs (e.g., "1,5,12")
+     * - customer: CSV of customer post IDs (e.g., "12,34,56")
      * - location: CSV of location post IDs (e.g., "78,90")
      * - limit: Number of references to display (0 = no limit, shows all)
      * - sort: Sort order - "ASC" or "DSC" (default: "DSC")
@@ -84,7 +84,7 @@ add_action( 'init', function(): void {
      * - title: Optional section headline
      *
      * Example usage:
-     * [jpkcom_acf_references_list type="FULL_TIME" limit="5" class="my-references" title="Open Positions"]
+     * [jpkcom_acf_references_list type="1,5" customer="12" limit="5" class="my-references" title="Latest Projects"]
      *
      * @since 1.0.0
      *
@@ -94,8 +94,8 @@ add_action( 'init', function(): void {
     add_shortcode( 'jpkcom_acf_references_list', function( $atts ): string {
 
         $defaults = [
-            'type'    => '',    // CSV of reference_type values
-            'company' => '',    // CSV of company post IDs
+            'type'    => '',    // CSV of reference-type taxonomy term IDs
+            'customer' => '',   // CSV of customer post IDs
             'location'=> '',    // CSV of location post IDs
             'limit'   => 0,     // 0 => no limit (we'll set -1 by default)
             'sort'    => 'DSC', // ASC or DSC
@@ -108,7 +108,7 @@ add_action( 'init', function(): void {
 
         // Sanitize inputs
         $type_csv     = trim( string: (string) $atts['type'] );
-        $company_csv  = trim( string: (string) $atts['company'] );
+        $customer_csv = trim( string: (string) $atts['customer'] );
         $location_csv = trim( string: (string) $atts['location'] );
         $limit        = intval( value: $atts['limit'] );
         $sort         = strtoupper( string: $atts['sort'] ) === 'ASC' ? 'ASC' : 'DESC';
@@ -155,7 +155,7 @@ add_action( 'init', function(): void {
             ],
         ];
 
-        // reference_type: CSV of values (e.g. FULL_TIME,PART_TIME)
+        // reference_type: CSV of term IDs (e.g. 1,5,12)
         if ( $type_csv !== '' ) {
 
             $want = array_filter( array: array_map( callback: 'trim', array: explode( separator: ',', string: $type_csv ) ) );
@@ -182,23 +182,23 @@ add_action( 'init', function(): void {
 
         }
 
-        // Company filter: CSV of post IDs
-        if ( $company_csv !== '' ) {
+        // Customer filter: CSV of post IDs
+        if ( $customer_csv !== '' ) {
 
-            $ids = array_filter( array: array_map( callback: 'absint', array: explode( separator: ',', string: $company_csv ) ) );
+            $ids = array_filter( array: array_map( callback: 'absint', array: explode( separator: ',', string: $customer_csv ) ) );
 
             if ( ! empty( $ids ) ) {
 
-                $company_clauses = [ 'relation' => 'OR' ];
+                $customer_clauses = [ 'relation' => 'OR' ];
                 foreach ( $ids as $id ) {
-                    $company_clauses[] = [
+                    $customer_clauses[] = [
                         'key'     => 'reference_customer',
                         'value'   => '"' . $id . '"',
                         'compare' => 'LIKE',
                     ];
                 }
 
-                $meta_query[] = $company_clauses;
+                $meta_query[] = $customer_clauses;
 
             }
 
