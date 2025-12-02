@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Jean Pierre Kolb
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the JPKCom ACF References package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
 "Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-01 12:18+0100\n"
+"POT-Creation-Date: 2025-12-02 15:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: templates/partials/reference/reference_type.php:16
-msgid "Attributes"
-msgstr ""
 
 #: templates/partials/layout/pagination-page.php:13
 #: debug-templates/single-reference.php:43
@@ -46,6 +42,10 @@ msgstr ""
 #: templates/archive-reference_customer.php:19
 #: debug-templates/archive-reference_customer.php:19
 msgid "Customer overview"
+msgstr ""
+
+#: templates/shortcodes/partials/list-cards.php:169
+msgid "Customer:"
 msgstr ""
 
 #: templates/single-reference.php:55
@@ -75,6 +75,25 @@ msgstr ""
 msgid "Edit reference"
 msgstr ""
 
+#: includes/shortcodes.php:363
+#: templates/partials/reference/reference_type.php:71
+msgid "Filter 1"
+msgstr ""
+
+#: includes/shortcodes.php:372
+#: templates/partials/reference/reference_type.php:126
+msgid "Filter 2"
+msgstr ""
+
+#: templates/shortcodes/list.php:41
+msgid "Filter button group"
+msgstr ""
+
+#: templates/shortcodes/list.php:50 templates/shortcodes/list.php:77
+#, php-format
+msgid "Filter by %s"
+msgstr ""
+
 #: includes/pagination.php:66
 msgid "First Page"
 msgstr ""
@@ -91,9 +110,17 @@ msgstr ""
 msgid "Last Page"
 msgstr ""
 
+#: templates/shortcodes/list.php:114
+msgid "Layout template not found."
+msgstr ""
+
 #: templates/partials/reference/reference_location.php:12
 #: templates/partials/archive/reference_location.php:12
 msgid "Location"
+msgstr ""
+
+#: templates/shortcodes/partials/list-cards.php:176
+msgid "Location:"
 msgstr ""
 
 #: templates/archive-reference_location.php:19
@@ -105,23 +132,32 @@ msgstr ""
 msgid "Next Page"
 msgstr ""
 
-#: templates/shortcodes/attributes.php:18
-msgid "No attributes found."
-msgstr ""
-
-#: includes/shortcodes.php:498 templates/shortcodes/attributes.php:37
+#: includes/shortcodes.php:651 includes/shortcodes.php:783
+#: includes/shortcodes.php:915 templates/shortcodes/filter-1.php:37
+#: templates/shortcodes/filter-2.php:37 templates/shortcodes/types.php:37
 msgid "No description."
 msgstr ""
 
-#: includes/shortcodes.php:369
+#: includes/shortcodes.php:751 includes/shortcodes.php:883
+#: templates/shortcodes/filter-1.php:18 templates/shortcodes/filter-2.php:18
+msgid "No filter terms found."
+msgstr ""
+
+#: templates/shortcodes/list.php:101
+msgid ""
+"No references found matching your filter criteria. Please adjust your "
+"filters."
+msgstr ""
+
+#: includes/shortcodes.php:522
 msgid "No references found."
 msgstr ""
 
-#: templates/shortcodes/list.php:19
+#: templates/shortcodes/list.php:23
 msgid "No references to display."
 msgstr ""
 
-#: includes/shortcodes.php:466
+#: includes/shortcodes.php:619 templates/shortcodes/types.php:18
 msgid "No types found."
 msgstr ""
 
@@ -162,6 +198,14 @@ msgstr ""
 msgid "Reference Logo (Width 512 / Height 512)"
 msgstr ""
 
+#: includes/shortcodes.php:354
+msgid "Reference Type"
+msgstr ""
+
+#: templates/shortcodes/list.php:40
+msgid "Reference filters"
+msgstr ""
+
 #: templates/partials/layout/pagination-page.php:10
 msgid "Reference page navigation"
 msgstr ""
@@ -170,10 +214,27 @@ msgstr ""
 msgid "References"
 msgstr ""
 
+#: templates/shortcodes/list.php:63
+#, php-format
+msgid "Reset %s filter"
+msgstr ""
+
+#: templates/shortcodes/list.php:93
+msgid "Reset all"
+msgstr ""
+
+#: templates/shortcodes/list.php:91
+msgid "Reset all filters"
+msgstr ""
+
 #: includes/class-plugin-updater.php:425
 #, php-format
 msgid ""
 "Security verification failed: Plugin checksum mismatch. Expected: %s, Got: %s"
+msgstr ""
+
+#: templates/shortcodes/list.php:65
+msgid "Show all"
 msgstr ""
 
 #: templates/archive-reference_customer.php:67
@@ -190,8 +251,13 @@ msgstr ""
 msgid "There are currently no reference offers available."
 msgstr ""
 
+#: templates/partials/reference/reference_type.php:16
 #: templates/partials/archive/reference_type.php:12
 msgid "Type"
+msgstr ""
+
+#: templates/shortcodes/partials/list-cards.php:162
+msgid "Type:"
 msgstr ""
 
 #: templates/archive-reference_location.php:51
