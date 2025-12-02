@@ -95,6 +95,12 @@ $list_id = 'reference-filter-' . uniqid();
         </div>
     <?php endif; ?>
 
+    <?php if ( $show_filters && ! empty( $filter_data ) ) : ?>
+        <div class="alert alert-secondary jpkcom-acf-ref-no-results" role="alert" style="display: none;" aria-live="polite">
+            <?php echo esc_html__( 'No references found matching your filter criteria. Please adjust your filters.', 'jpkcom-acf-references' ); ?>
+        </div>
+    <?php endif; ?>
+
     <ul class="list-unstyled jpkcom-acf-ref-items">
         <?php foreach ( $posts as $post_item)  : setup_postdata( $post_item ); ?>
             <?php

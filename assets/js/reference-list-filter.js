@@ -219,6 +219,7 @@
          */
         applyFilters() {
             const hasActiveFilters = Object.keys(this.activeFilters).length > 0;
+            let visibleCount = 0;
 
             this.items.forEach(item => {
                 let shouldShow = true;
@@ -246,14 +247,37 @@
                 if (shouldShow) {
                     item.style.display = '';
                     item.setAttribute('aria-hidden', 'false');
+                    visibleCount++;
                 } else {
                     item.style.display = 'none';
                     item.setAttribute('aria-hidden', 'true');
                 }
             });
 
+            // Show/hide "no results" message
+            this.toggleNoResultsMessage(visibleCount === 0 && hasActiveFilters);
+
             // Announce to screen readers
             this.announceFilterResults();
+        }
+
+        /**
+         * Toggle "no results" message visibility
+         *
+         * @param {boolean} show - Whether to show the message
+         */
+        toggleNoResultsMessage(show) {
+            const noResultsAlert = this.container.querySelector('.jpkcom-acf-ref-no-results');
+
+            if (noResultsAlert) {
+                if (show) {
+                    noResultsAlert.style.display = 'block';
+                    noResultsAlert.setAttribute('aria-hidden', 'false');
+                } else {
+                    noResultsAlert.style.display = 'none';
+                    noResultsAlert.setAttribute('aria-hidden', 'true');
+                }
+            }
         }
 
         /**

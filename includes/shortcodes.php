@@ -87,9 +87,12 @@ add_action( 'init', function(): void {
      * - show_filters: Display filter buttons ("true" or "false", default: "false")
      * - show_filter: Which filters to show - CSV of numbers 0-2 (0=reference-type, 1=reference-filter-1, 2=reference-filter-2, default: "0")
      * - reset_button: Display reset all filters button ("true" or "false", default: "false")
+     * - filter_title_0: Custom label for filter 0 (reference-type), defaults to "Reference Type"
+     * - filter_title_1: Custom label for filter 1 (reference-filter-1), defaults to "Filter 1"
+     * - filter_title_2: Custom label for filter 2 (reference-filter-2), defaults to "Filter 2"
      *
      * Example usage:
-     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" show_filters="true" show_filter="0,1" reset_button="true" class="my-references" title="Latest Projects"]
+     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" show_filters="true" show_filter="0,1" reset_button="true" filter_title_0="Projekttyp" filter_title_1="Kategorie" class="my-references" title="Latest Projects"]
      *
      * @since 1.0.0
      *
@@ -99,37 +102,43 @@ add_action( 'init', function(): void {
     add_shortcode( 'jpkcom_acf_references_list', function( $atts ): string {
 
         $defaults = [
-            'type'         => '',     // CSV of reference-type taxonomy term IDs
-            'filter_1'     => '',     // CSV of reference-filter-1 taxonomy term IDs
-            'filter_2'     => '',     // CSV of reference-filter-2 taxonomy term IDs
-            'customer'     => '',     // CSV of customer post IDs
-            'location'     => '',     // CSV of location post IDs
-            'limit'        => 0,      // 0 => no limit (we'll set -1 by default)
-            'sort'         => 'DSC',  // ASC or DSC
-            'style'        => '',
-            'class'        => '',
-            'title'        => '',
-            'show_filters' => 'false', // Display filter buttons (true/false)
-            'show_filter'  => '0',    // Which filters to show (0=reference-type, 1=reference-filter-1, 2=reference-filter-2)
-            'reset_button' => 'false', // Display reset all filters button (true/false)
+            'type'           => '',     // CSV of reference-type taxonomy term IDs
+            'filter_1'       => '',     // CSV of reference-filter-1 taxonomy term IDs
+            'filter_2'       => '',     // CSV of reference-filter-2 taxonomy term IDs
+            'customer'       => '',     // CSV of customer post IDs
+            'location'       => '',     // CSV of location post IDs
+            'limit'          => 0,      // 0 => no limit (we'll set -1 by default)
+            'sort'           => 'DSC',  // ASC or DSC
+            'style'          => '',
+            'class'          => '',
+            'title'          => '',
+            'show_filters'   => 'false', // Display filter buttons (true/false)
+            'show_filter'    => '0',    // Which filters to show (0=reference-type, 1=reference-filter-1, 2=reference-filter-2)
+            'reset_button'   => 'false', // Display reset all filters button (true/false)
+            'filter_title_0' => '',     // Custom label for filter 0 (reference-type)
+            'filter_title_1' => '',     // Custom label for filter 1 (reference-filter-1)
+            'filter_title_2' => '',     // Custom label for filter 2 (reference-filter-2)
         ];
 
         $atts = shortcode_atts( $defaults, (array) $atts, 'jpkcom_acf_references_list' );
 
         // Sanitize inputs
-        $type_csv      = trim( string: (string) $atts['type'] );
-        $filter_1_csv  = trim( string: (string) $atts['filter_1'] );
-        $filter_2_csv  = trim( string: (string) $atts['filter_2'] );
-        $customer_csv  = trim( string: (string) $atts['customer'] );
-        $location_csv  = trim( string: (string) $atts['location'] );
-        $limit         = intval( value: $atts['limit'] );
-        $sort          = strtoupper( string: $atts['sort'] ) === 'ASC' ? 'ASC' : 'DESC';
-        $style         = trim( string: (string) $atts['style'] );
-        $class         = trim( string: (string) $atts['class'] );
-        $title         = trim( string: (string) $atts['title'] );
-        $show_filters  = strtolower( string: trim( string: (string) $atts['show_filters'] ) ) === 'true';
-        $show_filter   = trim( string: (string) $atts['show_filter'] );
-        $reset_button  = strtolower( string: trim( string: (string) $atts['reset_button'] ) ) === 'true';
+        $type_csv        = trim( string: (string) $atts['type'] );
+        $filter_1_csv    = trim( string: (string) $atts['filter_1'] );
+        $filter_2_csv    = trim( string: (string) $atts['filter_2'] );
+        $customer_csv    = trim( string: (string) $atts['customer'] );
+        $location_csv    = trim( string: (string) $atts['location'] );
+        $limit           = intval( value: $atts['limit'] );
+        $sort            = strtoupper( string: $atts['sort'] ) === 'ASC' ? 'ASC' : 'DESC';
+        $style           = trim( string: (string) $atts['style'] );
+        $class           = trim( string: (string) $atts['class'] );
+        $title           = trim( string: (string) $atts['title'] );
+        $show_filters    = strtolower( string: trim( string: (string) $atts['show_filters'] ) ) === 'true';
+        $show_filter     = trim( string: (string) $atts['show_filter'] );
+        $reset_button    = strtolower( string: trim( string: (string) $atts['reset_button'] ) ) === 'true';
+        $filter_title_0  = trim( string: (string) $atts['filter_title_0'] );
+        $filter_title_1  = trim( string: (string) $atts['filter_title_1'] );
+        $filter_title_2  = trim( string: (string) $atts['filter_title_2'] );
 
         // Build WP_Query args
         $query_args = [
@@ -339,7 +348,7 @@ add_action( 'init', function(): void {
                             'id'       => 'reference-type',
                             'taxonomy' => 'reference-type',
                             'field'    => 'reference_type',
-                            'label'    => __( 'Reference Type', 'jpkcom-acf-references' ),
+                            'label'    => ! empty( $filter_title_0 ) ? $filter_title_0 : __( 'Reference Type', 'jpkcom-acf-references' ),
                         ];
                         break;
 
@@ -348,7 +357,7 @@ add_action( 'init', function(): void {
                             'id'       => 'reference-filter-1',
                             'taxonomy' => 'reference-filter-1',
                             'field'    => 'reference_filter_1',
-                            'label'    => __( 'Filter 1', 'jpkcom-acf-references' ),
+                            'label'    => ! empty( $filter_title_1 ) ? $filter_title_1 : __( 'Filter 1', 'jpkcom-acf-references' ),
                         ];
                         break;
 
@@ -357,7 +366,7 @@ add_action( 'init', function(): void {
                             'id'       => 'reference-filter-2',
                             'taxonomy' => 'reference-filter-2',
                             'field'    => 'reference_filter_2',
-                            'label'    => __( 'Filter 2', 'jpkcom-acf-references' ),
+                            'label'    => ! empty( $filter_title_2 ) ? $filter_title_2 : __( 'Filter 2', 'jpkcom-acf-references' ),
                         ];
                         break;
                 }
