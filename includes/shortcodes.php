@@ -84,9 +84,11 @@ add_action( 'init', function(): void {
      * - style: Inline CSS styles for the container
      * - class: CSS class(es) for the container
      * - title: Optional section headline
+     * - show_filters: Display filter buttons ("true" or "false", default: "false")
+     * - show_filter: Which filters to show - CSV of numbers 0-2 (0=reference-type, 1=reference-filter-1, 2=reference-filter-2, default: "0")
      *
      * Example usage:
-     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" class="my-references" title="Latest Projects"]
+     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" show_filters="true" show_filter="0,1" class="my-references" title="Latest Projects"]
      *
      * @since 1.0.0
      *
@@ -96,31 +98,35 @@ add_action( 'init', function(): void {
     add_shortcode( 'jpkcom_acf_references_list', function( $atts ): string {
 
         $defaults = [
-            'type'     => '',   // CSV of reference-type taxonomy term IDs
-            'filter_1' => '',   // CSV of reference-filter-1 taxonomy term IDs
-            'filter_2' => '',   // CSV of reference-filter-2 taxonomy term IDs
-            'customer' => '',   // CSV of customer post IDs
-            'location' => '',   // CSV of location post IDs
-            'limit'    => 0,    // 0 => no limit (we'll set -1 by default)
-            'sort'     => 'DSC', // ASC or DSC
-            'style'    => '',
-            'class'    => '',
-            'title'    => '',
+            'type'         => '',     // CSV of reference-type taxonomy term IDs
+            'filter_1'     => '',     // CSV of reference-filter-1 taxonomy term IDs
+            'filter_2'     => '',     // CSV of reference-filter-2 taxonomy term IDs
+            'customer'     => '',     // CSV of customer post IDs
+            'location'     => '',     // CSV of location post IDs
+            'limit'        => 0,      // 0 => no limit (we'll set -1 by default)
+            'sort'         => 'DSC',  // ASC or DSC
+            'style'        => '',
+            'class'        => '',
+            'title'        => '',
+            'show_filters' => 'false', // Display filter buttons (true/false)
+            'show_filter'  => '0',    // Which filters to show (0=reference-type, 1=reference-filter-1, 2=reference-filter-2)
         ];
 
         $atts = shortcode_atts( $defaults, (array) $atts, 'jpkcom_acf_references_list' );
 
         // Sanitize inputs
-        $type_csv     = trim( string: (string) $atts['type'] );
-        $filter_1_csv = trim( string: (string) $atts['filter_1'] );
-        $filter_2_csv = trim( string: (string) $atts['filter_2'] );
-        $customer_csv = trim( string: (string) $atts['customer'] );
-        $location_csv = trim( string: (string) $atts['location'] );
-        $limit        = intval( value: $atts['limit'] );
-        $sort         = strtoupper( string: $atts['sort'] ) === 'ASC' ? 'ASC' : 'DESC';
-        $style        = trim( string: (string) $atts['style'] );
-        $class        = trim( string: (string) $atts['class'] );
-        $title        = trim( string: (string) $atts['title'] );
+        $type_csv      = trim( string: (string) $atts['type'] );
+        $filter_1_csv  = trim( string: (string) $atts['filter_1'] );
+        $filter_2_csv  = trim( string: (string) $atts['filter_2'] );
+        $customer_csv  = trim( string: (string) $atts['customer'] );
+        $location_csv  = trim( string: (string) $atts['location'] );
+        $limit         = intval( value: $atts['limit'] );
+        $sort          = strtoupper( string: $atts['sort'] ) === 'ASC' ? 'ASC' : 'DESC';
+        $style         = trim( string: (string) $atts['style'] );
+        $class         = trim( string: (string) $atts['class'] );
+        $title         = trim( string: (string) $atts['title'] );
+        $show_filters  = strtolower( string: trim( string: (string) $atts['show_filters'] ) ) === 'true';
+        $show_filter   = trim( string: (string) $atts['show_filter'] );
 
         // Build WP_Query args
         $query_args = [
@@ -308,14 +314,78 @@ add_action( 'init', function(): void {
 
         $q = new WP_Query( $query_args );
 
+        // Prepare filter data if show_filters is enabled
+        $filter_data = [];
+        if ( $show_filters ) {
+
+            // Parse which filters to show (0, 1, 2)
+            $active_filters = array_filter( array: array_map( callback: 'intval', array: explode( separator: ',', string: $show_filter ) ) );
+
+            // Build filter data for each active filter
+            foreach ( $active_filters as $filter_num ) {
+
+                $filter_config = null;
+
+                switch ( $filter_num ) {
+                    case 0:
+                        $filter_config = [
+                            'id'       => 'reference-type',
+                            'taxonomy' => 'reference-type',
+                            'field'    => 'reference_type',
+                            'label'    => __( 'Reference Type', 'jpkcom-acf-references' ),
+                        ];
+                        break;
+
+                    case 1:
+                        $filter_config = [
+                            'id'       => 'reference-filter-1',
+                            'taxonomy' => 'reference-filter-1',
+                            'field'    => 'reference_filter_1',
+                            'label'    => __( 'Filter 1', 'jpkcom-acf-references' ),
+                        ];
+                        break;
+
+                    case 2:
+                        $filter_config = [
+                            'id'       => 'reference-filter-2',
+                            'taxonomy' => 'reference-filter-2',
+                            'field'    => 'reference_filter_2',
+                            'label'    => __( 'Filter 2', 'jpkcom-acf-references' ),
+                        ];
+                        break;
+                }
+
+                if ( $filter_config ) {
+
+                    // Get all terms for this taxonomy
+                    $terms = get_terms( [
+                        'taxonomy'   => $filter_config['taxonomy'],
+                        'hide_empty' => true,
+                    ] );
+
+                    if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+
+                        $filter_config['terms'] = $terms;
+                        $filter_data[] = $filter_config;
+
+                    }
+
+                }
+
+            }
+
+        }
+
         // Prepare args for template
         $tpl_args = [
-            'posts' => $q->posts,
-            'query' => $q,
-            'atts'  => $atts,
-            'style' => $style,
-            'class' => $class,
-            'title' => $title,
+            'posts'        => $q->posts,
+            'query'        => $q,
+            'atts'         => $atts,
+            'style'        => $style,
+            'class'        => $class,
+            'title'        => $title,
+            'show_filters' => $show_filters,
+            'filter_data'  => $filter_data,
         ];
 
         // Render template via buffer. Use your loader to find the template.

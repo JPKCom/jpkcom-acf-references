@@ -306,3 +306,19 @@ if ( $jpkcomAcfReferenceShortcodes ) {
     require_once $jpkcomAcfReferenceShortcodes;
 
 }
+
+
+/**
+ * Load asset enqueuing functions
+ *
+ * Handles enqueuing of JavaScript and CSS files.
+ *
+ * @since 1.0.0
+ */
+$jpkcomAcfReferenceAssets = jpkcom_acfreferences_locate_file( filename: 'assets-enqueue.php' );
+
+if ( $jpkcomAcfReferenceAssets ) {
+
+    require_once $jpkcomAcfReferenceAssets;
+
+}
