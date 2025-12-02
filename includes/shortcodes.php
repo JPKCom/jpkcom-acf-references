@@ -90,9 +90,10 @@ add_action( 'init', function(): void {
      * - filter_title_0: Custom label for filter 0 (reference-type), defaults to "Reference Type"
      * - filter_title_1: Custom label for filter 1 (reference-filter-1), defaults to "Filter 1"
      * - filter_title_2: Custom label for filter 2 (reference-filter-2), defaults to "Filter 2"
+     * - layout: Display layout - "list" or "cards" (default: "list")
      *
      * Example usage:
-     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" show_filters="true" show_filter="0,1" reset_button="true" filter_title_0="Projekttyp" filter_title_1="Kategorie" class="my-references" title="Latest Projects"]
+     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" show_filters="true" show_filter="0,1" reset_button="true" filter_title_0="Projekttyp" filter_title_1="Kategorie" layout="cards" class="my-references" title="Latest Projects"]
      *
      * @since 1.0.0
      *
@@ -118,6 +119,7 @@ add_action( 'init', function(): void {
             'filter_title_0' => '',     // Custom label for filter 0 (reference-type)
             'filter_title_1' => '',     // Custom label for filter 1 (reference-filter-1)
             'filter_title_2' => '',     // Custom label for filter 2 (reference-filter-2)
+            'layout'         => 'list', // Display layout: "list" or "cards"
         ];
 
         $atts = shortcode_atts( $defaults, (array) $atts, 'jpkcom_acf_references_list' );
@@ -139,6 +141,7 @@ add_action( 'init', function(): void {
         $filter_title_0  = trim( string: (string) $atts['filter_title_0'] );
         $filter_title_1  = trim( string: (string) $atts['filter_title_1'] );
         $filter_title_2  = trim( string: (string) $atts['filter_title_2'] );
+        $layout          = in_array( strtolower( trim( (string) $atts['layout'] ) ), ['list', 'cards'] ) ? strtolower( trim( (string) $atts['layout'] ) ) : 'list';
 
         // Build WP_Query args
         $query_args = [
@@ -403,6 +406,7 @@ add_action( 'init', function(): void {
             'show_filters' => $show_filters,
             'filter_data'  => $filter_data,
             'reset_button' => $reset_button,
+            'layout'       => $layout,
         ];
 
         // Render template via buffer. Use your loader to find the template.
