@@ -11,6 +11,7 @@
  * - string $title
  * - bool $show_filters => Whether to display filter buttons
  * - array $filter_data => Filter configuration data
+ * - bool $reset_button => Whether to display reset all filters button
  */
 
 // Exit if accessed directly
@@ -25,7 +26,7 @@ if ( ! isset( $posts ) || ! is_array( value: $posts ) ) {
 }
 
 // Generate unique ID for this list instance
-$list_id = 'jpkcom-acf-ref-list-' . uniqid();
+$list_id = 'reference-filter-' . uniqid();
 ?>
 
 <div class="jpkcom-acf-references--list<?php if ( ! empty( $class ) ) echo ' ' . esc_attr( $class ); ?>" id="<?php echo esc_attr( $list_id ); ?>" <?php if ( ! empty( $style ) ) echo 'style="' . esc_attr( $style ) . '"'; ?>>
@@ -82,6 +83,15 @@ $list_id = 'jpkcom-acf-ref-list-' . uniqid();
                     </div>
                 <?php endforeach; ?>
             </div>
+            <?php if ( $reset_button ) : ?>
+                <button
+                    type="button"
+                    class="btn btn-secondary ms-2 jpkcom-acf-ref-reset-all"
+                    aria-label="<?php echo esc_attr__( 'Reset all filters', 'jpkcom-acf-references' ); ?>"
+                >
+                    <?php echo esc_html__( 'Reset all', 'jpkcom-acf-references' ); ?>
+                </button>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 

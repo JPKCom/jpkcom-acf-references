@@ -86,9 +86,10 @@ add_action( 'init', function(): void {
      * - title: Optional section headline
      * - show_filters: Display filter buttons ("true" or "false", default: "false")
      * - show_filter: Which filters to show - CSV of numbers 0-2 (0=reference-type, 1=reference-filter-1, 2=reference-filter-2, default: "0")
+     * - reset_button: Display reset all filters button ("true" or "false", default: "false")
      *
      * Example usage:
-     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" show_filters="true" show_filter="0,1" class="my-references" title="Latest Projects"]
+     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" show_filters="true" show_filter="0,1" reset_button="true" class="my-references" title="Latest Projects"]
      *
      * @since 1.0.0
      *
@@ -110,6 +111,7 @@ add_action( 'init', function(): void {
             'title'        => '',
             'show_filters' => 'false', // Display filter buttons (true/false)
             'show_filter'  => '0',    // Which filters to show (0=reference-type, 1=reference-filter-1, 2=reference-filter-2)
+            'reset_button' => 'false', // Display reset all filters button (true/false)
         ];
 
         $atts = shortcode_atts( $defaults, (array) $atts, 'jpkcom_acf_references_list' );
@@ -127,6 +129,7 @@ add_action( 'init', function(): void {
         $title         = trim( string: (string) $atts['title'] );
         $show_filters  = strtolower( string: trim( string: (string) $atts['show_filters'] ) ) === 'true';
         $show_filter   = trim( string: (string) $atts['show_filter'] );
+        $reset_button  = strtolower( string: trim( string: (string) $atts['reset_button'] ) ) === 'true';
 
         // Build WP_Query args
         $query_args = [
@@ -390,6 +393,7 @@ add_action( 'init', function(): void {
             'title'        => $title,
             'show_filters' => $show_filters,
             'filter_data'  => $filter_data,
+            'reset_button' => $reset_button,
         ];
 
         // Render template via buffer. Use your loader to find the template.

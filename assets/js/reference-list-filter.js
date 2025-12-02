@@ -27,6 +27,7 @@
             this.filterButtons = container.querySelectorAll('.jpkcom-acf-ref-filter-btn');
             this.resetButtons = container.querySelectorAll('.jpkcom-acf-ref-filter-reset');
             this.optionButtons = container.querySelectorAll('.jpkcom-acf-ref-filter-option');
+            this.resetAllButton = container.querySelector('.jpkcom-acf-ref-reset-all');
 
             // Active filters state: { 'reference-type': '12', 'reference-filter-1': '5' }
             this.activeFilters = {};
@@ -66,7 +67,7 @@
                 });
             });
 
-            // Reset buttons
+            // Reset buttons (individual filters)
             this.resetButtons.forEach(button => {
                 button.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -75,6 +76,14 @@
                     this.clearFilter(filterId);
                 });
             });
+
+            // Reset all button
+            if (this.resetAllButton) {
+                this.resetAllButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.resetAllFilters();
+                });
+            }
         }
 
         /**
@@ -99,6 +108,16 @@
                     }
                 });
             });
+
+            // Reset all button keyboard navigation
+            if (this.resetAllButton) {
+                this.resetAllButton.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.resetAllButton.click();
+                    }
+                });
+            }
         }
 
         /**
@@ -137,6 +156,33 @@
                 this.updateButtonLabel(filterId, defaultLabel);
             }
 
+            this.updateHash();
+            this.applyFilters();
+        }
+
+        /**
+         * Reset all filters at once
+         */
+        resetAllFilters() {
+            // Get all filter IDs before clearing
+            const filterIds = Object.keys(this.activeFilters);
+
+            // Clear the activeFilters object
+            this.activeFilters = {};
+
+            // Reset all button labels to default
+            filterIds.forEach(filterId => {
+                const button = this.container.querySelector(
+                    `.jpkcom-acf-ref-filter-btn[data-filter-id="${filterId}"]`
+                );
+
+                if (button) {
+                    const defaultLabel = button.dataset.defaultLabel;
+                    this.updateButtonLabel(filterId, defaultLabel);
+                }
+            });
+
+            // Update hash and show all items
             this.updateHash();
             this.applyFilters();
         }
