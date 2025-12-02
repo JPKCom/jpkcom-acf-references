@@ -319,7 +319,11 @@ add_action( 'init', function(): void {
         if ( $show_filters ) {
 
             // Parse which filters to show (0, 1, 2)
-            $active_filters = array_filter( array: array_map( callback: 'intval', array: explode( separator: ',', string: $show_filter ) ) );
+            // Note: We use a custom callback to keep 0 (array_filter removes 0 by default as falsy)
+            $active_filters = array_filter(
+                array: array_map( callback: 'intval', array: explode( separator: ',', string: $show_filter ) ),
+                callback: function( $val ) { return $val >= 0; }
+            );
 
             // Build filter data for each active filter
             foreach ( $active_filters as $filter_num ) {
