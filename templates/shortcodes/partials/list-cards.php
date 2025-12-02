@@ -13,7 +13,7 @@
 defined( constant_name: 'ABSPATH' ) || exit;
 ?>
 
-<div class="card-group jpkcom-acf-ref-items">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 jpkcom-acf-ref-items">
     <?php foreach ( $posts as $post_item ) : setup_postdata( $post_item ); ?>
         <?php
         // Collect all taxonomy term IDs for this post for filtering
@@ -133,12 +133,13 @@ defined( constant_name: 'ABSPATH' ) || exit;
         ?>
 
         <div
-            class="card jpkcom-acf-ref-item<?php echo esc_attr( $featured_class ); ?>"
+            class="col jpkcom-acf-ref-item"
             id="post-<?php echo esc_attr( $post_item->ID ); ?>"
             <?php echo esc_attr( $filter_attributes['data-reference-type'] ) ? 'data-reference-type="' . esc_attr( $filter_attributes['data-reference-type'] ) . '"' : ''; ?>
             <?php echo esc_attr( $filter_attributes['data-reference-filter-1'] ) ? 'data-reference-filter-1="' . esc_attr( $filter_attributes['data-reference-filter-1'] ) . '"' : ''; ?>
             <?php echo esc_attr( $filter_attributes['data-reference-filter-2'] ) ? 'data-reference-filter-2="' . esc_attr( $filter_attributes['data-reference-filter-2'] ) . '"' : ''; ?>
         >
+            <div class="card h-100<?php echo esc_attr( $featured_class ); ?>">
             <?php if ( $post_thumbnail ) : ?>
                 <?php echo $post_thumbnail; ?>
             <?php endif; ?>
@@ -186,6 +187,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
                         </time>
                     </small>
                 </p>
+            </div>
             </div>
         </div>
 
