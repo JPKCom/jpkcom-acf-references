@@ -62,6 +62,7 @@ Key templates:
 - `partials/layout/*.php` - layout components (meta, pagination)
 - `partials/archive/*.php` - archive-specific components
 - `shortcodes/list.php`, `shortcodes/types.php`, `shortcodes/filter-1.php`, `shortcodes/filter-2.php` - shortcode templates
+- `shortcodes/partials/list-cards.php`, `shortcodes/partials/list-items.php` - layout-specific shortcode partials
 
 ### ACF Field Configuration
 
@@ -95,15 +96,42 @@ All ACF field groups are registered programmatically in `includes/acf-field_grou
 
 Registered in `includes/shortcodes.php`:
 
-**`[jpkcom_acf_references_list]`** - Filtered reference list with attributes:
-- `type` - CSV of reference type term IDs (e.g., "1,5")
+**`[jpkcom_acf_references_list]`** - Filtered reference list with interactive filter controls:
+
+**Filtering & Query Attributes:**
+- `type` - CSV of reference-type term IDs (e.g., "1,5")
+- `filter_1` - CSV of reference-filter-1 term IDs
+- `filter_2` - CSV of reference-filter-2 term IDs
 - `customer` - CSV of customer post IDs
 - `location` - CSV of location post IDs
-- `limit` - Number of posts (default: all)
+- `limit` - Number of posts (default: -1 for all)
 - `sort` - "ASC" or "DSC" (default: "DSC")
+
+**Filter UI Attributes:**
+- `show_filters` - Enable interactive filter dropdowns (true/false, default: false)
+- `show_filter` - CSV of which filters to show: 0=type, 1=filter_1, 2=filter_2 (e.g., "0,1")
+- `reset_button` - Show "Reset all filters" button (true/false, default: false)
+- `filter_title_0` - Custom label for reference-type filter (default: "Reference Type")
+- `filter_title_1` - Custom label for filter 1 (default: "Filter 1")
+- `filter_title_2` - Custom label for filter 2 (default: "Filter 2")
+
+**Display Attributes:**
+- `layout` - Display style: "list" or "cards" (default: "list")
 - `style` - Inline CSS
 - `class` - CSS classes
 - `title` - Section headline
+
+**Layout Options:**
+- `list` - Uses `shortcodes/partials/list-items.php` (compact list view)
+- `cards` - Uses `shortcodes/partials/list-cards.php` (card grid with thumbnails)
+
+**Featured References:**
+References with `reference_featured` field set to true receive additional CSS class `jpkcom-acf-ref-featured` for styling.
+
+**Example with interactive filters:**
+```
+[jpkcom_acf_references_list show_filters="true" show_filter="0,1" reset_button="true" filter_title_0="Projekttyp" filter_title_1="Kategorie" layout="cards" limit="10" class="mb-5" title="Our References"]
+```
 
 **`[jpkcom_acf_references_types]`** - Display reference types taxonomy as `<details>` elements:
 - `id` - CSV of term IDs (optional, shows all if omitted)
@@ -259,8 +287,24 @@ WPML requires special handling of ACF's internal meta fields:
 
 **Translation Files:**
 - Located in `languages/` directory
-- Format: `.l10n.php` (WordPress 6.8+ format)
+- Format: `.l10n.php` (WordPress 6.8+ format), `.po` (source), `.mo` (compiled)
 - Text domain: `jpkcom-acf-references`
+- German translations included: `de_DE` and `de_DE_formal`
+
+**Updating Translation Files:**
+```bash
+# Extract strings from all PHP files
+xgettext --language=PHP --from-code=UTF-8 --keyword=__ --keyword=_e --keyword=esc_html__ --keyword=esc_html_e --keyword=esc_attr__ --keyword=esc_attr_e --keyword=_x:1,2c --keyword=_ex:1,2c --keyword=esc_attr_x:1,2c --keyword=esc_html_x:1,2c --keyword=_n:1,2 --keyword=_nx:1,2,4c --keyword=_n_noop:1,2 --keyword=_nx_noop:1,2,3c --sort-output --package-name="JPKCom ACF References" --package-version="1.0.0" --msgid-bugs-address="jpk@jpkc.com" -o languages/jpkcom-acf-references.pot *.php includes/*.php templates/**/*.php
+
+# Merge with existing translations
+msgmerge --update --backup=none languages/jpkcom-acf-references-de_DE.po languages/jpkcom-acf-references.pot
+
+# Compile to binary .mo files
+msgfmt languages/jpkcom-acf-references-de_DE.po -o languages/jpkcom-acf-references-de_DE.mo
+
+# Generate .l10n.php (WordPress 6.8+ performance optimization)
+wp i18n make-php languages/
+```
 
 ## Common Patterns
 
@@ -422,8 +466,39 @@ Locations and Customers appear as sub-items under the References menu for better
 
 ### Shortcode Display
 Use shortcodes anywhere (posts, pages, widgets):
-- `[jpkcom_acf_references_list]` - Filterable reference grid
+- `[jpkcom_acf_references_list]` - Filterable reference grid with interactive filters
 - `[jpkcom_acf_references_types]` - Interactive type filter
+- `[jpkcom_acf_references_filter_1]` - Custom filter 1 display
+- `[jpkcom_acf_references_filter_2]` - Custom filter 2 display
+
+### Interactive Frontend Filtering
+
+The `jpkcom_acf_references_list` shortcode supports JavaScript-based client-side filtering:
+
+**How it works:**
+1. All references are loaded on page load
+2. Filter dropdowns are populated with available taxonomy terms
+3. Users can select multiple filter values from dropdowns
+4. Filtering happens instantly without page reload
+5. "No references found" message displays when no matches
+6. "Reset all filters" button clears all active filters
+
+**JavaScript implementation:**
+- Vanilla JavaScript (no jQuery dependency)
+- Uses Bootstrap 5 dropdown components
+- Each reference item has `data-*` attributes for filtering (e.g., `data-type="1,5"`)
+- Filters use "OR" logic within a taxonomy, "AND" logic between taxonomies
+- Featured references maintain their CSS class for visual priority
+
+**Example with filters enabled:**
+```
+[jpkcom_acf_references_list show_filters="true" show_filter="0,1,2" reset_button="true" layout="cards"]
+```
+
+**Custom filter labels:**
+```
+[jpkcom_acf_references_list show_filters="true" show_filter="0,1" filter_title_0="Project Type" filter_title_1="Industry" reset_button="true"]
+```
 
 ## Performance Considerations
 

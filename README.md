@@ -30,8 +30,10 @@ A plugin to provide a reference gallery with filter function tool for ACF Pro.
 
 - **Three Custom Post Types**: References, Locations, and Customers with hierarchical organization
 - **Image Galleries**: Full support for image galleries with flexible display options
-- **Advanced Filtering**: Filter references by type, location, customer, and custom attributes
-- **Multilingual Ready**: Full WPML support with translation-aware field configuration
+- **Interactive Filtering**: JavaScript-based client-side filtering with dropdown controls (no page reload)
+- **Multiple Layouts**: Choose between list or card grid layouts for references
+- **Advanced Querying**: Filter references by type, location, customer, and custom filter taxonomies
+- **Multilingual Ready**: Full WPML support with translation-aware field configuration (German translations included)
 - **Template Override System**: Customize any template via child theme, parent theme, or mu-plugins
 - **Developer-Friendly**: Helper functions, filters, and shortcodes for easy customization
 - **Bootstrap 5 Ready**: Pre-styled templates with modern responsive markup
@@ -51,10 +53,14 @@ The following plugins are **required** for this plugin to work:
 
 - **Custom Fields** (`includes/acf-field_groups.php`) - Programmatically registered ACF field groups for references, locations, and customers
 - **Custom Post Types** (`includes/acf-post_types.php`) - Reference, Location, and Customer post types with proper admin organization
-- **Custom Taxonomies** (`includes/acf-taxonomies.php`) - Reference types taxonomy for categorization
-- **Template System** (`templates/`) - Complete set of single and archive templates with override support
-- **Shortcodes** (`includes/shortcodes.php`) - Display filtered reference lists and type taxonomies anywhere
+- **Custom Taxonomies** (`includes/acf-taxonomies.php`) - Three taxonomies: reference-type, reference-filter-1, reference-filter-2
+- **Template System** (`templates/`, `debug-templates/`) - Complete set of single and archive templates with override support
+- **Shortcode Templates** (`templates/shortcodes/`) - List, types, and filter display templates with layout partials (list-items.php, list-cards.php)
+- **Shortcodes** (`includes/shortcodes.php`) - Display filtered reference lists with interactive filtering, taxonomy displays
 - **Helper Functions** (`includes/helpers.php`) - Utility functions for rendering fields and formatting dates
+- **JavaScript Filtering** (`templates/shortcodes/list.php`) - Client-side filtering with Bootstrap 5 dropdowns (vanilla JS, no jQuery)
+- **Translation Files** (`languages/`) - German translations included (de_DE, de_DE_formal) with .l10n.php format
+- **Automatic Updates** (`includes/class-plugin-updater.php`) - GitHub-based update system with SHA256 checksum verification
 
 ### Get Template Parts
 
@@ -69,14 +75,37 @@ jpkcom_acf_references_get_template_part( 'partials/reference/customer' );
 
 All shortcode attributes are optional.
 
-#### Reference list with filter functions:
+#### Reference list with interactive filter functions:
 ```
 [jpkcom_acf_references_list type="1,5" customer="6,8" location="1,3,7,11" limit="10" sort="DSC" style="background:transparent;" class="mb-5" title="References Headline"]
 ```
 
-#### List of reference types displayed as `<details>` tags with filter functions:
+**Advanced filtering with interactive dropdowns:**
+```
+[jpkcom_acf_references_list show_filters="true" show_filter="0,1,2" reset_button="true" filter_title_0="Project Type" filter_title_1="Category" filter_title_2="Technology" layout="cards" limit="20"]
+```
+
+**Attributes:**
+- `type`, `filter_1`, `filter_2` - CSV of taxonomy term IDs for filtering
+- `customer`, `location` - CSV of post IDs for filtering
+- `limit` - Number of posts to display (default: all)
+- `sort` - "ASC" or "DSC" (default: "DSC")
+- `show_filters` - Enable interactive filter dropdowns (true/false)
+- `show_filter` - CSV of filter indexes to display: 0=type, 1=filter_1, 2=filter_2 (e.g., "0,1")
+- `reset_button` - Show "Reset all filters" button (true/false)
+- `filter_title_0`, `filter_title_1`, `filter_title_2` - Custom labels for filter dropdowns
+- `layout` - Display layout: "list" (default) or "cards"
+- `style`, `class`, `title` - Styling and heading options
+
+#### List of reference types displayed as `<details>` tags:
 ```
 [jpkcom_acf_references_types id="3,7,21" style="background:transparent;" class="mb-5" title="Types Headline"]
+```
+
+#### Custom filter taxonomies:
+```
+[jpkcom_acf_references_filter_1 id="1,5" class="mb-3" title="Filter 1 Headline"]
+[jpkcom_acf_references_filter_2 id="2,8" class="mb-3" title="Filter 2 Headline"]
 ```
 
 ### Helper functions
@@ -108,15 +137,21 @@ The reference will automatically appear in your reference archive.
 
 ### How do I display references on my website?
 
-**Option 1: Use the shortcode**
+**Option 1: Use the shortcode (Simple)**
 ```
 [jpkcom_acf_references_list limit="10" sort="DSC"]
 ```
 
-**Option 2: Navigate to the archive**
+**Option 2: Use the shortcode with interactive filters**
+```
+[jpkcom_acf_references_list show_filters="true" show_filter="0,1" reset_button="true" layout="cards"]
+```
+This displays a filterable list with dropdown controls that filter references instantly without page reload.
+
+**Option 3: Navigate to the archive**
 Visit `/references/` on your site to see all published references.
 
-**Option 3: Create a custom template**
+**Option 4: Create a custom template**
 Use `WP_Query` with `post_type => 'reference'` to build custom reference displays.
 
 ### Is this plugin compatible with WPML?
@@ -194,17 +229,73 @@ Yes! Use the shortcode attributes:
 
 Location and customer values are post IDs. You can find them in the admin when editing locations or customers (look at the URL: `post=123`).
 
-### What are reference types?
+### What are reference types and custom filters?
 
-Reference types are custom taxonomy terms (like tags) that you can assign to references. Use them for:
+The plugin provides three taxonomy systems for organizing references:
+
+**Reference Type** (reference-type) - Main categorization:
 - Project categories: "Web Development", "Design", "Consulting"
 - Industries: "Healthcare", "Finance", "Education"
 - Technologies: "WordPress", "React", "PHP"
 
-Display them with the shortcode:
+**Filter 1 & Filter 2** (reference-filter-1, reference-filter-2) - Custom dimensions:
+- Configure these for your specific needs (e.g., "Project Size", "Technology Stack", "Service Type")
+- Both support hierarchical organization
+- Can be displayed and filtered independently
+
+Display them with shortcodes:
 ```
 [jpkcom_acf_references_types]
+[jpkcom_acf_references_filter_1]
+[jpkcom_acf_references_filter_2]
 ```
+
+### How does the interactive filtering work?
+
+The interactive filter system provides instant client-side filtering without page reloads:
+
+**Features:**
+- Dropdown controls for each taxonomy (type, filter 1, filter 2)
+- Multiple selections per filter (checkboxes in dropdown)
+- "OR" logic within a filter (show if ANY selected term matches)
+- "AND" logic between filters (show only if ALL filters match)
+- "Reset all filters" button to clear selections
+- "No results" message when no references match
+- Works with both list and card layouts
+
+**Example usage:**
+```
+[jpkcom_acf_references_list show_filters="true" show_filter="0,1,2" reset_button="true" filter_title_0="Type" filter_title_1="Category" filter_title_2="Tech" layout="cards"]
+```
+
+**How it works technically:**
+- All references load on initial page load
+- Each reference has `data-*` attributes with taxonomy term IDs
+- JavaScript shows/hides items based on selected filters
+- No AJAX calls needed - instant filtering
+- Accessible with ARIA labels and keyboard navigation
+
+### What's the difference between list and cards layout?
+
+The `layout` attribute controls how references are displayed:
+
+**List Layout** (default):
+- Compact view with title, excerpt, and metadata
+- Uses `templates/shortcodes/partials/list-items.php`
+- Good for text-heavy reference lists
+- Smaller thumbnails or no images
+
+**Cards Layout**:
+- Grid-based card display with larger images
+- Uses `templates/shortcodes/partials/list-cards.php`
+- Better for visual portfolios
+- Shows featured image, title, type, customer, and location
+- Responsive grid (adjusts to screen size)
+
+Both layouts support:
+- Featured references (special CSS class)
+- All filter controls
+- Custom styling via `class` and `style` attributes
 
 ## Installation
 
@@ -283,6 +374,18 @@ This plugin is **network-compatible**. To install on a multisite network:
 **Issue: Templates not displaying correctly**
 - Ensure your theme supports Bootstrap 5 markup, or customize the templates
 - Enable `WP_DEBUG` to load debug templates for troubleshooting
+
+**Issue: Interactive filters not working**
+- Verify that JavaScript is enabled in the browser
+- Check browser console for JavaScript errors
+- Ensure Bootstrap 5 JavaScript is loaded (required for dropdown functionality)
+- Confirm that `show_filters="true"` attribute is set in the shortcode
+
+**Issue: Filter dropdowns appear empty**
+- Verify that taxonomy terms are assigned to references
+- Check that references are published (not draft)
+- Ensure the correct taxonomy slug is used
+- Confirm `show_filter` attribute includes the correct filter indexes (0, 1, or 2)
 
 
 ## Changelog
