@@ -75,6 +75,8 @@ add_action( 'init', function(): void {
      *
      * Attributes:
      * - type: CSV of reference-type taxonomy term IDs (e.g., "1,5,12")
+     * - filter_1: CSV of reference-filter-1 taxonomy term IDs (e.g., "2,7")
+     * - filter_2: CSV of reference-filter-2 taxonomy term IDs (e.g., "3,9")
      * - customer: CSV of customer post IDs (e.g., "12,34,56")
      * - location: CSV of location post IDs (e.g., "78,90")
      * - limit: Number of references to display (0 = no limit, shows all)
@@ -84,7 +86,7 @@ add_action( 'init', function(): void {
      * - title: Optional section headline
      *
      * Example usage:
-     * [jpkcom_acf_references_list type="1,5" customer="12" limit="5" class="my-references" title="Latest Projects"]
+     * [jpkcom_acf_references_list type="1,5" filter_1="2" customer="12" limit="5" class="my-references" title="Latest Projects"]
      *
      * @since 1.0.0
      *
@@ -94,20 +96,24 @@ add_action( 'init', function(): void {
     add_shortcode( 'jpkcom_acf_references_list', function( $atts ): string {
 
         $defaults = [
-            'type'    => '',    // CSV of reference-type taxonomy term IDs
+            'type'     => '',   // CSV of reference-type taxonomy term IDs
+            'filter_1' => '',   // CSV of reference-filter-1 taxonomy term IDs
+            'filter_2' => '',   // CSV of reference-filter-2 taxonomy term IDs
             'customer' => '',   // CSV of customer post IDs
-            'location'=> '',    // CSV of location post IDs
-            'limit'   => 0,     // 0 => no limit (we'll set -1 by default)
-            'sort'    => 'DSC', // ASC or DSC
-            'style'   => '',
-            'class'   => '',
-            'title'   => '',
+            'location' => '',   // CSV of location post IDs
+            'limit'    => 0,    // 0 => no limit (we'll set -1 by default)
+            'sort'     => 'DSC', // ASC or DSC
+            'style'    => '',
+            'class'    => '',
+            'title'    => '',
         ];
 
         $atts = shortcode_atts( $defaults, (array) $atts, 'jpkcom_acf_references_list' );
 
         // Sanitize inputs
         $type_csv     = trim( string: (string) $atts['type'] );
+        $filter_1_csv = trim( string: (string) $atts['filter_1'] );
+        $filter_2_csv = trim( string: (string) $atts['filter_2'] );
         $customer_csv = trim( string: (string) $atts['customer'] );
         $location_csv = trim( string: (string) $atts['location'] );
         $limit        = intval( value: $atts['limit'] );
@@ -177,6 +183,60 @@ add_action( 'init', function(): void {
                 }
 
                 $meta_query[] = $type_clauses;
+
+            }
+
+        }
+
+        // reference_filter_1: CSV of term IDs (e.g. 2,7)
+        if ( $filter_1_csv !== '' ) {
+
+            $want = array_filter( array: array_map( callback: 'trim', array: explode( separator: ',', string: $filter_1_csv ) ) );
+
+            if ( ! empty( $want ) ) {
+
+                // We add a meta_query clause for each wanted value with LIKE on serialized value.
+                $filter_1_clauses = [ 'relation' => 'OR' ];
+
+                foreach ( $want as $val ) {
+
+                    // Serialized arrays will contain "...\"VALUE\"..." so match with quotes.
+                    $filter_1_clauses[] = [
+                        'key'     => 'reference_filter_1',
+                        'value'   => '"' . sanitize_text_field( $val ) . '"',
+                        'compare' => 'LIKE',
+                    ];
+
+                }
+
+                $meta_query[] = $filter_1_clauses;
+
+            }
+
+        }
+
+        // reference_filter_2: CSV of term IDs (e.g. 3,9)
+        if ( $filter_2_csv !== '' ) {
+
+            $want = array_filter( array: array_map( callback: 'trim', array: explode( separator: ',', string: $filter_2_csv ) ) );
+
+            if ( ! empty( $want ) ) {
+
+                // We add a meta_query clause for each wanted value with LIKE on serialized value.
+                $filter_2_clauses = [ 'relation' => 'OR' ];
+
+                foreach ( $want as $val ) {
+
+                    // Serialized arrays will contain "...\"VALUE\"..." so match with quotes.
+                    $filter_2_clauses[] = [
+                        'key'     => 'reference_filter_2',
+                        'value'   => '"' . sanitize_text_field( $val ) . '"',
+                        'compare' => 'LIKE',
+                    ];
+
+                }
+
+                $meta_query[] = $filter_2_clauses;
 
             }
 
