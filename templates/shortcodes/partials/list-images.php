@@ -79,7 +79,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
         $filter_attributes['data-reference-filter-2'] = implode( ',', $ref_filter_2_ids );
 
         // Get display data
-        $post_thumbnail = get_the_post_thumbnail( $post_item->ID, 'jpkcom-acf-reference-header', [ 'class' => 'card-img rounded-0' ] );
+        $post_thumbnail = get_the_post_thumbnail( $post_item->ID, 'jpkcom-acf-reference-card-overlay', [ 'class' => 'card-img rounded-0' ] );
 
         // Check if this reference is featured
         $is_featured = get_field( 'reference_featured', $post_item->ID );
@@ -93,7 +93,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
             <?php echo esc_attr( $filter_attributes['data-reference-filter-1'] ) ? 'data-reference-filter-1="' . esc_attr( $filter_attributes['data-reference-filter-1'] ) . '"' : ''; ?>
             <?php echo esc_attr( $filter_attributes['data-reference-filter-2'] ) ? 'data-reference-filter-2="' . esc_attr( $filter_attributes['data-reference-filter-2'] ) . '"' : ''; ?>
         >
-            <div class="card border-0 rounded-0<?php echo esc_attr( $featured_class ); ?>">
+            <div class="card border-0 rounded-0 h-100<?php echo esc_attr( $featured_class ); ?>">
                 <?php if ( $post_thumbnail ) : ?>
                     <?php echo $post_thumbnail; ?>
                 <?php endif; ?>

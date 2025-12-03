@@ -508,6 +508,44 @@ The `jpkcom_acf_references_list` shortcode supports JavaScript-based client-side
 [jpkcom_acf_references_list show_filters="true" show_filter="0,1" filter_title_0="Project Type" filter_title_1="Industry" reset_button="true"]
 ```
 
+## Custom Image Sizes
+
+The plugin registers custom WordPress image sizes in `includes/media.php` for optimized display across different layouts:
+
+**Available Image Sizes:**
+- `jpkcom-acf-reference-16x9` - 576x324px (16:9 aspect ratio, hard crop)
+  - Used by: Cards layout (`shortcodes/partials/list-cards.php`)
+  - Purpose: Thumbnail images for card-based reference listings
+
+- `jpkcom-acf-reference-card-overlay` - 800x600px (4:3 aspect ratio, hard crop)
+  - Used by: Images layout (`shortcodes/partials/list-images.php`)
+  - Purpose: Large overlay images with uniform height for consistent card display
+  - Hard crop ensures all cards have identical dimensions
+
+- `jpkcom-acf-reference-header` - 992x558px (16:9 aspect ratio, hard crop)
+  - Used by: Archive pages and single reference headers
+  - Purpose: Large header/hero images
+
+- `jpkcom-acf-reference-logo` - 512x512px (square, hard crop)
+  - Used by: Customer and location logos
+  - Purpose: Square logo images
+
+**Image Generation:**
+All sizes use hard crop (`true` parameter) to maintain exact dimensions. After adding new image sizes or updating existing ones, regenerate thumbnails for existing media using a plugin like "Regenerate Thumbnails" or WP-CLI:
+
+```bash
+wp media regenerate --yes
+```
+
+**Template Usage:**
+```php
+// Get specific image size
+$thumbnail = get_the_post_thumbnail( $post_id, 'jpkcom-acf-reference-card-overlay' );
+
+// With custom CSS classes
+$thumbnail = get_the_post_thumbnail( $post_id, 'jpkcom-acf-reference-16x9', [ 'class' => 'card-img rounded-0' ] );
+```
+
 ## Performance Considerations
 
 - ACF fields are registered programmatically (faster than JSON import)
