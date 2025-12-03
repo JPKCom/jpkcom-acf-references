@@ -32,6 +32,12 @@
             // Active filters state: { 'reference-type': '12', 'reference-filter-1': '5' }
             this.activeFilters = {};
 
+            // Check if user prefers reduced motion
+            this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Animation duration in milliseconds (must match CSS)
+            this.animationDuration = 300;
+
             this.init();
         }
 
@@ -243,14 +249,12 @@
                     }
                 }
 
-                // Show or hide item with transition
+                // Show or hide item with animation
                 if (shouldShow) {
-                    item.style.display = '';
-                    item.setAttribute('aria-hidden', 'false');
+                    this.showItem(item);
                     visibleCount++;
                 } else {
-                    item.style.display = 'none';
-                    item.setAttribute('aria-hidden', 'true');
+                    this.hideItem(item);
                 }
             });
 
@@ -259,6 +263,78 @@
 
             // Announce to screen readers
             this.announceFilterResults();
+        }
+
+        /**
+         * Hide an item with fade-out animation
+         *
+         * @param {HTMLElement} item - The item to hide
+         */
+        hideItem(item) {
+            // Skip if already hidden
+            if (item.classList.contains('is-hidden')) {
+                return;
+            }
+
+            item.setAttribute('aria-hidden', 'true');
+
+            // If user prefers reduced motion, hide immediately
+            if (this.prefersReducedMotion) {
+                item.style.display = 'none';
+                item.classList.add('is-hidden');
+                return;
+            }
+
+            // Start fade-out animation
+            item.classList.remove('is-showing');
+            item.classList.add('is-hiding');
+
+            // After animation completes, set display none
+            setTimeout(() => {
+                if (item.classList.contains('is-hiding')) {
+                    item.style.display = 'none';
+                    item.classList.remove('is-hiding');
+                    item.classList.add('is-hidden');
+                }
+            }, this.animationDuration);
+        }
+
+        /**
+         * Show an item with fade-in animation
+         *
+         * @param {HTMLElement} item - The item to show
+         */
+        showItem(item) {
+            // Skip if already visible
+            if (!item.classList.contains('is-hidden') && !item.classList.contains('is-hiding')) {
+                return;
+            }
+
+            item.setAttribute('aria-hidden', 'false');
+
+            // If user prefers reduced motion, show immediately
+            if (this.prefersReducedMotion) {
+                item.style.display = '';
+                item.classList.remove('is-hidden', 'is-hiding');
+                return;
+            }
+
+            // Remove hidden state
+            item.classList.remove('is-hidden', 'is-hiding');
+
+            // Set display first
+            item.style.display = '';
+
+            // Force reflow to ensure display change is applied before animation
+            void item.offsetHeight;
+
+            // Start fade-in animation
+            item.classList.add('is-showing');
+
+            // Clean up showing class after animation
+            setTimeout(() => {
+                item.classList.remove('is-showing');
+            }, this.animationDuration);
         }
 
         /**
@@ -285,7 +361,7 @@
          */
         announceFilterResults() {
             const visibleCount = Array.from(this.items).filter(
-                item => item.style.display !== 'none'
+                item => !item.classList.contains('is-hidden') && !item.classList.contains('is-hiding')
             ).length;
 
             // Create or update live region

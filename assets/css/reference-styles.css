@@ -93,3 +93,59 @@
     width: 100%;
     height: 100%;
 }
+
+/**
+ * Reference List Filter Animations
+ * Smooth fade-in/fade-out with subtle movement when filtering
+ */
+
+/* Base state for all reference items */
+.jpkcom-acf-ref-item {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Animation only for users without prefers-reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+    .jpkcom-acf-ref-item {
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        will-change: opacity, transform;
+    }
+
+    /* State when item is being hidden (fading out) */
+    .jpkcom-acf-ref-item.is-hiding {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+    }
+
+    /* State when item is being shown (fading in) */
+    .jpkcom-acf-ref-item.is-showing {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    /* Hidden state (after animation completes) */
+    .jpkcom-acf-ref-item.is-hidden {
+        display: none;
+        opacity: 0;
+    }
+}
+
+/* For users with prefers-reduced-motion: reduce */
+/* Instant show/hide without animations */
+@media (prefers-reduced-motion: reduce) {
+    .jpkcom-acf-ref-item {
+        transition: none;
+    }
+
+    /* Immediately hide without animation */
+    .jpkcom-acf-ref-item.is-hiding,
+    .jpkcom-acf-ref-item.is-hidden {
+        display: none;
+    }
+
+    /* Immediately show without animation */
+    .jpkcom-acf-ref-item.is-showing {
+        display: block;
+    }
+}
