@@ -104,7 +104,14 @@ $list_id = 'reference-filter-' . uniqid();
 
     <?php
     // Load the appropriate layout partial
-    $partial_name = $layout === 'cards' ? 'list-cards.php' : 'list-items.php';
+    if ( $layout === 'cards' ) {
+        $partial_name = 'list-cards.php';
+    } elseif ( $layout === 'images' ) {
+        $partial_name = 'list-images.php';
+    } else {
+        $partial_name = 'list-items.php';
+    }
+
     $partial_path = jpkcom_acf_references_locate_template( 'shortcodes/partials/' . $partial_name );
 
     if ( $partial_path ) {

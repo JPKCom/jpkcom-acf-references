@@ -62,7 +62,7 @@ Key templates:
 - `partials/layout/*.php` - layout components (meta, pagination)
 - `partials/archive/*.php` - archive-specific components
 - `shortcodes/list.php`, `shortcodes/types.php`, `shortcodes/filter-1.php`, `shortcodes/filter-2.php` - shortcode templates
-- `shortcodes/partials/list-cards.php`, `shortcodes/partials/list-items.php` - layout-specific shortcode partials
+- `shortcodes/partials/list-cards.php`, `shortcodes/partials/list-items.php`, `shortcodes/partials/list-images.php` - layout-specific shortcode partials
 
 ### ACF Field Configuration
 
@@ -116,21 +116,29 @@ Registered in `includes/shortcodes.php`:
 - `filter_title_2` - Custom label for filter 2 (default: "Filter 2")
 
 **Display Attributes:**
-- `layout` - Display style: "list" or "cards" (default: "list")
+- `layout` - Display style: "list", "cards", or "images" (default: "list")
 - `style` - Inline CSS
 - `class` - CSS classes
 - `title` - Section headline
 
 **Layout Options:**
 - `list` - Uses `shortcodes/partials/list-items.php` (compact list view)
-- `cards` - Uses `shortcodes/partials/list-cards.php` (card grid with thumbnails)
+- `cards` - Uses `shortcodes/partials/list-cards.php` (card grid with thumbnails and details)
+- `images` - Uses `shortcodes/partials/list-images.php` (full-width image overlay cards with minimal text, no borders or gaps)
 
 **Featured References:**
 References with `reference_featured` field set to true receive additional CSS class `jpkcom-acf-ref-featured` for styling.
 
-**Example with interactive filters:**
+**Examples:**
+
+Cards layout with interactive filters:
 ```
 [jpkcom_acf_references_list show_filters="true" show_filter="0,1" reset_button="true" filter_title_0="Projekttyp" filter_title_1="Kategorie" layout="cards" limit="10" class="mb-5" title="Our References"]
+```
+
+Image overlay layout (full-width, borderless):
+```
+[jpkcom_acf_references_list layout="images" limit="12" class="mb-5"]
 ```
 
 **`[jpkcom_acf_references_types]`** - Display reference types taxonomy as `<details>` elements:
