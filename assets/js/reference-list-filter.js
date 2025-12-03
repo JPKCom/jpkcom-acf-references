@@ -305,8 +305,10 @@
          * @param {HTMLElement} item - The item to show
          */
         showItem(item) {
-            // Skip if already visible
-            if (!item.classList.contains('is-hidden') && !item.classList.contains('is-hiding')) {
+            // Skip if already visible and not in transition
+            if (!item.classList.contains('is-hidden') &&
+                !item.classList.contains('is-hiding') &&
+                !item.classList.contains('is-preparing-show')) {
                 return;
             }
 
@@ -315,23 +317,25 @@
             // If user prefers reduced motion, show immediately
             if (this.prefersReducedMotion) {
                 item.style.display = '';
-                item.classList.remove('is-hidden', 'is-hiding');
+                item.classList.remove('is-hidden', 'is-hiding', 'is-preparing-show');
                 return;
             }
 
-            // Remove hidden state
-            item.classList.remove('is-hidden', 'is-hiding');
+            // Step 1: Remove hidden state and prepare for showing
+            item.classList.remove('is-hidden', 'is-hiding', 'is-showing');
 
-            // Set display first
+            // Step 2: Set display and add preparing-show state (invisible)
             item.style.display = '';
+            item.classList.add('is-preparing-show');
 
-            // Force reflow to ensure display change is applied before animation
+            // Step 3: Force reflow to ensure preparing state is rendered
             void item.offsetHeight;
 
-            // Start fade-in animation
+            // Step 4: Remove preparing state and add showing state to trigger animation
+            item.classList.remove('is-preparing-show');
             item.classList.add('is-showing');
 
-            // Clean up showing class after animation
+            // Step 5: Clean up showing class after animation completes
             setTimeout(() => {
                 item.classList.remove('is-showing');
             }, this.animationDuration);

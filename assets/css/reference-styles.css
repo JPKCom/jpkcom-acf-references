@@ -118,6 +118,12 @@
         transform: translateY(-8px) scale(0.98);
     }
 
+    /* State when preparing to show (invisible but present in DOM) */
+    .jpkcom-acf-ref-item.is-preparing-show {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+    }
+
     /* State when item is being shown (fading in) */
     .jpkcom-acf-ref-item.is-showing {
         opacity: 1;
