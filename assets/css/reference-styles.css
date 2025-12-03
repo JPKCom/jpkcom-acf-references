@@ -1,0 +1,49 @@
+/**
+ * JPKCom ACF References - Frontend Styles
+ *
+ * @package   JPKCom_ACF_References
+ * @since     1.0.0
+ */
+
+/**
+ * Image Overlay Cards - Zoom Effect on Hover
+ * Only applies for users without prefers-reduced-motion
+ */
+@media (prefers-reduced-motion: no-preference) {
+    /* Card image container with overflow hidden */
+    .jpkcom-acf-ref-items .card-img {
+        transition: transform 0.4s ease-in-out;
+        will-change: transform;
+    }
+
+    /* Zoom effect on card hover */
+    .jpkcom-acf-ref-items .card:hover .card-img {
+        transform: scale(1.08);
+    }
+
+    /* Ensure card overflow is hidden to contain zoomed image */
+    .jpkcom-acf-ref-items .card {
+        overflow: hidden;
+    }
+
+    /* Smooth transition for overlay content */
+    .jpkcom-acf-ref-items .card-img-overlay {
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    /* Optional: Darken overlay slightly on hover for better text contrast */
+    .jpkcom-acf-ref-items .card:hover .card-img-overlay .bg-dark {
+        background-color: rgba(0, 0, 0, 0.85) !important;
+    }
+}
+
+/**
+ * For users with prefers-reduced-motion: reduce
+ * No animations or transitions
+ */
+@media (prefers-reduced-motion: reduce) {
+    .jpkcom-acf-ref-items .card-img,
+    .jpkcom-acf-ref-items .card-img-overlay {
+        transition: none;
+    }
+}

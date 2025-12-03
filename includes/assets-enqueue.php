@@ -22,6 +22,15 @@ if ( ! defined( constant_name: 'ABSPATH' ) ) {
  */
 add_action( 'wp_enqueue_scripts', function(): void {
 
+    // Enqueue reference styles CSS
+    wp_enqueue_style(
+        'jpkcom-acf-ref-styles',
+        JPKCOM_ACFREFERENCES_PLUGIN_URL . 'assets/css/reference-styles.css',
+        [], // No dependencies
+        JPKCOM_ACFREFERENCES_VERSION,
+        'all' // Media type
+    );
+
     // Enqueue reference list filter JavaScript
     wp_enqueue_script(
         'jpkcom-acf-ref-list-filter',
@@ -33,7 +42,7 @@ add_action( 'wp_enqueue_scripts', function(): void {
 
     // Enqueue minimal CSS for accessibility (visually-hidden class)
     wp_add_inline_style(
-        'wp-block-library', // Add to existing stylesheet to avoid extra HTTP request
+        'jpkcom-acf-ref-styles', // Add to our stylesheet
         '.filter-live-region.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }'
     );
 

@@ -153,6 +153,32 @@ Image overlay layout (full-width, borderless):
 - `id` - CSV of term IDs (optional, shows all if omitted)
 - `style`, `class`, `title` - Same as above
 
+### Frontend Assets
+
+The plugin includes CSS and JavaScript assets located in the `assets/` directory and enqueued via `includes/assets-enqueue.php`:
+
+**CSS (`assets/css/reference-styles.css`):**
+- Image overlay card zoom effects (respects `prefers-reduced-motion`)
+- Accessibility styles (visually-hidden class)
+- Uses `@media (prefers-reduced-motion: no-preference)` to apply smooth zoom transitions only for users without motion sensitivity
+- 8% scale zoom on card hover with 0.4s ease-in-out transition
+- Overlay darkens slightly on hover for better text contrast
+
+**JavaScript (`assets/js/reference-list-filter.js`):**
+- Client-side filtering for `[jpkcom_acf_references_list]` shortcode
+- Vanilla JavaScript (no jQuery dependency)
+- Handles dropdown filter interactions
+- Updates visible reference items based on selected taxonomy filters
+
+**Enqueuing:**
+Assets are automatically enqueued on all frontend pages via `wp_enqueue_scripts` action with priority 20. CSS and JS files are versioned using `JPKCOM_ACFREFERENCES_VERSION` constant for cache busting.
+
+**Accessibility Features:**
+- Respects user motion preferences via `prefers-reduced-motion` media query
+- Animations disabled for users with motion sensitivity
+- ARIA labels and live regions for filter interactions
+- Keyboard-accessible filter controls
+
 ### Helper Functions
 
 Key functions in `includes/helpers.php`:
