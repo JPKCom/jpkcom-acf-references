@@ -18,23 +18,23 @@ msgstr ""
 
 #: includes/admin-pages.php:259
 msgid "Active Filters"
-msgstr ""
+msgstr "Aktive Filter"
 
 #: includes/admin-pages.php:252
 msgid "Allow visitors to filter references interactively."
-msgstr ""
+msgstr "Besucher können Referenzen interaktiv filtern."
 
 #: includes/admin-pages.php:98
 msgid "Archive Redirect URL"
-msgstr ""
+msgstr "Archiv-Weiterleitungs-URL"
 
 #: includes/admin-pages.php:79
 msgid "Archive Settings"
-msgstr ""
+msgstr "Archiv-Einstellungen"
 
 #: includes/admin-pages.php:215
 msgid "Ascending (Oldest First)"
-msgstr ""
+msgstr "Aufsteigend (Älteste zuerst)"
 
 #: includes/admin-pages.php:337 includes/admin-pages.php:350
 #: includes/admin-pages.php:357
@@ -52,11 +52,11 @@ msgstr "Brotkrumen"
 
 #: includes/admin-pages.php:234
 msgid "CSS Class"
-msgstr ""
+msgstr "CSS-Klasse"
 
 #: includes/admin-pages.php:341
 msgid "CSS classes"
-msgstr ""
+msgstr "CSS-Klassen"
 
 #: includes/media.php:79
 msgid "Card Overlay Image (4:3 / Width 800 / Height 600)"
@@ -64,11 +64,11 @@ msgstr "Karten-Overlay-Bild (4:3 / Breite 800 / Höhe 600)"
 
 #: includes/admin-pages.php:189
 msgid "Cards (with Thumbnails)"
-msgstr ""
+msgstr "Karten (mit Vorschaubildern)"
 
 #: includes/admin-pages.php:192
 msgid "Choose the display layout for references."
-msgstr ""
+msgstr "Wählen Sie das Anzeigelayout für Referenzen."
 
 #: templates/partials/reference/reference_image_gallery_modal.php:38
 #: templates/partials/reference/reference_image_gallery_modal.php:71
@@ -77,23 +77,23 @@ msgstr "Schließen"
 
 #: includes/admin-pages.php:339
 msgid "Comma-separated list of term IDs (optional, shows all if omitted)"
-msgstr ""
+msgstr "Kommagetrennte Liste von Term-IDs (optional, zeigt alle)"
 
 #: includes/admin-pages.php:176
 msgid "Configure the options below to generate your shortcode."
-msgstr ""
+msgstr "Konfigurieren Sie die Optionen, um Ihren Shortcode zu generieren."
 
 #: includes/admin-pages.php:81
 msgid "Configure the reference archive page behavior."
-msgstr ""
+msgstr "Konfigurieren Sie das Verhalten der Referenz-Archivseite."
 
 #: includes/admin-pages.php:321
 msgid "Copied!"
-msgstr ""
+msgstr "Kopiert!"
 
 #: includes/admin-pages.php:318
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "In Zwischenablage kopieren"
 
 #: includes/pagination.php:100
 msgid "Current Page"
@@ -118,7 +118,7 @@ msgstr "Kunde:"
 
 #: includes/admin-pages.php:214
 msgid "Descending (Newest First)"
-msgstr ""
+msgstr "Absteigend (Neueste zuerst)"
 
 #: templates/single-reference.php:55
 msgid "Description"
@@ -130,19 +130,19 @@ msgstr "Details"
 
 #: includes/admin-pages.php:89
 msgid "Disable Reference Archive"
-msgstr ""
+msgstr "Referenz-Archiv deaktivieren"
 
 #: includes/admin-pages.php:349
 msgid "Displays Filter 1 taxonomy terms as expandable details elements."
-msgstr ""
+msgstr "Zeigt Filter-1-Taxonomie-Begriffe als ausklappbare Details-Elemente."
 
 #: includes/admin-pages.php:356
 msgid "Displays Filter 2 taxonomy terms as expandable details elements."
-msgstr ""
+msgstr "Zeigt Filter-2-Taxonomie-Begriffe als ausklappbare Details-Elemente."
 
 #: includes/admin-pages.php:336
 msgid "Displays reference types as expandable details elements."
-msgstr ""
+msgstr "Zeigt Referenztypen als ausklappbare Details-Elemente."
 
 #: includes/class-plugin-updater.php:409
 #, php-format
@@ -159,12 +159,12 @@ msgstr "Standort bearbeiten"
 
 #: includes/admin-pages.php:245
 msgid "Enable Filters"
-msgstr ""
+msgstr "Filter aktivieren"
 
 #: includes/admin-pages.php:344 includes/admin-pages.php:351
 #: includes/admin-pages.php:358
 msgid "Example:"
-msgstr ""
+msgstr "Beispiel:"
 
 #: includes/admin-pages.php:263 includes/admin-pages.php:278
 #: includes/shortcodes.php:364
@@ -210,11 +210,11 @@ msgstr "Galerie-Navigation"
 
 #: includes/admin-pages.php:304
 msgid "Generate Shortcode"
-msgstr ""
+msgstr "Shortcode generieren"
 
 #: includes/admin-pages.php:312
 msgid "Generated Shortcode"
-msgstr ""
+msgstr "Generierter Shortcode"
 
 #: includes/media.php:78
 msgid "Header Image (Width 992 / Height 558)"
@@ -244,7 +244,7 @@ msgstr "Bildergalerie"
 
 #: includes/admin-pages.php:342
 msgid "Inline CSS"
-msgstr ""
+msgstr "Inline-CSS"
 
 #: includes/admin-pages.php:279
 #, fuzzy
@@ -267,7 +267,7 @@ msgstr "Letzte Seite"
 
 #: includes/admin-pages.php:184
 msgid "Layout"
-msgstr ""
+msgstr "Layout"
 
 #: templates/shortcodes/list.php:121
 msgid "Layout template not found."
@@ -275,7 +275,7 @@ msgstr "Layout-Vorlage nicht gefunden."
 
 #: includes/admin-pages.php:188
 msgid "List (Compact)"
-msgstr ""
+msgstr "Liste (Kompakt)"
 
 #: templates/partials/archive/reference_location.php:12
 #: templates/partials/reference/reference_location.php:12
@@ -354,7 +354,7 @@ msgstr ""
 
 #: includes/admin-pages.php:227
 msgid "Optional headline above the reference list."
-msgstr ""
+msgstr "Optionale Überschrift über der Referenzliste."
 
 #: includes/admin-pages.php:149
 msgid ""
@@ -364,11 +364,11 @@ msgstr ""
 
 #: includes/admin-pages.php:38 includes/admin-pages.php:39
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: includes/admin-pages.php:333
 msgid "Other Available Shortcodes"
-msgstr ""
+msgstr "Weitere verfügbare Shortcodes"
 
 #: includes/pagination.php:101
 msgid "Page"
@@ -409,7 +409,7 @@ msgstr "Gestern veröffentlicht"
 
 #: includes/admin-pages.php:123
 msgid "Redirect all access to the reference archive page (/references/)"
-msgstr ""
+msgstr "Alle Zugriffe auf die Referenz-Archivseite (/references/) umleiten"
 
 #: includes/media.php:76
 msgid "Reference Image (16:9 / Width 576px)"
@@ -417,7 +417,7 @@ msgstr "Referenzbild (16:9 / Breite 576px)"
 
 #: includes/admin-pages.php:174
 msgid "Reference List Shortcode Generator"
-msgstr ""
+msgstr "Referenzlisten-Shortcode-Generator"
 
 #: includes/media.php:77
 msgid "Reference Logo (Width 512 / Height 512)"
@@ -447,7 +447,7 @@ msgstr "%s-Filter zurücksetzen"
 
 #: includes/admin-pages.php:289
 msgid "Reset Button"
-msgstr ""
+msgstr "Zurücksetzen-Button"
 
 #: templates/shortcodes/list.php:93
 msgid "Reset all"
@@ -459,15 +459,15 @@ msgstr "Alle Filter zurücksetzen"
 
 #: includes/admin-pages.php:350 includes/admin-pages.php:357
 msgid "Same as above"
-msgstr ""
+msgstr "Wie oben"
 
 #: includes/admin-pages.php:223
 msgid "Section Title"
-msgstr ""
+msgstr "Abschnittstitel"
 
 #: includes/admin-pages.php:340
 msgid "Section headline"
-msgstr ""
+msgstr "Abschnitts-Überschrift"
 
 #: includes/class-plugin-updater.php:425
 #, php-format
@@ -479,15 +479,15 @@ msgstr ""
 
 #: includes/admin-pages.php:265
 msgid "Select which filter dimensions to display."
-msgstr ""
+msgstr "Wählen Sie die anzuzeigenden Filterdimensionen."
 
 #: includes/admin-pages.php:380
 msgid "Settings saved successfully."
-msgstr ""
+msgstr "Einstellungen erfolgreich gespeichert."
 
 #: includes/admin-pages.php:28 includes/admin-pages.php:29
 msgid "Shortcodes"
-msgstr ""
+msgstr "Shortcodes"
 
 #: includes/admin-pages.php:294
 #, fuzzy
@@ -500,11 +500,11 @@ msgstr "Alle anzeigen"
 
 #: includes/admin-pages.php:250
 msgid "Show filter dropdowns"
-msgstr ""
+msgstr "Filter-Dropdowns anzeigen"
 
 #: includes/admin-pages.php:210
 msgid "Sort Order"
-msgstr ""
+msgstr "Sortierreihenfolge"
 
 #: templates/archive-reference_customer.php:67
 msgid "There are currently no customers available."
