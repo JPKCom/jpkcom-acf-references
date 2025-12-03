@@ -79,7 +79,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
         $filter_attributes['data-reference-filter-2'] = implode( ',', $ref_filter_2_ids );
 
         // Get display data
-        $post_thumbnail = get_the_post_thumbnail( $post_item->ID, 'large', [ 'class' => 'card-img-top' ] );
+        $post_thumbnail = get_the_post_thumbnail( $post_item->ID, 'jpkcom-acf-reference-16x9', [ 'class' => 'card-img-top' ] );
         $short_description = get_field( 'reference_short_description', $post_item->ID );
 
         // Locations
