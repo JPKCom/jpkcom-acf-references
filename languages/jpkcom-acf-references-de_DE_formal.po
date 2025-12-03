@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
 "Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-03 12:42+0100\n"
+"POT-Creation-Date: 2025-12-03 14:10+0100\n"
 "PO-Revision-Date: 2025-10-17 16:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
@@ -24,9 +24,14 @@ msgstr "Zurück zur Übersicht"
 msgid "Breadcrumb"
 msgstr "Brotkrumen"
 
-#: includes/media.php:71
+#: includes/media.php:79
 msgid "Card Overlay Image (4:3 / Width 800 / Height 600)"
 msgstr "Karten-Overlay-Bild (4:3 / Breite 800 / Höhe 600)"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:38
+#: templates/partials/reference/reference_image_gallery_modal.php:71
+msgid "Close"
+msgstr "Schließen"
 
 #: includes/pagination.php:100
 msgid "Current Page"
@@ -53,7 +58,7 @@ msgstr "Kunde:"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: templates/single-reference.php:73
+#: templates/single-reference.php:75
 msgid "Details"
 msgstr "Details"
 
@@ -93,13 +98,38 @@ msgstr "Filtern nach %s"
 msgid "First Page"
 msgstr "Erste Seite"
 
-#: includes/media.php:70
+#: includes/media.php:81
+msgid "Gallery Modal Image (Width 1400px)"
+msgstr "Galerie-Modal-Bild (Breite 1400px)"
+
+#: includes/media.php:80
+msgid "Gallery Thumbnail (Square / 200x200)"
+msgstr "Galerie-Vorschaubild (Quadratisch / 200x200)"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:50
+msgid "Gallery navigation"
+msgstr "Galerie-Navigation"
+
+#: includes/media.php:78
 msgid "Header Image (Width 992 / Height 558)"
 msgstr "Kopfzeilenbild (Breite 992 / Höhe 558)"
 
 #: includes/breadcrumb.php:43
 msgid "Home"
 msgstr "Home"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:35
+#, php-format
+msgid "Image %d of %d"
+msgstr "Bild %d von %d"
+
+#: templates/partials/reference/reference_image_gallery.php:21
+msgid "Image Gallery"
+msgstr "Bildergalerie"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:33
+msgid "Image Gallery:"
+msgstr "Bildergalerie:"
 
 #: includes/pagination.php:126
 msgid "Last Page"
@@ -122,9 +152,17 @@ msgstr "Standort:"
 msgid "Locations overview"
 msgstr "Standorte Übersicht"
 
+#: templates/partials/reference/reference_image_gallery_modal.php:66
+msgid "Next"
+msgstr "Weiter"
+
 #: includes/pagination.php:110
 msgid "Next Page"
 msgstr "Nächste Seite"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:64
+msgid "Next image"
+msgstr "Nächstes Bild"
 
 #: includes/shortcodes.php:652 includes/shortcodes.php:784
 #: includes/shortcodes.php:916 templates/shortcodes/filter-1.php:37
@@ -157,6 +195,11 @@ msgstr "Keine Referenzen vorhanden."
 msgid "No types found."
 msgstr "Keine Typen gefunden."
 
+#: templates/partials/reference/reference_image_gallery.php:39
+#, php-format
+msgid "Open image %d of %d in lightbox"
+msgstr "Bild %d von %d in Lightbox öffnen"
+
 #: includes/pagination.php:101
 msgid "Page"
 msgstr "Seite"
@@ -165,9 +208,17 @@ msgstr "Seite"
 msgid "Page navigation"
 msgstr "Seiten-Navigation"
 
+#: templates/partials/reference/reference_image_gallery_modal.php:58
+msgid "Previous"
+msgstr "Zurück"
+
 #: includes/pagination.php:82
 msgid "Previous Page"
 msgstr "Vorherige Seite"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:55
+msgid "Previous image"
+msgstr "Vorheriges Bild"
 
 #: includes/helpers.php:392 includes/helpers.php:397 includes/helpers.php:402
 #: includes/helpers.php:407
@@ -186,11 +237,11 @@ msgstr "Heute veröffentlicht"
 msgid "Published yesterday"
 msgstr "Gestern veröffentlicht"
 
-#: includes/media.php:68
+#: includes/media.php:76
 msgid "Reference Image (16:9 / Width 576px)"
 msgstr "Referenzbild (16:9 / Breite 576px)"
 
-#: includes/media.php:69
+#: includes/media.php:77
 msgid "Reference Logo (Width 512 / Height 512)"
 msgstr "Referenz-Logo (Breite 512 / Höhe 512)"
 
@@ -266,6 +317,10 @@ msgstr "Detaillierte Referenz anzeigen"
 #: templates/archive-reference_location.php:51
 msgid "View details…"
 msgstr "Details anzeigen…"
+
+#: templates/partials/reference/reference_year.php:20
+msgid "Year"
+msgstr "Jahr"
 
 #: includes/helpers.php:392 includes/helpers.php:397 includes/helpers.php:402
 #: includes/helpers.php:407

@@ -40,6 +40,17 @@ add_action( 'wp_enqueue_scripts', function(): void {
         true // Load in footer
     );
 
+    // Enqueue gallery modal JavaScript on single reference pages
+    if ( is_singular( 'reference' ) ) {
+        wp_enqueue_script(
+            'jpkcom-acf-ref-gallery-modal',
+            JPKCOM_ACFREFERENCES_PLUGIN_URL . 'assets/js/gallery-modal.js',
+            [], // No dependencies - vanilla JS, Bootstrap 5 is loaded by theme
+            JPKCOM_ACFREFERENCES_VERSION,
+            true // Load in footer
+        );
+    }
+
     // Enqueue minimal CSS for accessibility (visually-hidden class)
     wp_add_inline_style(
         'jpkcom-acf-ref-styles', // Add to our stylesheet

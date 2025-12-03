@@ -58,6 +58,8 @@ get_header();
 
                             <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_short_description' ); ?>
 
+                            <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_image_gallery' ); ?>
+
                             <?php the_content(); ?>
 
                         </div>
@@ -79,6 +81,8 @@ get_header();
                         <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_customer' ); ?>
 
                         <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_location' ); ?>
+
+                        <?php jpkcom_acf_references_get_template_part( slug: 'partials/reference/reference_year' ); ?>
 
                     </div>
 

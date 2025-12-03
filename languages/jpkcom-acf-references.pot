@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
 "Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-03 12:42+0100\n"
+"POT-Creation-Date: 2025-12-03 14:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,8 +25,13 @@ msgstr ""
 msgid "Breadcrumb"
 msgstr ""
 
-#: includes/media.php:71
+#: includes/media.php:79
 msgid "Card Overlay Image (4:3 / Width 800 / Height 600)"
+msgstr ""
+
+#: templates/partials/reference/reference_image_gallery_modal.php:38
+#: templates/partials/reference/reference_image_gallery_modal.php:71
+msgid "Close"
 msgstr ""
 
 #: includes/pagination.php:100
@@ -54,7 +59,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: templates/single-reference.php:73
+#: templates/single-reference.php:75
 msgid "Details"
 msgstr ""
 
@@ -94,12 +99,37 @@ msgstr ""
 msgid "First Page"
 msgstr ""
 
-#: includes/media.php:70
+#: includes/media.php:81
+msgid "Gallery Modal Image (Width 1400px)"
+msgstr ""
+
+#: includes/media.php:80
+msgid "Gallery Thumbnail (Square / 200x200)"
+msgstr ""
+
+#: templates/partials/reference/reference_image_gallery_modal.php:50
+msgid "Gallery navigation"
+msgstr ""
+
+#: includes/media.php:78
 msgid "Header Image (Width 992 / Height 558)"
 msgstr ""
 
 #: includes/breadcrumb.php:43
 msgid "Home"
+msgstr ""
+
+#: templates/partials/reference/reference_image_gallery_modal.php:35
+#, php-format
+msgid "Image %d of %d"
+msgstr ""
+
+#: templates/partials/reference/reference_image_gallery.php:21
+msgid "Image Gallery"
+msgstr ""
+
+#: templates/partials/reference/reference_image_gallery_modal.php:33
+msgid "Image Gallery:"
 msgstr ""
 
 #: includes/pagination.php:126
@@ -123,8 +153,16 @@ msgstr ""
 msgid "Locations overview"
 msgstr ""
 
+#: templates/partials/reference/reference_image_gallery_modal.php:66
+msgid "Next"
+msgstr ""
+
 #: includes/pagination.php:110
 msgid "Next Page"
+msgstr ""
+
+#: templates/partials/reference/reference_image_gallery_modal.php:64
+msgid "Next image"
 msgstr ""
 
 #: includes/shortcodes.php:652 includes/shortcodes.php:784
@@ -156,6 +194,11 @@ msgstr ""
 msgid "No types found."
 msgstr ""
 
+#: templates/partials/reference/reference_image_gallery.php:39
+#, php-format
+msgid "Open image %d of %d in lightbox"
+msgstr ""
+
 #: includes/pagination.php:101
 msgid "Page"
 msgstr ""
@@ -164,8 +207,16 @@ msgstr ""
 msgid "Page navigation"
 msgstr ""
 
+#: templates/partials/reference/reference_image_gallery_modal.php:58
+msgid "Previous"
+msgstr ""
+
 #: includes/pagination.php:82
 msgid "Previous Page"
+msgstr ""
+
+#: templates/partials/reference/reference_image_gallery_modal.php:55
+msgid "Previous image"
 msgstr ""
 
 #: includes/helpers.php:392 includes/helpers.php:397 includes/helpers.php:402
@@ -185,11 +236,11 @@ msgstr ""
 msgid "Published yesterday"
 msgstr ""
 
-#: includes/media.php:68
+#: includes/media.php:76
 msgid "Reference Image (16:9 / Width 576px)"
 msgstr ""
 
-#: includes/media.php:69
+#: includes/media.php:77
 msgid "Reference Logo (Width 512 / Height 512)"
 msgstr ""
 
@@ -262,6 +313,10 @@ msgstr ""
 #: templates/archive-reference_customer.php:51
 #: templates/archive-reference_location.php:51
 msgid "View details…"
+msgstr ""
+
+#: templates/partials/reference/reference_year.php:20
+msgid "Year"
 msgstr ""
 
 #: includes/helpers.php:392 includes/helpers.php:397 includes/helpers.php:402
