@@ -90,7 +90,7 @@ jobs:
       # 6. Create plugin ZIP
       - name: Create plugin ZIP
         run: |
-          zip -r "${{ env.ZIP_FILE }}" . -x '*.git*' -x '.gitignore' -x '*.github*' -x '*.DS_Store*' -x '*.py' -x 'CLAUDE.md' -x 'gh-pages-*/*'
+          zip -r "${{ env.ZIP_FILE }}" . -x '*.git*' -x '.gitignore' -x '*.github*' -x '*.DS_Store*' -x '*.py' -x 'CLAUDE.md' -x '.claude/*' -x 'gh-pages-*/*'
 
       # 6.1. Generate SHA256 checksum for security verification
       - name: Generate SHA256 checksum
@@ -138,8 +138,8 @@ jobs:
                       "avatar": f"https://wordpress.org/grav-redirect.php?user={username}&s=36"
                   }
 
-          tags_raw = os.environ.get("TAGS", '["ACF","Fields","CPT","CTT","Taxonomy","Forms"]')
-          tags = json.loads(tags_raw) if tags_raw.strip() else ["ACF","Fields","CPT","CTT","Taxonomy","Forms"]
+          tags_raw = os.environ.get("TAGS", '["ACF","Fields","CPT","CTT","Taxonomy","Images"]')
+          tags = json.loads(tags_raw) if tags_raw.strip() else ["ACF","Fields","CPT","CTT","Taxonomy","Images"]
 
           def clean_meta_value(value):
               if isinstance(value, str):

@@ -29,15 +29,17 @@ A plugin to provide a reference gallery with filter function tool for ACF Pro.
 ### Key Features
 
 - **Three Custom Post Types**: References, Locations, and Customers with hierarchical organization
-- **Image Galleries**: Full support for image galleries with flexible display options
-- **Interactive Filtering**: JavaScript-based client-side filtering with dropdown controls (no page reload)
-- **Multiple Layouts**: Choose between list or card grid layouts for references
+- **Image Galleries**: Full support for image galleries with lightbox modal and thumbnail grid display
+- **Interactive Filtering**: JavaScript-based client-side filtering with animated transitions respecting `prefers-reduced-motion`
+- **Multiple Layouts**: Choose between list, card grid, or image overlay layouts for references
+- **Admin Tools**: Built-in shortcode generator and settings page for archive redirect configuration
 - **Advanced Querying**: Filter references by type, location, customer, and custom filter taxonomies
 - **Multilingual Ready**: Full WPML support with translation-aware field configuration (German translations included)
 - **Template Override System**: Customize any template via child theme, parent theme, or mu-plugins
 - **Developer-Friendly**: Helper functions, filters, and shortcodes for easy customization
 - **Bootstrap 5 Ready**: Pre-styled templates with modern responsive markup
 - **Automatic Updates**: Secure GitHub-based plugin updates with SHA256 checksum verification
+- **Accessibility First**: ARIA labels, keyboard navigation, and screen reader support throughout
 
 ### Requirements
 
@@ -55,10 +57,13 @@ The following plugins are **required** for this plugin to work:
 - **Custom Post Types** (`includes/acf-post_types.php`) - Reference, Location, and Customer post types with proper admin organization
 - **Custom Taxonomies** (`includes/acf-taxonomies.php`) - Three taxonomies: reference-type, reference-filter-1, reference-filter-2
 - **Template System** (`templates/`, `debug-templates/`) - Complete set of single and archive templates with override support
-- **Shortcode Templates** (`templates/shortcodes/`) - List, types, and filter display templates with layout partials (list-items.php, list-cards.php)
+- **Shortcode Templates** (`templates/shortcodes/`) - List, types, and filter display templates with layout partials (list-items.php, list-cards.php, list-images.php)
 - **Shortcodes** (`includes/shortcodes.php`) - Display filtered reference lists with interactive filtering, taxonomy displays
 - **Helper Functions** (`includes/helpers.php`) - Utility functions for rendering fields and formatting dates
-- **JavaScript Filtering** (`templates/shortcodes/list.php`) - Client-side filtering with Bootstrap 5 dropdowns (vanilla JS, no jQuery)
+- **Admin Pages** (`includes/admin-pages.php`) - Shortcode generator and settings page for archive redirect
+- **JavaScript Filtering** (`assets/js/reference-list-filter.js`) - Client-side filtering with animated transitions (vanilla JS, no jQuery)
+- **Image Gallery Modal** (`assets/js/gallery-modal.js`) - Lightbox with keyboard navigation and accessibility support
+- **CSS Animations** (`assets/css/reference-styles.css`) - Smooth fade-in/fade-out effects with `prefers-reduced-motion` support
 - **Translation Files** (`languages/`) - German translations included (de_DE, de_DE_formal) with .l10n.php format
 - **Automatic Updates** (`includes/class-plugin-updater.php`) - GitHub-based update system with SHA256 checksum verification
 
@@ -94,7 +99,7 @@ All shortcode attributes are optional.
 - `show_filter` - CSV of filter indexes to display: 0=type, 1=filter_1, 2=filter_2 (e.g., "0,1")
 - `reset_button` - Show "Reset all filters" button (true/false)
 - `filter_title_0`, `filter_title_1`, `filter_title_2` - Custom labels for filter dropdowns
-- `layout` - Display layout: "list" (default) or "cards"
+- `layout` - Display layout: "list" (default), "cards", or "images" (overlay cards)
 - `style`, `class`, `title` - Styling and heading options
 
 #### List of reference types displayed as `<details>` tags:
@@ -275,27 +280,111 @@ The interactive filter system provides instant client-side filtering without pag
 - No AJAX calls needed - instant filtering
 - Accessible with ARIA labels and keyboard navigation
 
-### What's the difference between list and cards layout?
+### What's the difference between the three layouts?
 
 The `layout` attribute controls how references are displayed:
 
-**List Layout** (default):
+**List Layout** (`layout="list"`, default):
 - Compact view with title, excerpt, and metadata
 - Uses `templates/shortcodes/partials/list-items.php`
 - Good for text-heavy reference lists
 - Smaller thumbnails or no images
+- Best for dense content with lots of references
 
-**Cards Layout**:
-- Grid-based card display with larger images
+**Cards Layout** (`layout="cards"`):
+- Grid-based card display with larger images (16:9 format)
 - Uses `templates/shortcodes/partials/list-cards.php`
 - Better for visual portfolios
 - Shows featured image, title, type, customer, and location
 - Responsive grid (adjusts to screen size)
+- Hover zoom effect on images (respects `prefers-reduced-motion`)
 
-Both layouts support:
+**Images Layout** (`layout="images"`):
+- Full-bleed image overlay cards (4:3 format)
+- Uses `templates/shortcodes/partials/list-images.php`
+- Best for image-heavy portfolios and galleries
+- Title and button overlaid on image
+- No borders, no gaps between cards
+- Dramatic hover zoom effect (respects `prefers-reduced-motion`)
+
+All layouts support:
 - Featured references (special CSS class)
-- All filter controls
+- All filter controls with smooth animated transitions
 - Custom styling via `class` and `style` attributes
+- Accessibility features (ARIA labels, keyboard navigation)
+
+### How do I use the shortcode generator?
+
+Navigate to **References → Shortcodes** in your WordPress admin to access the interactive shortcode generator:
+
+**Features:**
+- Visual form with all available options
+- Live shortcode preview
+- One-click copy to clipboard
+- Explanations for each attribute
+- Example values for all fields
+
+**Steps:**
+1. Select your desired layout (list, cards, or images)
+2. Set number of references to display
+3. Choose sort order (ascending or descending)
+4. Enable filters if needed and select which ones to show
+5. Add pre-filtering by type, filter 1, filter 2, customer, or location (comma-separated IDs)
+6. Click "Generate Shortcode" to see the result
+7. Click "Copy to Clipboard" to copy the shortcode
+8. Paste it into any page or post
+
+### How do I disable the reference archive page?
+
+If you don't want visitors to access `/references/`, you can redirect them:
+
+1. Go to **References → Options** in WordPress admin
+2. Check **"Disable Reference Archive"**
+3. Optionally enter a custom redirect URL (defaults to homepage)
+4. Click **"Save Changes"**
+
+When enabled:
+- Visitors accessing `/references/` are redirected (HTTP 307)
+- Single reference pages remain accessible at `/references/post-slug/`
+- Useful if you only want references displayed via shortcodes
+
+### How do image galleries work?
+
+References can have image galleries with a professional lightbox modal:
+
+**Features:**
+- Thumbnail grid (200×200px square thumbnails)
+- Lightbox modal on click (1400px width images)
+- Previous/Next navigation buttons
+- Keyboard navigation (arrow keys, Escape to close)
+- Image counter (e.g., "Image 3 of 8")
+- Responsive and accessible
+- Gallery appears on single reference pages automatically
+
+**To add a gallery:**
+1. Edit a reference in WordPress admin
+2. Scroll to the "Image Gallery" field (ACF Gallery field)
+3. Click "Add to gallery" and select/upload images
+4. Drag to reorder images
+5. Save the reference
+
+The gallery will automatically display on the single reference page with thumbnails and lightbox functionality.
+
+### How do filter animations work?
+
+The plugin includes smooth CSS animations when filtering references:
+
+**Animation behavior:**
+- **Fade-out**: Items slide up slightly and fade to transparent (0.3s)
+- **Fade-in**: Items slide down and fade to visible (0.3s)
+- **Respects accessibility**: Animations are disabled if user has `prefers-reduced-motion` enabled
+- **No jQuery needed**: Pure CSS transitions with JavaScript state management
+
+**For users with motion preferences:**
+- `prefers-reduced-motion: no-preference` → Smooth animations
+- `prefers-reduced-motion: reduce` → Instant show/hide (no animation)
+
+This ensures the filtering is both visually engaging and accessible to all users.
 
 ## Installation
 
@@ -337,13 +426,16 @@ Then activate the plugin in the WordPress admin panel.
 
 1. **Verify Dependencies**: Go to **Plugins** and ensure ACF Pro and ACF Quick Edit Fields are active
 2. **Check Custom Post Types**: You should now see **References**, **Locations**, and **Customers** in your admin menu
-3. **Review Settings**: Visit **References → Settings** to configure default options (if available)
+3. **Explore Admin Pages**:
+   - Visit **References → Shortcodes** to use the shortcode generator
+   - Visit **References → Options** to configure archive redirect settings
 4. **Create Test Content**:
    - Create a location: **Locations → Add New**
    - Create a customer: **Customers → Add New**
-   - Create a reference: **References → Add New** (assign the location and customer)
+   - Create a reference: **References → Add New** (assign the location and customer, add images to gallery)
 5. **View Frontend**: Visit `/references/` on your site to see the reference archive
-6. **Add to Navigation** (Optional): Add the reference archive to your site menu via **Appearance → Menus**
+6. **Test Shortcode**: Use the shortcode generator to create a filtered list and paste it into a test page
+7. **Add to Navigation** (Optional): Add the reference archive to your site menu via **Appearance → Menus**
 
 ### Automatic Updates
 

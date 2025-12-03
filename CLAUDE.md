@@ -158,26 +158,51 @@ Image overlay layout (full-width, borderless):
 The plugin includes CSS and JavaScript assets located in the `assets/` directory and enqueued via `includes/assets-enqueue.php`:
 
 **CSS (`assets/css/reference-styles.css`):**
-- Image overlay card zoom effects (respects `prefers-reduced-motion`)
-- Accessibility styles (visually-hidden class)
-- Uses `@media (prefers-reduced-motion: no-preference)` to apply smooth zoom transitions only for users without motion sensitivity
-- 8% scale zoom on card hover with 0.4s ease-in-out transition
-- Overlay darkens slightly on hover for better text contrast
+- **Image hover effects:** Zoom transitions on cards and gallery thumbnails (respects `prefers-reduced-motion`)
+- **Filter animations:** Smooth fade-in/fade-out with translateY and scale effects (0.3s duration)
+  - Fade-out: Items move up 8px and scale to 98% while fading to transparent
+  - Fade-in: Items fade in from transparent and scale back to 100%
+  - Uses CSS classes: `is-hiding`, `is-preparing-show`, `is-showing`, `is-hidden`
+- **Accessibility styles:** visually-hidden class, ARIA support
+- Uses `@media (prefers-reduced-motion: no-preference)` to apply smooth transitions only for users without motion sensitivity
+- Users with `prefers-reduced-motion: reduce` see instant show/hide without animations
 
 **JavaScript (`assets/js/reference-list-filter.js`):**
-- Client-side filtering for `[jpkcom_acf_references_list]` shortcode
+- Client-side filtering for `[jpkcom_acf_references_list]` shortcode with animated transitions
 - Vanilla JavaScript (no jQuery dependency)
 - Handles dropdown filter interactions
 - Updates visible reference items based on selected taxonomy filters
+- Manages animation states with proper timing for smooth transitions
+- Detects `prefers-reduced-motion` setting and skips animations accordingly
+
+**JavaScript (`assets/js/gallery-modal.js`):**
+- Image gallery lightbox modal functionality
+- Keyboard navigation (arrow keys, Escape to close)
+- Previous/Next button handlers
+- Image counter updates ("Image X of Y")
+- Focus management for accessibility
+
+**JavaScript (`assets/js/shortcode-generator.js`):**
+- Interactive shortcode generator in admin (References → Shortcodes)
+- Live shortcode preview with all attributes
+- Clipboard API with fallback for copying generated shortcodes
+- Form validation and dynamic field visibility
+
+**CSS (`assets/css/admin-styles.css`):**
+- Styling for admin pages (shortcode generator, settings)
 
 **Enqueuing:**
-Assets are automatically enqueued on all frontend pages via `wp_enqueue_scripts` action with priority 20. CSS and JS files are versioned using `JPKCOM_ACFREFERENCES_VERSION` constant for cache busting.
+Assets are automatically enqueued via `includes/assets-enqueue.php`:
+- Frontend CSS/JS: Enqueued on all pages via `wp_enqueue_scripts` (priority 20)
+- Admin CSS/JS: Enqueued on admin pages via `admin_enqueue_scripts` (priority 10)
+- All files versioned using `JPKCOM_ACFREFERENCES_VERSION` constant for cache busting
 
 **Accessibility Features:**
 - Respects user motion preferences via `prefers-reduced-motion` media query
 - Animations disabled for users with motion sensitivity
 - ARIA labels and live regions for filter interactions
-- Keyboard-accessible filter controls
+- Keyboard-accessible filter controls and modal navigation
+- Screen reader announcements for filter results
 
 ### Helper Functions
 
@@ -482,6 +507,25 @@ The plugin organizes the WordPress admin menu as follows:
 - Reference Filter 2 (taxonomy)
 - Locations (nested)
 - Customers (nested)
+- **Shortcodes** (admin page) - Interactive shortcode generator
+- **Options** (admin page) - Archive redirect settings
+
+### Admin Pages
+
+**Shortcode Generator** (`includes/admin-pages.php` - References → Shortcodes):
+- Visual form for generating `[jpkcom_acf_references_list]` shortcodes
+- All attributes available with descriptions and examples
+- Live shortcode preview
+- One-click copy to clipboard
+- Pre-fill form fields for type, filter_1, filter_2, customer, location (comma-separated IDs)
+- Shows other available shortcodes with documentation
+
+**Options Page** (`includes/admin-pages.php` - References → Options):
+- **Disable Reference Archive**: Redirect visitors from `/references/` archive page
+- **Archive Redirect URL**: Custom redirect URL (defaults to homepage)
+- Uses HTTP 307 (Temporary Redirect) status
+- Single reference pages remain accessible even when archive is disabled
+- Redirect logic in `includes/redirects.php`
 
 Locations and Customers appear as sub-items under the References menu for better organization.
 
