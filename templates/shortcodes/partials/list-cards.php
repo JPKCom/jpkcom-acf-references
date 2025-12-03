@@ -179,14 +179,17 @@ defined( constant_name: 'ABSPATH' ) || exit;
                 <?php endif; ?>
             </ul>
 
-            <div class="card-footer text-body-secondary">
-                <p class="card-text">
+            <div class="card-footer text-body-secondary d-flex justify-content-between align-items-center">
+                <p class="card-text mb-0">
                     <small class="text-body-secondary">
                         <time datetime="<?php echo esc_attr( $date_iso ); ?>" class="date-posted">
                             <?php echo esc_html( $date_human ); ?>
                         </time>
                     </small>
                 </p>
+                <a href="<?php echo esc_url( get_permalink( $post_item ) ); ?>" class="btn btn-sm btn-outline-secondary position-relative" style="z-index: 2;" aria-label="<?php echo esc_attr__( 'View detailed reference', 'jpkcom-acf-references' ); ?>">
+                    <?php echo esc_html__( '→', 'jpkcom-acf-references' ); ?>
+                </a>
             </div>
             </div>
         </div>

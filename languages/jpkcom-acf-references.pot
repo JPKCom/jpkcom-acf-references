@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
 "Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-02 15:21+0100\n"
+"POT-Creation-Date: 2025-12-03 10:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/partials/layout/pagination-page.php:13
-#: debug-templates/single-reference.php:43
 msgid "Back to overview"
 msgstr ""
 
@@ -30,17 +29,16 @@ msgstr ""
 msgid "Current Page"
 msgstr ""
 
-#: templates/archive-reference.php:19 debug-templates/archive-reference.php:19
+#: templates/archive-reference.php:19
 msgid "Current reference offers"
 msgstr ""
 
-#: templates/partials/reference/reference_customer.php:12
 #: templates/partials/archive/reference_customer.php:12
+#: templates/partials/reference/reference_customer.php:12
 msgid "Customer"
 msgstr ""
 
 #: templates/archive-reference_customer.php:19
-#: debug-templates/archive-reference_customer.php:19
 msgid "Customer overview"
 msgstr ""
 
@@ -62,17 +60,11 @@ msgid "Download failed: %s"
 msgstr ""
 
 #: templates/single-reference_customer.php:31
-#: debug-templates/single-reference_customer.php:31
 msgid "Edit customer"
 msgstr ""
 
 #: templates/single-reference_location.php:31
-#: debug-templates/single-reference_location.php:31
 msgid "Edit location"
-msgstr ""
-
-#: debug-templates/single-reference.php:38
-msgid "Edit reference"
 msgstr ""
 
 #: includes/shortcodes.php:363
@@ -114,8 +106,8 @@ msgstr ""
 msgid "Layout template not found."
 msgstr ""
 
-#: templates/partials/reference/reference_location.php:12
 #: templates/partials/archive/reference_location.php:12
+#: templates/partials/reference/reference_location.php:12
 msgid "Location"
 msgstr ""
 
@@ -124,7 +116,6 @@ msgid "Location:"
 msgstr ""
 
 #: templates/archive-reference_location.php:19
-#: debug-templates/archive-reference_location.php:19
 msgid "Locations overview"
 msgstr ""
 
@@ -238,21 +229,19 @@ msgid "Show all"
 msgstr ""
 
 #: templates/archive-reference_customer.php:67
-#: debug-templates/archive-reference_customer.php:67
 msgid "There are currently no customers available."
 msgstr ""
 
 #: templates/archive-reference_location.php:67
-#: debug-templates/archive-reference_location.php:67
 msgid "There are currently no locations available."
 msgstr ""
 
-#: templates/archive-reference.php:101 debug-templates/archive-reference.php:67
+#: templates/archive-reference.php:101
 msgid "There are currently no reference offers available."
 msgstr ""
 
-#: templates/partials/reference/reference_type.php:16
 #: templates/partials/archive/reference_type.php:12
+#: templates/partials/reference/reference_type.php:16
 msgid "Type"
 msgstr ""
 
@@ -260,12 +249,13 @@ msgstr ""
 msgid "Type:"
 msgstr ""
 
-#: templates/archive-reference_location.php:51
-#: templates/archive-reference_customer.php:51
+#: templates/shortcodes/partials/list-cards.php:190
+msgid "View detailed reference"
+msgstr ""
+
 #: templates/archive-reference.php:85
-#: debug-templates/archive-reference_location.php:51
-#: debug-templates/archive-reference_customer.php:51
-#: debug-templates/archive-reference.php:51
+#: templates/archive-reference_customer.php:51
+#: templates/archive-reference_location.php:51
 msgid "View details…"
 msgstr ""
 
@@ -304,4 +294,8 @@ msgstr ""
 
 #: includes/helpers.php:407
 msgid "years"
+msgstr ""
+
+#: templates/shortcodes/partials/list-cards.php:191
+msgid "→"
 msgstr ""
