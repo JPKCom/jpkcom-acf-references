@@ -200,7 +200,7 @@ function jpkcom_acf_references_shortcodes_page(): void {
                         </th>
                         <td>
                             <input type="number" id="sg_limit" name="limit" value="0" min="0" class="small-text">
-                            <p class="description"><?php echo esc_html__( 'Maximum number of references to display (0 = all).', 'jpkcom-acf-references' ); ?></p>
+                            <p class="description"><?php echo esc_html__( 'Select the number of references to display. 0 = all', 'jpkcom-acf-references' ); ?></p>
                         </td>
                     </tr>
 

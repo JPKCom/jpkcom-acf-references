@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
 "Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-03 14:40+0100\n"
+"POT-Creation-Date: 2025-12-03 15:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -285,10 +285,6 @@ msgstr ""
 msgid "Locations overview"
 msgstr ""
 
-#: includes/admin-pages.php:203
-msgid "Maximum number of references to display (0 = all)."
-msgstr ""
-
 #: templates/partials/reference/reference_image_gallery_modal.php:66
 msgid "Next"
 msgstr ""
@@ -464,6 +460,10 @@ msgstr ""
 #, php-format
 msgid ""
 "Security verification failed: Plugin checksum mismatch. Expected: %s, Got: %s"
+msgstr ""
+
+#: includes/admin-pages.php:203
+msgid "Select the number of references to display. 0 = all"
 msgstr ""
 
 #: includes/admin-pages.php:265

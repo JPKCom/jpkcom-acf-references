@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
 "Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-03 14:40+0100\n"
+"POT-Creation-Date: 2025-12-03 15:15+0100\n"
 "PO-Revision-Date: 2025-10-17 16:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
@@ -38,7 +38,6 @@ msgstr "Aufsteigend (Älteste zuerst)"
 
 #: includes/admin-pages.php:337 includes/admin-pages.php:350
 #: includes/admin-pages.php:357
-#, fuzzy
 msgid "Attributes:"
 msgstr "Attribute"
 
@@ -179,9 +178,8 @@ msgid "Filter 2"
 msgstr "Filter 2"
 
 #: includes/admin-pages.php:272
-#, fuzzy
 msgid "Filter Labels"
-msgstr "Filtern nach %s"
+msgstr "Filter-Beschriftungen"
 
 #: templates/shortcodes/list.php:41
 msgid "Filter button group"
@@ -238,7 +236,6 @@ msgid "Image Gallery:"
 msgstr "Bildergalerie:"
 
 #: includes/admin-pages.php:190
-#, fuzzy
 msgid "Images (Overlay)"
 msgstr "Bildergalerie"
 
@@ -247,17 +244,14 @@ msgid "Inline CSS"
 msgstr "Inline-CSS"
 
 #: includes/admin-pages.php:279
-#, fuzzy
 msgid "Label for Filter 1"
 msgstr "Filter 1"
 
 #: includes/admin-pages.php:282
-#, fuzzy
 msgid "Label for Filter 2"
 msgstr "Filter 2"
 
 #: includes/admin-pages.php:276
-#, fuzzy
 msgid "Label for Reference Type filter"
 msgstr "Referenz-Filter"
 
@@ -289,11 +283,6 @@ msgstr "Standort:"
 #: templates/archive-reference_location.php:19
 msgid "Locations overview"
 msgstr "Standorte Übersicht"
-
-#: includes/admin-pages.php:203
-#, fuzzy
-msgid "Maximum number of references to display (0 = all)."
-msgstr "Keine Referenzen vorhanden."
 
 #: templates/partials/reference/reference_image_gallery_modal.php:66
 msgid "Next"
@@ -339,9 +328,8 @@ msgid "No types found."
 msgstr "Keine Typen gefunden."
 
 #: includes/admin-pages.php:199
-#, fuzzy
 msgid "Number of References"
-msgstr "Referenzen"
+msgstr "Anzahl der Referenzen"
 
 #: templates/partials/reference/reference_image_gallery.php:39
 #, php-format
@@ -350,7 +338,7 @@ msgstr "Bild %d von %d in Lightbox öffnen"
 
 #: includes/admin-pages.php:238
 msgid "Optional CSS classes for styling (e.g., \"mb-5\")."
-msgstr ""
+msgstr "Optionale CSS-Klassen (z.B. \"mb-5\")."
 
 #: includes/admin-pages.php:227
 msgid "Optional headline above the reference list."
@@ -361,6 +349,9 @@ msgid ""
 "Optional: Specify a custom redirect URL. If empty, redirects to the "
 "homepage. Only applies when archive is disabled."
 msgstr ""
+"Optional: Geben Sie eine benutzerdefinierte Weiterleitungs-URL an. Wenn "
+"leer, wird zur Startseite weitergeleitet. Gilt nur, wenn das Archiv "
+"deaktiviert ist."
 
 #: includes/admin-pages.php:38 includes/admin-pages.php:39
 msgid "Options"
@@ -477,6 +468,10 @@ msgstr ""
 "Sicherheitsüberprüfung fehlgeschlagen: Plugin-Prüfsumme stimmt nicht "
 "überein. Erwartet: %s, Erhalten: %s"
 
+#: includes/admin-pages.php:203
+msgid "Select the number of references to display. 0 = all"
+msgstr "Wähle die Anzahl der darzustellenden Referenzen. 0 = alle"
+
 #: includes/admin-pages.php:265
 msgid "Select which filter dimensions to display."
 msgstr "Wählen Sie die anzuzeigenden Filterdimensionen."
@@ -490,7 +485,6 @@ msgid "Shortcodes"
 msgstr "Shortcodes"
 
 #: includes/admin-pages.php:294
-#, fuzzy
 msgid "Show \"Reset all filters\" button"
 msgstr "Alle Filter zurücksetzen"
 
@@ -543,6 +537,8 @@ msgid ""
 "When enabled, visitors will be redirected from the archive page. Single "
 "reference pages remain accessible."
 msgstr ""
+"Wenn aktiviert, werden Besucher von der Archivseite weitergeleitet. Einzelne "
+"Referenzseiten bleiben zugänglich."
 
 #: templates/partials/reference/reference_year.php:20
 msgid "Year"
