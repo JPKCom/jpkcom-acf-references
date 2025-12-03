@@ -194,19 +194,26 @@ if ( ! function_exists( function: 'jpkcom_acf_references_get_template_part' ) ) 
      * Example usage:
      *   jpkcom_acf_references_get_template_part('partials/reference/customer');
      *   jpkcom_acf_references_get_template_part('partials/reference/customer', 'detailed');
+     *   jpkcom_acf_references_get_template_part('partials/reference/modal', '', ['data' => $data]);
      *
      * @since 1.0.0
      *
      * @param string $slug Template slug (e.g., 'partials/reference/customer').
      * @param string $name Optional. Template name/variation (e.g., 'alternative'). Default empty.
+     * @param array $args Optional. Array of variables to pass to the template. Default empty.
      * @return void
      */
-    function jpkcom_acf_references_get_template_part( string $slug, string $name = '' ): void {
+    function jpkcom_acf_references_get_template_part( string $slug, string $name = '', array $args = [] ): void {
 
         $template_name = $slug . ( $name ? '-' . $name : '' ) . '.php';
         $template_path = jpkcom_acf_references_locate_template( template_name: $template_name );
 
         if ( $template_path && file_exists( filename: $template_path ) ) {
+
+            // Make $args available to the template
+            if ( ! empty( $args ) ) {
+                extract( $args, EXTR_SKIP );
+            }
 
             include $template_path;
 

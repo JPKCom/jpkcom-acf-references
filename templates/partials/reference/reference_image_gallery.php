@@ -53,9 +53,9 @@ if ( $gallery_images && is_array( $gallery_images ) ) :
     <?php
     // Include modal partial
     jpkcom_acf_references_get_template_part(
-        slug: 'partials/reference/reference_image_gallery_modal',
-        name: null,
-        args: [
+        'partials/reference/reference_image_gallery_modal',
+        '',
+        [
             'gallery_images' => $gallery_images,
             'total_images' => $total_images
         ]
