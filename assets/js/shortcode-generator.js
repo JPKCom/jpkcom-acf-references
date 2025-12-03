@@ -79,6 +79,36 @@
                 attributes.push(`class="${escapeAttribute(cssClass)}"`);
             }
 
+            // Pre-filter: Type
+            const type = document.getElementById('sg_type').value;
+            if (type) {
+                attributes.push(`type="${escapeAttribute(type)}"`);
+            }
+
+            // Pre-filter: Filter 1
+            const filter1 = document.getElementById('sg_filter_1').value;
+            if (filter1) {
+                attributes.push(`filter_1="${escapeAttribute(filter1)}"`);
+            }
+
+            // Pre-filter: Filter 2
+            const filter2 = document.getElementById('sg_filter_2').value;
+            if (filter2) {
+                attributes.push(`filter_2="${escapeAttribute(filter2)}"`);
+            }
+
+            // Pre-filter: Customer
+            const customer = document.getElementById('sg_customer').value;
+            if (customer) {
+                attributes.push(`customer="${escapeAttribute(customer)}"`);
+            }
+
+            // Pre-filter: Location
+            const location = document.getElementById('sg_location').value;
+            if (location) {
+                attributes.push(`location="${escapeAttribute(location)}"`);
+            }
+
             // Show Filters
             const showFilters = document.getElementById('sg_show_filters').checked;
             if (showFilters) {

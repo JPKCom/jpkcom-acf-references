@@ -296,6 +296,61 @@ function jpkcom_acf_references_shortcodes_page(): void {
                         </td>
                     </tr>
 
+                    <!-- Pre-Filter: Reference Type -->
+                    <tr>
+                        <th scope="row">
+                            <label for="sg_type"><?php echo esc_html__( 'Filter by Reference Type', 'jpkcom-acf-references' ); ?></label>
+                        </th>
+                        <td>
+                            <input type="text" id="sg_type" name="type" value="" class="regular-text" placeholder="1,5,12">
+                            <p class="description"><?php echo esc_html__( 'Comma-separated list of reference type term IDs (optional). Example: 1,5,12', 'jpkcom-acf-references' ); ?></p>
+                        </td>
+                    </tr>
+
+                    <!-- Pre-Filter: Filter 1 -->
+                    <tr>
+                        <th scope="row">
+                            <label for="sg_filter_1"><?php echo esc_html__( 'Filter by Filter 1', 'jpkcom-acf-references' ); ?></label>
+                        </th>
+                        <td>
+                            <input type="text" id="sg_filter_1" name="filter_1" value="" class="regular-text" placeholder="2,8,15">
+                            <p class="description"><?php echo esc_html__( 'Comma-separated list of Filter 1 term IDs (optional). Example: 2,8,15', 'jpkcom-acf-references' ); ?></p>
+                        </td>
+                    </tr>
+
+                    <!-- Pre-Filter: Filter 2 -->
+                    <tr>
+                        <th scope="row">
+                            <label for="sg_filter_2"><?php echo esc_html__( 'Filter by Filter 2', 'jpkcom-acf-references' ); ?></label>
+                        </th>
+                        <td>
+                            <input type="text" id="sg_filter_2" name="filter_2" value="" class="regular-text" placeholder="3,7,10">
+                            <p class="description"><?php echo esc_html__( 'Comma-separated list of Filter 2 term IDs (optional). Example: 3,7,10', 'jpkcom-acf-references' ); ?></p>
+                        </td>
+                    </tr>
+
+                    <!-- Pre-Filter: Customer -->
+                    <tr>
+                        <th scope="row">
+                            <label for="sg_customer"><?php echo esc_html__( 'Filter by Customer', 'jpkcom-acf-references' ); ?></label>
+                        </th>
+                        <td>
+                            <input type="text" id="sg_customer" name="customer" value="" class="regular-text" placeholder="42,87,123">
+                            <p class="description"><?php echo esc_html__( 'Comma-separated list of customer post IDs (optional). Example: 42,87,123', 'jpkcom-acf-references' ); ?></p>
+                        </td>
+                    </tr>
+
+                    <!-- Pre-Filter: Location -->
+                    <tr>
+                        <th scope="row">
+                            <label for="sg_location"><?php echo esc_html__( 'Filter by Location', 'jpkcom-acf-references' ); ?></label>
+                        </th>
+                        <td>
+                            <input type="text" id="sg_location" name="location" value="" class="regular-text" placeholder="5,18,33">
+                            <p class="description"><?php echo esc_html__( 'Comma-separated list of location post IDs (optional). Example: 5,18,33', 'jpkcom-acf-references' ); ?></p>
+                        </td>
+                    </tr>
+
                     <!-- Generate Button -->
                     <tr>
                         <th scope="row"></th>

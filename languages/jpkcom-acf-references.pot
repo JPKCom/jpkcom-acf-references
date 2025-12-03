@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
 "Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-03 15:15+0100\n"
+"POT-Creation-Date: 2025-12-03 15:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,8 +37,8 @@ msgstr ""
 msgid "Ascending (Oldest First)"
 msgstr ""
 
-#: includes/admin-pages.php:337 includes/admin-pages.php:350
-#: includes/admin-pages.php:357
+#: includes/admin-pages.php:392 includes/admin-pages.php:405
+#: includes/admin-pages.php:412
 msgid "Attributes:"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr ""
 msgid "CSS Class"
 msgstr ""
 
-#: includes/admin-pages.php:341
+#: includes/admin-pages.php:396
 msgid "CSS classes"
 msgstr ""
 
@@ -75,7 +75,29 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#: includes/admin-pages.php:317
+msgid "Comma-separated list of Filter 1 term IDs (optional). Example: 2,8,15"
+msgstr ""
+
+#: includes/admin-pages.php:328
+msgid "Comma-separated list of Filter 2 term IDs (optional). Example: 3,7,10"
+msgstr ""
+
 #: includes/admin-pages.php:339
+msgid ""
+"Comma-separated list of customer post IDs (optional). Example: 42,87,123"
+msgstr ""
+
+#: includes/admin-pages.php:350
+msgid "Comma-separated list of location post IDs (optional). Example: 5,18,33"
+msgstr ""
+
+#: includes/admin-pages.php:306
+msgid ""
+"Comma-separated list of reference type term IDs (optional). Example: 1,5,12"
+msgstr ""
+
+#: includes/admin-pages.php:394
 msgid "Comma-separated list of term IDs (optional, shows all if omitted)"
 msgstr ""
 
@@ -87,11 +109,11 @@ msgstr ""
 msgid "Configure the reference archive page behavior."
 msgstr ""
 
-#: includes/admin-pages.php:321
+#: includes/admin-pages.php:376
 msgid "Copied!"
 msgstr ""
 
-#: includes/admin-pages.php:318
+#: includes/admin-pages.php:373
 msgid "Copy to Clipboard"
 msgstr ""
 
@@ -132,15 +154,15 @@ msgstr ""
 msgid "Disable Reference Archive"
 msgstr ""
 
-#: includes/admin-pages.php:349
+#: includes/admin-pages.php:404
 msgid "Displays Filter 1 taxonomy terms as expandable details elements."
 msgstr ""
 
-#: includes/admin-pages.php:356
+#: includes/admin-pages.php:411
 msgid "Displays Filter 2 taxonomy terms as expandable details elements."
 msgstr ""
 
-#: includes/admin-pages.php:336
+#: includes/admin-pages.php:391
 msgid "Displays reference types as expandable details elements."
 msgstr ""
 
@@ -161,8 +183,8 @@ msgstr ""
 msgid "Enable Filters"
 msgstr ""
 
-#: includes/admin-pages.php:344 includes/admin-pages.php:351
-#: includes/admin-pages.php:358
+#: includes/admin-pages.php:399 includes/admin-pages.php:406
+#: includes/admin-pages.php:413
 msgid "Example:"
 msgstr ""
 
@@ -191,6 +213,26 @@ msgstr ""
 msgid "Filter by %s"
 msgstr ""
 
+#: includes/admin-pages.php:335
+msgid "Filter by Customer"
+msgstr ""
+
+#: includes/admin-pages.php:313
+msgid "Filter by Filter 1"
+msgstr ""
+
+#: includes/admin-pages.php:324
+msgid "Filter by Filter 2"
+msgstr ""
+
+#: includes/admin-pages.php:346
+msgid "Filter by Location"
+msgstr ""
+
+#: includes/admin-pages.php:302
+msgid "Filter by Reference Type"
+msgstr ""
+
 #: includes/pagination.php:66
 msgid "First Page"
 msgstr ""
@@ -207,11 +249,11 @@ msgstr ""
 msgid "Gallery navigation"
 msgstr ""
 
-#: includes/admin-pages.php:304
+#: includes/admin-pages.php:359
 msgid "Generate Shortcode"
 msgstr ""
 
-#: includes/admin-pages.php:312
+#: includes/admin-pages.php:367
 msgid "Generated Shortcode"
 msgstr ""
 
@@ -240,7 +282,7 @@ msgstr ""
 msgid "Images (Overlay)"
 msgstr ""
 
-#: includes/admin-pages.php:342
+#: includes/admin-pages.php:397
 msgid "Inline CSS"
 msgstr ""
 
@@ -353,7 +395,7 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: includes/admin-pages.php:333
+#: includes/admin-pages.php:388
 msgid "Other Available Shortcodes"
 msgstr ""
 
@@ -444,7 +486,7 @@ msgstr ""
 msgid "Reset all filters"
 msgstr ""
 
-#: includes/admin-pages.php:350 includes/admin-pages.php:357
+#: includes/admin-pages.php:405 includes/admin-pages.php:412
 msgid "Same as above"
 msgstr ""
 
@@ -452,7 +494,7 @@ msgstr ""
 msgid "Section Title"
 msgstr ""
 
-#: includes/admin-pages.php:340
+#: includes/admin-pages.php:395
 msgid "Section headline"
 msgstr ""
 
@@ -470,7 +512,7 @@ msgstr ""
 msgid "Select which filter dimensions to display."
 msgstr ""
 
-#: includes/admin-pages.php:380
+#: includes/admin-pages.php:435
 msgid "Settings saved successfully."
 msgstr ""
 
