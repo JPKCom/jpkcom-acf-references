@@ -1,0 +1,129 @@
+<p><strong>JPKCom ACF References</strong> is a reference gallery system
+with filter functions built on Advanced Custom Fields Pro. This plugin
+provides a complete solution for creating, managing, and displaying
+reference projects on your WordPress website with powerful features for
+portfolios, case studies, and project showcases.</p>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Three Custom Post Types</strong>: References, Locations, and
+Customers with hierarchical organization</li>
+<li><strong>Image Galleries</strong>: Full support for image galleries
+with lightbox modal and thumbnail grid display</li>
+<li><strong>Interactive Filtering</strong>: JavaScript-based client-side
+filtering with animated transitions respecting
+<code>prefers-reduced-motion</code></li>
+<li><strong>Multiple Layouts</strong>: Choose between list, card grid,
+or image overlay layouts for references</li>
+<li><strong>Admin Tools</strong>: Built-in shortcode generator and
+settings page for archive redirect configuration</li>
+<li><strong>Advanced Querying</strong>: Filter references by type,
+location, customer, and custom filter taxonomies</li>
+<li><strong>Multilingual Ready</strong>: Full WPML support with
+translation-aware field configuration (German translations
+included)</li>
+<li><strong>Template Override System</strong>: Customize any template
+via child theme, parent theme, or mu-plugins</li>
+<li><strong>Developer-Friendly</strong>: Helper functions, filters, and
+shortcodes for easy customization</li>
+<li><strong>Bootstrap 5 Ready</strong>: Pre-styled templates with modern
+responsive markup</li>
+<li><strong>Automatic Updates</strong>: Secure GitHub-based plugin
+updates with SHA256 checksum verification</li>
+<li><strong>Accessibility First</strong>: ARIA labels, keyboard
+navigation, and screen reader support throughout</li>
+</ul>
+<h3 id="requirements">Requirements</h3>
+<p>The following plugins are <strong>required</strong> for this plugin
+to work:</p>
+<ul>
+<li><a href="https://www.advancedcustomfields.com/">Advanced Custom
+Fields Pro</a> (v6.0+)</li>
+<li><a href="https://wordpress.org/plugins/acf-quickedit-fields/">ACF
+Quick Edit Fields</a> (for inline editing)</li>
+</ul>
+<p><strong>Optional:</strong> - <a href="https://wpml.org/">WPML</a> for
+multilingual reference projects</p>
+<h3 id="whats-included">What’s Included</h3>
+<ul>
+<li><strong>Custom Fields</strong>
+(<code>includes/acf-field_groups.php</code>) - Programmatically
+registered ACF field groups for references, locations, and
+customers</li>
+<li><strong>Custom Post Types</strong>
+(<code>includes/acf-post_types.php</code>) - Reference, Location, and
+Customer post types with proper admin organization</li>
+<li><strong>Custom Taxonomies</strong>
+(<code>includes/acf-taxonomies.php</code>) - Three taxonomies:
+reference-type, reference-filter-1, reference-filter-2</li>
+<li><strong>Template System</strong> (<code>templates/</code>,
+<code>debug-templates/</code>) - Complete set of single and archive
+templates with override support</li>
+<li><strong>Shortcode Templates</strong>
+(<code>templates/shortcodes/</code>) - List, types, and filter display
+templates with layout partials (list-items.php, list-cards.php,
+list-images.php)</li>
+<li><strong>Shortcodes</strong> (<code>includes/shortcodes.php</code>) -
+Display filtered reference lists with interactive filtering, taxonomy
+displays</li>
+<li><strong>Helper Functions</strong>
+(<code>includes/helpers.php</code>) - Utility functions for rendering
+fields and formatting dates</li>
+<li><strong>Admin Pages</strong> (<code>includes/admin-pages.php</code>)
+- Shortcode generator and settings page for archive redirect</li>
+<li><strong>JavaScript Filtering</strong>
+(<code>assets/js/reference-list-filter.js</code>) - Client-side
+filtering with animated transitions (vanilla JS, no jQuery)</li>
+<li><strong>Image Gallery Modal</strong>
+(<code>assets/js/gallery-modal.js</code>) - Lightbox with keyboard
+navigation and accessibility support</li>
+<li><strong>CSS Animations</strong>
+(<code>assets/css/reference-styles.css</code>) - Smooth fade-in/fade-out
+effects with <code>prefers-reduced-motion</code> support</li>
+<li><strong>Translation Files</strong> (<code>languages/</code>) -
+German translations included (de_DE, de_DE_formal) with .l10n.php
+format</li>
+<li><strong>Automatic Updates</strong>
+(<code>includes/class-plugin-updater.php</code>) - GitHub-based update
+system with SHA256 checksum verification</li>
+</ul>
+<h3 id="get-template-parts">Get Template Parts</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Native WordPress:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>get_template_part( <span class="st">&#39;jpkcom-acf-references/partials/reference/customer&#39;</span> )<span class="ot">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Plugin:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>jpkcom_acf_references_get_template_part( <span class="st">&#39;partials/reference/customer&#39;</span> )<span class="ot">;</span></span></code></pre></div>
+<h3 id="shortcodes">Shortcodes</h3>
+<p>All shortcode attributes are optional.</p>
+<h4 id="reference-list-with-interactive-filter-functions">Reference list
+with interactive filter functions:</h4>
+<pre><code>[jpkcom_acf_references_list type=&quot;1,5&quot; customer=&quot;6,8&quot; location=&quot;1,3,7,11&quot; limit=&quot;10&quot; sort=&quot;DSC&quot; style=&quot;background:transparent;&quot; class=&quot;mb-5&quot; title=&quot;References Headline&quot;]</code></pre>
+<p><strong>Advanced filtering with interactive dropdowns:</strong></p>
+<pre><code>[jpkcom_acf_references_list show_filters=&quot;true&quot; show_filter=&quot;0,1,2&quot; reset_button=&quot;true&quot; filter_title_0=&quot;Project Type&quot; filter_title_1=&quot;Category&quot; filter_title_2=&quot;Technology&quot; layout=&quot;cards&quot; limit=&quot;20&quot;]</code></pre>
+<p><strong>Attributes:</strong> - <code>type</code>,
+<code>filter_1</code>, <code>filter_2</code> - CSV of taxonomy term IDs
+for filtering - <code>customer</code>, <code>location</code> - CSV of
+post IDs for filtering - <code>limit</code> - Number of posts to display
+(default: all) - <code>sort</code> - “ASC” or “DSC” (default: “DSC”) -
+<code>show_filters</code> - Enable interactive filter dropdowns
+(true/false) - <code>show_filter</code> - CSV of filter indexes to
+display: 0=type, 1=filter_1, 2=filter_2 (e.g., “0,1”) -
+<code>reset_button</code> - Show “Reset all filters” button (true/false)
+- <code>filter_title_0</code>, <code>filter_title_1</code>,
+<code>filter_title_2</code> - Custom labels for filter dropdowns -
+<code>layout</code> - Display layout: “list” (default), “cards”, or
+“images” (overlay cards) - <code>style</code>, <code>class</code>,
+<code>title</code> - Styling and heading options</p>
+<h4 id="list-of-reference-types-displayed-as-details-tags">List of
+reference types displayed as <code>&lt;details&gt;</code> tags:</h4>
+<pre><code>[jpkcom_acf_references_types id=&quot;3,7,21&quot; style=&quot;background:transparent;&quot; class=&quot;mb-5&quot; title=&quot;Types Headline&quot;]</code></pre>
+<h4 id="custom-filter-taxonomies">Custom filter taxonomies:</h4>
+<pre><code>[jpkcom_acf_references_filter_1 id=&quot;1,5&quot; class=&quot;mb-3&quot; title=&quot;Filter 1 Headline&quot;]
+[jpkcom_acf_references_filter_2 id=&quot;2,8&quot; class=&quot;mb-3&quot; title=&quot;Filter 2 Headline&quot;]</code></pre>
+<h3 id="helper-functions">Helper functions</h3>
+<h4
+id="renders-all-acf-fields-of-a-post-with-bootstrap-5-markup.">Renders
+all ACF fields of a post with Bootstrap 5 markup.</h4>
+<p><code>@param string $post_type</code> Optional post type for field
+group query. If empty, ‘current_post_type’ is used.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>jpkcom_render_acf_fields()<span class="ot">;</span></span></code></pre></div>

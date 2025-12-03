@@ -1,0 +1,501 @@
+<h1 id="jpkcom-acf-references">JPKCom ACF References</h1>
+<p><strong>Plugin Name:</strong> JPKCom ACF References<br />
+<strong>Plugin URI:</strong>
+https://github.com/JPKCom/jpkcom-acf-references<br />
+<strong>Description:</strong> Reference gallery with filter function
+plugin for ACF<br />
+<strong>Version:</strong> 1.0.0<br />
+<strong>Author:</strong> Jean Pierre Kolb <a href="mailto:jpk@jpkc.com"
+class="email">jpk@jpkc.com</a><br />
+<strong>Author URI:</strong> https://www.jpkc.com/<br />
+<strong>Contributors:</strong> JPKCom<br />
+<strong>Tags:</strong> ACF, Fields, CPT, CTT, Taxonomy, Images<br />
+<strong>Requires Plugins:</strong> advanced-custom-fields-pro,
+acf-quickedit-fields<br />
+<strong>Requires at least:</strong> 6.8<br />
+<strong>Tested up to:</strong> 6.9<br />
+<strong>Requires PHP:</strong> 8.3<br />
+<strong>Network:</strong> true<br />
+<strong>Stable tag:</strong> 1.0.0<br />
+<strong>License:</strong> GPL-2.0+<br />
+<strong>License URI:</strong>
+http://www.gnu.org/licenses/gpl-2.0.txt<br />
+<strong>Text Domain:</strong> jpkcom-acf-references<br />
+<strong>Domain Path:</strong> /languages</p>
+<p>A plugin to provide a reference gallery with filter function tool for
+ACF Pro.</p>
+<h2 id="description">Description</h2>
+<p><strong>JPKCom ACF References</strong> is a reference gallery system
+with filter functions built on Advanced Custom Fields Pro. This plugin
+provides a complete solution for creating, managing, and displaying
+reference projects on your WordPress website with powerful features for
+portfolios, case studies, and project showcases.</p>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Three Custom Post Types</strong>: References, Locations, and
+Customers with hierarchical organization</li>
+<li><strong>Image Galleries</strong>: Full support for image galleries
+with lightbox modal and thumbnail grid display</li>
+<li><strong>Interactive Filtering</strong>: JavaScript-based client-side
+filtering with animated transitions respecting
+<code>prefers-reduced-motion</code></li>
+<li><strong>Multiple Layouts</strong>: Choose between list, card grid,
+or image overlay layouts for references</li>
+<li><strong>Admin Tools</strong>: Built-in shortcode generator and
+settings page for archive redirect configuration</li>
+<li><strong>Advanced Querying</strong>: Filter references by type,
+location, customer, and custom filter taxonomies</li>
+<li><strong>Multilingual Ready</strong>: Full WPML support with
+translation-aware field configuration (German translations
+included)</li>
+<li><strong>Template Override System</strong>: Customize any template
+via child theme, parent theme, or mu-plugins</li>
+<li><strong>Developer-Friendly</strong>: Helper functions, filters, and
+shortcodes for easy customization</li>
+<li><strong>Bootstrap 5 Ready</strong>: Pre-styled templates with modern
+responsive markup</li>
+<li><strong>Automatic Updates</strong>: Secure GitHub-based plugin
+updates with SHA256 checksum verification</li>
+<li><strong>Accessibility First</strong>: ARIA labels, keyboard
+navigation, and screen reader support throughout</li>
+</ul>
+<h3 id="requirements">Requirements</h3>
+<p>The following plugins are <strong>required</strong> for this plugin
+to work:</p>
+<ul>
+<li><a href="https://www.advancedcustomfields.com/">Advanced Custom
+Fields Pro</a> (v6.0+)</li>
+<li><a href="https://wordpress.org/plugins/acf-quickedit-fields/">ACF
+Quick Edit Fields</a> (for inline editing)</li>
+</ul>
+<p><strong>Optional:</strong> - <a href="https://wpml.org/">WPML</a> for
+multilingual reference projects</p>
+<h3 id="whats-included">What’s Included</h3>
+<ul>
+<li><strong>Custom Fields</strong>
+(<code>includes/acf-field_groups.php</code>) - Programmatically
+registered ACF field groups for references, locations, and
+customers</li>
+<li><strong>Custom Post Types</strong>
+(<code>includes/acf-post_types.php</code>) - Reference, Location, and
+Customer post types with proper admin organization</li>
+<li><strong>Custom Taxonomies</strong>
+(<code>includes/acf-taxonomies.php</code>) - Three taxonomies:
+reference-type, reference-filter-1, reference-filter-2</li>
+<li><strong>Template System</strong> (<code>templates/</code>,
+<code>debug-templates/</code>) - Complete set of single and archive
+templates with override support</li>
+<li><strong>Shortcode Templates</strong>
+(<code>templates/shortcodes/</code>) - List, types, and filter display
+templates with layout partials (list-items.php, list-cards.php,
+list-images.php)</li>
+<li><strong>Shortcodes</strong> (<code>includes/shortcodes.php</code>) -
+Display filtered reference lists with interactive filtering, taxonomy
+displays</li>
+<li><strong>Helper Functions</strong>
+(<code>includes/helpers.php</code>) - Utility functions for rendering
+fields and formatting dates</li>
+<li><strong>Admin Pages</strong> (<code>includes/admin-pages.php</code>)
+- Shortcode generator and settings page for archive redirect</li>
+<li><strong>JavaScript Filtering</strong>
+(<code>assets/js/reference-list-filter.js</code>) - Client-side
+filtering with animated transitions (vanilla JS, no jQuery)</li>
+<li><strong>Image Gallery Modal</strong>
+(<code>assets/js/gallery-modal.js</code>) - Lightbox with keyboard
+navigation and accessibility support</li>
+<li><strong>CSS Animations</strong>
+(<code>assets/css/reference-styles.css</code>) - Smooth fade-in/fade-out
+effects with <code>prefers-reduced-motion</code> support</li>
+<li><strong>Translation Files</strong> (<code>languages/</code>) -
+German translations included (de_DE, de_DE_formal) with .l10n.php
+format</li>
+<li><strong>Automatic Updates</strong>
+(<code>includes/class-plugin-updater.php</code>) - GitHub-based update
+system with SHA256 checksum verification</li>
+</ul>
+<h3 id="get-template-parts">Get Template Parts</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Native WordPress:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>get_template_part( <span class="st">&#39;jpkcom-acf-references/partials/reference/customer&#39;</span> )<span class="ot">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Plugin:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>jpkcom_acf_references_get_template_part( <span class="st">&#39;partials/reference/customer&#39;</span> )<span class="ot">;</span></span></code></pre></div>
+<h3 id="shortcodes">Shortcodes</h3>
+<p>All shortcode attributes are optional.</p>
+<h4 id="reference-list-with-interactive-filter-functions">Reference list
+with interactive filter functions:</h4>
+<pre><code>[jpkcom_acf_references_list type=&quot;1,5&quot; customer=&quot;6,8&quot; location=&quot;1,3,7,11&quot; limit=&quot;10&quot; sort=&quot;DSC&quot; style=&quot;background:transparent;&quot; class=&quot;mb-5&quot; title=&quot;References Headline&quot;]</code></pre>
+<p><strong>Advanced filtering with interactive dropdowns:</strong></p>
+<pre><code>[jpkcom_acf_references_list show_filters=&quot;true&quot; show_filter=&quot;0,1,2&quot; reset_button=&quot;true&quot; filter_title_0=&quot;Project Type&quot; filter_title_1=&quot;Category&quot; filter_title_2=&quot;Technology&quot; layout=&quot;cards&quot; limit=&quot;20&quot;]</code></pre>
+<p><strong>Attributes:</strong> - <code>type</code>,
+<code>filter_1</code>, <code>filter_2</code> - CSV of taxonomy term IDs
+for filtering - <code>customer</code>, <code>location</code> - CSV of
+post IDs for filtering - <code>limit</code> - Number of posts to display
+(default: all) - <code>sort</code> - “ASC” or “DSC” (default: “DSC”) -
+<code>show_filters</code> - Enable interactive filter dropdowns
+(true/false) - <code>show_filter</code> - CSV of filter indexes to
+display: 0=type, 1=filter_1, 2=filter_2 (e.g., “0,1”) -
+<code>reset_button</code> - Show “Reset all filters” button (true/false)
+- <code>filter_title_0</code>, <code>filter_title_1</code>,
+<code>filter_title_2</code> - Custom labels for filter dropdowns -
+<code>layout</code> - Display layout: “list” (default), “cards”, or
+“images” (overlay cards) - <code>style</code>, <code>class</code>,
+<code>title</code> - Styling and heading options</p>
+<h4 id="list-of-reference-types-displayed-as-details-tags">List of
+reference types displayed as <code>&lt;details&gt;</code> tags:</h4>
+<pre><code>[jpkcom_acf_references_types id=&quot;3,7,21&quot; style=&quot;background:transparent;&quot; class=&quot;mb-5&quot; title=&quot;Types Headline&quot;]</code></pre>
+<h4 id="custom-filter-taxonomies">Custom filter taxonomies:</h4>
+<pre><code>[jpkcom_acf_references_filter_1 id=&quot;1,5&quot; class=&quot;mb-3&quot; title=&quot;Filter 1 Headline&quot;]
+[jpkcom_acf_references_filter_2 id=&quot;2,8&quot; class=&quot;mb-3&quot; title=&quot;Filter 2 Headline&quot;]</code></pre>
+<h3 id="helper-functions">Helper functions</h3>
+<h4
+id="renders-all-acf-fields-of-a-post-with-bootstrap-5-markup.">Renders
+all ACF fields of a post with Bootstrap 5 markup.</h4>
+<p><code>@param string $post_type</code> Optional post type for field
+group query. If empty, ‘current_post_type’ is used.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>jpkcom_render_acf_fields()<span class="ot">;</span></span></code></pre></div>
+<h2 id="faq">FAQ</h2>
+<h3 id="why-do-i-need-advanced-custom-fields-pro">Why do I need Advanced
+Custom Fields Pro?</h3>
+<p>This plugin relies on ACF Pro’s powerful field group system to
+provide flexible reference data management. ACF Pro offers advanced
+field types (repeaters, flexible content, groups, galleries) that are
+essential for complex reference projects with image galleries, multiple
+locations, and rich content layouts.</p>
+<h3 id="how-do-i-create-my-first-reference">How do I create my first
+reference?</h3>
+<ol type="1">
+<li>After activation, go to <strong>References → Add New</strong> in
+your WordPress admin</li>
+<li>Enter the reference title and description</li>
+<li>Fill in the ACF fields: reference type, location, customer, gallery,
+etc.</li>
+<li>Add reference types using the taxonomy on the right</li>
+<li>Upload images to the gallery</li>
+<li>Publish the reference</li>
+</ol>
+<p>The reference will automatically appear in your reference
+archive.</p>
+<h3 id="how-do-i-display-references-on-my-website">How do I display
+references on my website?</h3>
+<p><strong>Option 1: Use the shortcode (Simple)</strong></p>
+<pre><code>[jpkcom_acf_references_list limit=&quot;10&quot; sort=&quot;DSC&quot;]</code></pre>
+<p><strong>Option 2: Use the shortcode with interactive
+filters</strong></p>
+<pre><code>[jpkcom_acf_references_list show_filters=&quot;true&quot; show_filter=&quot;0,1&quot; reset_button=&quot;true&quot; layout=&quot;cards&quot;]</code></pre>
+<p>This displays a filterable list with dropdown controls that filter
+references instantly without page reload.</p>
+<p><strong>Option 3: Navigate to the archive</strong> Visit
+<code>/references/</code> on your site to see all published
+references.</p>
+<p><strong>Option 4: Create a custom template</strong> Use
+<code>WP_Query</code> with <code>post_type =&gt; 'reference'</code> to
+build custom reference displays.</p>
+<h3 id="is-this-plugin-compatible-with-wpml">Is this plugin compatible
+with WPML?</h3>
+<p>Yes! The plugin includes full WPML support via
+<code>wpml-config.xml</code>. References, locations, customers, and
+taxonomies can all be translated. Fields are configured with appropriate
+translation strategies (translate, copy, or copy-once) for optimal
+multilingual workflow.</p>
+<h3 id="how-do-i-customize-the-reference-templates">How do I customize
+the reference templates?</h3>
+<p>You have three options:</p>
+<p><strong>Option 1: Child Theme Override</strong> (Recommended) Copy
+templates from <code>plugins/jpkcom-acf-references/templates/</code> to
+<code>your-child-theme/jpkcom-acf-references/</code> and customize
+them.</p>
+<p><strong>Option 2: Parent Theme Override</strong> Copy templates to
+<code>your-theme/jpkcom-acf-references/</code> (works if no child theme
+is active).</p>
+<p><strong>Option 3: MU-Plugin Override</strong> Copy templates to
+<code>mu-plugins/jpkcom-acf-references-overrides/templates/</code> for
+site-wide customization.</p>
+<h3 id="how-to-overwrite-functional-libraries">How to overwrite
+functional libraries?</h3>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Add new path for overwrites of functional libraries</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>add_filter( <span class="st">&#39;jpkcom_acfreferences_file_paths&#39;</span><span class="ot">,</span> <span class="kw">function</span>( <span class="va">$paths</span><span class="ot">,</span> <span class="va">$filename</span> ) {</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">array_unshift</span>( <span class="va">$paths</span><span class="ot">,</span> <span class="cn">WP_CONTENT_DIR</span> <span class="op">.</span> <span class="st">&#39;/custom-overrides/&#39;</span> <span class="op">.</span> <span class="va">$filename</span> )<span class="ot">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$paths</span><span class="ot">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>}<span class="ot">,</span> <span class="dv">10</span><span class="ot">,</span> <span class="dv">2</span> )<span class="ot">;</span></span></code></pre></div>
+<h3 id="how-to-overwrite-template-paths-programmatically">How to
+overwrite template paths programmatically?</h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Add a new path, for example from the child theme or custom directory</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>add_filter( <span class="st">&#39;jpkcom_acf_references_template_paths&#39;</span><span class="ot">,</span> <span class="kw">function</span>( <span class="va">$paths</span><span class="ot">,</span> <span class="va">$template_name</span> ) {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">array_unshift</span>( <span class="va">$paths</span><span class="ot">,</span> <span class="cn">WP_CONTENT_DIR</span> <span class="op">.</span> <span class="st">&#39;/custom-templates/jpkcom-acf-references/&#39;</span> <span class="op">.</span> <span class="va">$template_name</span> )<span class="ot">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$paths</span><span class="ot">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>}<span class="ot">,</span> <span class="dv">10</span><span class="ot">,</span> <span class="dv">2</span> )<span class="ot">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode php"><code class="sourceCode php"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Last chance to dynamically overwrite template path</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>add_filter( <span class="st">&#39;jpkcom_acf_references_final_template&#39;</span><span class="ot">,</span> <span class="kw">function</span>( <span class="va">$template</span> ) {</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ( is_singular( <span class="st">&#39;reference&#39;</span> ) ) {</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="cn">WP_CONTENT_DIR</span> <span class="op">.</span> <span class="st">&#39;/special/single-reference-custom.php&#39;</span><span class="ot">;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">$template</span><span class="ot">;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>})<span class="ot">;</span></span></code></pre></div>
+<h3 id="how-do-plugin-updates-work">How do plugin updates work?</h3>
+<p>The plugin uses a secure GitHub-based update system. When a new
+version is released:</p>
+<ol type="1">
+<li>WordPress checks
+<code>https://jpkcom.github.io/jpkcom-acf-references/plugin_jpkcom-acf-references.json</code>
+for updates</li>
+<li>Update notifications appear in your WordPress admin (Plugins page
+and Updates page)</li>
+<li>When you click “Update Now”, WordPress downloads the plugin ZIP from
+GitHub</li>
+<li>The download is verified using SHA256 checksum for security</li>
+<li>If the checksum matches, the update proceeds automatically</li>
+</ol>
+<p>You can also download releases manually from the <a
+href="https://github.com/JPKCom/jpkcom-acf-references/releases">GitHub
+repository</a>.</p>
+<h3 id="can-i-filter-references-by-location-or-customer">Can I filter
+references by location or customer?</h3>
+<p>Yes! Use the shortcode attributes:</p>
+<pre><code>[jpkcom_acf_references_list location=&quot;1,3,7&quot; customer=&quot;6,8&quot; type=&quot;1,5&quot;]</code></pre>
+<p>Location and customer values are post IDs. You can find them in the
+admin when editing locations or customers (look at the URL:
+<code>post=123</code>).</p>
+<h3 id="what-are-reference-types-and-custom-filters">What are reference
+types and custom filters?</h3>
+<p>The plugin provides three taxonomy systems for organizing
+references:</p>
+<p><strong>Reference Type</strong> (reference-type) - Main
+categorization: - Project categories: “Web Development”, “Design”,
+“Consulting” - Industries: “Healthcare”, “Finance”, “Education” -
+Technologies: “WordPress”, “React”, “PHP”</p>
+<p><strong>Filter 1 &amp; Filter 2</strong> (reference-filter-1,
+reference-filter-2) - Custom dimensions: - Configure these for your
+specific needs (e.g., “Project Size”, “Technology Stack”, “Service
+Type”) - Both support hierarchical organization - Can be displayed and
+filtered independently</p>
+<p>Display them with shortcodes:</p>
+<pre><code>[jpkcom_acf_references_types]
+[jpkcom_acf_references_filter_1]
+[jpkcom_acf_references_filter_2]</code></pre>
+<h3 id="how-does-the-interactive-filtering-work">How does the
+interactive filtering work?</h3>
+<p>The interactive filter system provides instant client-side filtering
+without page reloads:</p>
+<p><strong>Features:</strong> - Dropdown controls for each taxonomy
+(type, filter 1, filter 2) - Multiple selections per filter (checkboxes
+in dropdown) - “OR” logic within a filter (show if ANY selected term
+matches) - “AND” logic between filters (show only if ALL filters match)
+- “Reset all filters” button to clear selections - “No results” message
+when no references match - Works with both list and card layouts</p>
+<p><strong>Example usage:</strong></p>
+<pre><code>[jpkcom_acf_references_list show_filters=&quot;true&quot; show_filter=&quot;0,1,2&quot; reset_button=&quot;true&quot; filter_title_0=&quot;Type&quot; filter_title_1=&quot;Category&quot; filter_title_2=&quot;Tech&quot; layout=&quot;cards&quot;]</code></pre>
+<p><strong>How it works technically:</strong> - All references load on
+initial page load - Each reference has <code>data-*</code> attributes
+with taxonomy term IDs - JavaScript shows/hides items based on selected
+filters - No AJAX calls needed - instant filtering - Accessible with
+ARIA labels and keyboard navigation</p>
+<h3 id="whats-the-difference-between-the-three-layouts">What’s the
+difference between the three layouts?</h3>
+<p>The <code>layout</code> attribute controls how references are
+displayed:</p>
+<p><strong>List Layout</strong> (<code>layout="list"</code>, default): -
+Compact view with title, excerpt, and metadata - Uses
+<code>templates/shortcodes/partials/list-items.php</code> - Good for
+text-heavy reference lists - Smaller thumbnails or no images - Best for
+dense content with lots of references</p>
+<p><strong>Cards Layout</strong> (<code>layout="cards"</code>): -
+Grid-based card display with larger images (16:9 format) - Uses
+<code>templates/shortcodes/partials/list-cards.php</code> - Better for
+visual portfolios - Shows featured image, title, type, customer, and
+location - Responsive grid (adjusts to screen size) - Hover zoom effect
+on images (respects <code>prefers-reduced-motion</code>)</p>
+<p><strong>Images Layout</strong> (<code>layout="images"</code>): -
+Full-bleed image overlay cards (4:3 format) - Uses
+<code>templates/shortcodes/partials/list-images.php</code> - Best for
+image-heavy portfolios and galleries - Title and button overlaid on
+image - No borders, no gaps between cards - Dramatic hover zoom effect
+(respects <code>prefers-reduced-motion</code>)</p>
+<p>All layouts support: - Featured references (special CSS class) - All
+filter controls with smooth animated transitions - Custom styling via
+<code>class</code> and <code>style</code> attributes - Accessibility
+features (ARIA labels, keyboard navigation)</p>
+<h3 id="how-do-i-use-the-shortcode-generator">How do I use the shortcode
+generator?</h3>
+<p>Navigate to <strong>References → Shortcodes</strong> in your
+WordPress admin to access the interactive shortcode generator:</p>
+<p><strong>Features:</strong> - Visual form with all available options -
+Live shortcode preview - One-click copy to clipboard - Explanations for
+each attribute - Example values for all fields</p>
+<p><strong>Steps:</strong> 1. Select your desired layout (list, cards,
+or images) 2. Set number of references to display 3. Choose sort order
+(ascending or descending) 4. Enable filters if needed and select which
+ones to show 5. Add pre-filtering by type, filter 1, filter 2, customer,
+or location (comma-separated IDs) 6. Click “Generate Shortcode” to see
+the result 7. Click “Copy to Clipboard” to copy the shortcode 8. Paste
+it into any page or post</p>
+<h3 id="how-do-i-disable-the-reference-archive-page">How do I disable
+the reference archive page?</h3>
+<p>If you don’t want visitors to access <code>/references/</code>, you
+can redirect them:</p>
+<ol type="1">
+<li>Go to <strong>References → Options</strong> in WordPress admin</li>
+<li>Check <strong>“Disable Reference Archive”</strong></li>
+<li>Optionally enter a custom redirect URL (defaults to homepage)</li>
+<li>Click <strong>“Save Changes”</strong></li>
+</ol>
+<p>When enabled: - Visitors accessing <code>/references/</code> are
+redirected (HTTP 307) - Single reference pages remain accessible at
+<code>/references/post-slug/</code> - Useful if you only want references
+displayed via shortcodes</p>
+<h3 id="how-do-image-galleries-work">How do image galleries work?</h3>
+<p>References can have image galleries with a professional lightbox
+modal:</p>
+<p><strong>Features:</strong> - Thumbnail grid (200×200px square
+thumbnails) - Lightbox modal on click (1400px width images) -
+Previous/Next navigation buttons - Keyboard navigation (arrow keys,
+Escape to close) - Image counter (e.g., “Image 3 of 8”) - Responsive and
+accessible - Gallery appears on single reference pages automatically</p>
+<p><strong>To add a gallery:</strong> 1. Edit a reference in WordPress
+admin 2. Scroll to the “Image Gallery” field (ACF Gallery field) 3.
+Click “Add to gallery” and select/upload images 4. Drag to reorder
+images 5. Save the reference</p>
+<p>The gallery will automatically display on the single reference page
+with thumbnails and lightbox functionality.</p>
+<h3 id="how-do-filter-animations-work">How do filter animations
+work?</h3>
+<p>The plugin includes smooth CSS animations when filtering
+references:</p>
+<p><strong>Animation behavior:</strong> - <strong>Fade-out</strong>:
+Items slide up slightly and fade to transparent (0.3s) -
+<strong>Fade-in</strong>: Items slide down and fade to visible (0.3s) -
+<strong>Respects accessibility</strong>: Animations are disabled if user
+has <code>prefers-reduced-motion</code> enabled - <strong>No jQuery
+needed</strong>: Pure CSS transitions with JavaScript state
+management</p>
+<p><strong>For users with motion preferences:</strong> -
+<code>prefers-reduced-motion: no-preference</code> → Smooth animations -
+<code>prefers-reduced-motion: reduce</code> → Instant show/hide (no
+animation)</p>
+<p>This ensures the filtering is both visually engaging and accessible
+to all users.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Before installing this plugin, ensure you have: - WordPress 6.8 or
+higher - PHP 8.3 or higher - <a
+href="https://www.advancedcustomfields.com/">Advanced Custom Fields
+Pro</a> installed and activated - <a
+href="https://wordpress.org/plugins/acf-quickedit-fields/">ACF Quick
+Edit Fields</a> installed and activated</p>
+<h3 id="method-1-upload-via-wordpress-admin-recommended">Method 1:
+Upload via WordPress Admin (Recommended)</h3>
+<ol type="1">
+<li>Download the latest release ZIP file from the <a
+href="https://github.com/JPKCom/jpkcom-acf-references/releases">GitHub
+Releases page</a></li>
+<li>In your WordPress admin panel, navigate to <strong>Plugins → Add
+New</strong></li>
+<li>Click the <strong>Upload Plugin</strong> button at the top of the
+page</li>
+<li>Click <strong>Choose File</strong> and select the downloaded
+<code>jpkcom-acf-references.zip</code> file</li>
+<li>Click <strong>Install Now</strong> and wait for the upload to
+complete</li>
+<li>Click <strong>Activate Plugin</strong> to enable the plugin
+immediately</li>
+</ol>
+<h3 id="method-2-manual-installation-via-ftpsftp">Method 2: Manual
+Installation via FTP/SFTP</h3>
+<ol type="1">
+<li>Download the latest release ZIP file from the <a
+href="https://github.com/JPKCom/jpkcom-acf-references/releases">GitHub
+Releases page</a></li>
+<li>Extract the ZIP file on your local computer</li>
+<li>Using an FTP/SFTP client, upload the extracted
+<code>jpkcom-acf-references</code> folder to
+<code>/wp-content/plugins/</code></li>
+<li>In your WordPress admin panel, navigate to
+<strong>Plugins</strong></li>
+<li>Find “JPKCom ACF References” in the list and click
+<strong>Activate</strong></li>
+</ol>
+<h3 id="method-3-github-clone-for-developers">Method 3: GitHub Clone
+(For Developers)</h3>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/wordpress/wp-content/plugins/</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/JPKCom/jpkcom-acf-references.git</span></code></pre></div>
+<p>Then activate the plugin in the WordPress admin panel.</p>
+<h3 id="post-installation-steps">Post-Installation Steps</h3>
+<ol type="1">
+<li><strong>Verify Dependencies</strong>: Go to <strong>Plugins</strong>
+and ensure ACF Pro and ACF Quick Edit Fields are active</li>
+<li><strong>Check Custom Post Types</strong>: You should now see
+<strong>References</strong>, <strong>Locations</strong>, and
+<strong>Customers</strong> in your admin menu</li>
+<li><strong>Explore Admin Pages</strong>:
+<ul>
+<li>Visit <strong>References → Shortcodes</strong> to use the shortcode
+generator</li>
+<li>Visit <strong>References → Options</strong> to configure archive
+redirect settings</li>
+</ul></li>
+<li><strong>Create Test Content</strong>:
+<ul>
+<li>Create a location: <strong>Locations → Add New</strong></li>
+<li>Create a customer: <strong>Customers → Add New</strong></li>
+<li>Create a reference: <strong>References → Add New</strong> (assign
+the location and customer, add images to gallery)</li>
+</ul></li>
+<li><strong>View Frontend</strong>: Visit <code>/references/</code> on
+your site to see the reference archive</li>
+<li><strong>Test Shortcode</strong>: Use the shortcode generator to
+create a filtered list and paste it into a test page</li>
+<li><strong>Add to Navigation</strong> (Optional): Add the reference
+archive to your site menu via <strong>Appearance → Menus</strong></li>
+</ol>
+<h3 id="automatic-updates">Automatic Updates</h3>
+<p>Once installed, the plugin will automatically check for updates from
+GitHub. Update notifications will appear in: - <strong>Dashboard →
+Updates</strong> - <strong>Plugins</strong> page (update notice below
+plugin name)</p>
+<p>Simply click <strong>Update Now</strong> to install the latest
+version securely with SHA256 checksum verification.</p>
+<h3 id="multisite-installation">Multisite Installation</h3>
+<p>This plugin is <strong>network-compatible</strong>. To install on a
+multisite network:</p>
+<ol type="1">
+<li>Follow Method 1 or 2 above</li>
+<li>Go to <strong>Network Admin → Plugins</strong></li>
+<li>Click <strong>Network Activate</strong> to enable on all sites, or
+activate individually per site</li>
+</ol>
+<h3 id="troubleshooting-installation">Troubleshooting Installation</h3>
+<p><strong>Issue: Plugin fails to activate</strong> - Ensure PHP 8.3+
+and WordPress 6.8+ requirements are met - Check that ACF Pro is
+installed and activated first</p>
+<p><strong>Issue: No References menu in admin</strong> - Verify the
+plugin is activated (not just installed) - Check for PHP errors in
+<strong>Tools → Site Health → Info → Server</strong></p>
+<p><strong>Issue: Templates not displaying correctly</strong> - Ensure
+your theme supports Bootstrap 5 markup, or customize the templates -
+Enable <code>WP_DEBUG</code> to load debug templates for
+troubleshooting</p>
+<p><strong>Issue: Interactive filters not working</strong> - Verify that
+JavaScript is enabled in the browser - Check browser console for
+JavaScript errors - Ensure Bootstrap 5 JavaScript is loaded (required
+for dropdown functionality) - Confirm that
+<code>show_filters="true"</code> attribute is set in the shortcode</p>
+<p><strong>Issue: Filter dropdowns appear empty</strong> - Verify that
+taxonomy terms are assigned to references - Check that references are
+published (not draft) - Ensure the correct taxonomy slug is used -
+Confirm <code>show_filter</code> attribute includes the correct filter
+indexes (0, 1, or 2)</p>
+<h2 id="changelog">Changelog</h2>
+<h3 id="section">1.0.0</h3>
+<ul>
+<li>Initial Release</li>
+</ul>
