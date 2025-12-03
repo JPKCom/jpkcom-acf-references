@@ -452,37 +452,3 @@ function jpkcom_acf_references_options_page(): void {
     </div>
     <?php
 }
-
-/**
- * Handle archive page redirect
- *
- * @since 1.0.0
- * @return void
- */
-add_action( 'template_redirect', function(): void {
-
-    // Only proceed if we're on the reference archive page
-    if ( ! is_post_type_archive( 'reference' ) ) {
-        return;
-    }
-
-    // Check if archive is disabled
-    $disable_archive = get_option( 'jpkcom_acf_ref_disable_archive', false );
-    if ( ! $disable_archive ) {
-        return;
-    }
-
-    // Get custom redirect URL or use homepage
-    $redirect_url = get_option( 'jpkcom_acf_ref_archive_redirect_url', '' );
-    if ( empty( $redirect_url ) ) {
-        $redirect_url = home_url( '/' );
-    }
-
-    // Validate URL before redirecting
-    $redirect_url = esc_url_raw( $redirect_url );
-    if ( ! empty( $redirect_url ) ) {
-        wp_redirect( $redirect_url, 307 );
-        exit;
-    }
-
-}, 10 );
