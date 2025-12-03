@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
 "Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-03 14:10+0100\n"
+"POT-Creation-Date: 2025-12-03 14:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,31 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: includes/admin-pages.php:259
+msgid "Active Filters"
+msgstr ""
+
+#: includes/admin-pages.php:252
+msgid "Allow visitors to filter references interactively."
+msgstr ""
+
+#: includes/admin-pages.php:98
+msgid "Archive Redirect URL"
+msgstr ""
+
+#: includes/admin-pages.php:79
+msgid "Archive Settings"
+msgstr ""
+
+#: includes/admin-pages.php:215
+msgid "Ascending (Oldest First)"
+msgstr ""
+
+#: includes/admin-pages.php:337 includes/admin-pages.php:350
+#: includes/admin-pages.php:357
+msgid "Attributes:"
+msgstr ""
 
 #: templates/partials/layout/pagination-page.php:13
 msgid "Back to overview"
@@ -25,13 +50,49 @@ msgstr ""
 msgid "Breadcrumb"
 msgstr ""
 
+#: includes/admin-pages.php:234
+msgid "CSS Class"
+msgstr ""
+
+#: includes/admin-pages.php:341
+msgid "CSS classes"
+msgstr ""
+
 #: includes/media.php:79
 msgid "Card Overlay Image (4:3 / Width 800 / Height 600)"
+msgstr ""
+
+#: includes/admin-pages.php:189
+msgid "Cards (with Thumbnails)"
+msgstr ""
+
+#: includes/admin-pages.php:192
+msgid "Choose the display layout for references."
 msgstr ""
 
 #: templates/partials/reference/reference_image_gallery_modal.php:38
 #: templates/partials/reference/reference_image_gallery_modal.php:71
 msgid "Close"
+msgstr ""
+
+#: includes/admin-pages.php:339
+msgid "Comma-separated list of term IDs (optional, shows all if omitted)"
+msgstr ""
+
+#: includes/admin-pages.php:176
+msgid "Configure the options below to generate your shortcode."
+msgstr ""
+
+#: includes/admin-pages.php:81
+msgid "Configure the reference archive page behavior."
+msgstr ""
+
+#: includes/admin-pages.php:321
+msgid "Copied!"
+msgstr ""
+
+#: includes/admin-pages.php:318
+msgid "Copy to Clipboard"
 msgstr ""
 
 #: includes/pagination.php:100
@@ -55,12 +116,32 @@ msgstr ""
 msgid "Customer:"
 msgstr ""
 
+#: includes/admin-pages.php:214
+msgid "Descending (Newest First)"
+msgstr ""
+
 #: templates/single-reference.php:55
 msgid "Description"
 msgstr ""
 
 #: templates/single-reference.php:75
 msgid "Details"
+msgstr ""
+
+#: includes/admin-pages.php:89
+msgid "Disable Reference Archive"
+msgstr ""
+
+#: includes/admin-pages.php:349
+msgid "Displays Filter 1 taxonomy terms as expandable details elements."
+msgstr ""
+
+#: includes/admin-pages.php:356
+msgid "Displays Filter 2 taxonomy terms as expandable details elements."
+msgstr ""
+
+#: includes/admin-pages.php:336
+msgid "Displays reference types as expandable details elements."
 msgstr ""
 
 #: includes/class-plugin-updater.php:409
@@ -76,14 +157,29 @@ msgstr ""
 msgid "Edit location"
 msgstr ""
 
+#: includes/admin-pages.php:245
+msgid "Enable Filters"
+msgstr ""
+
+#: includes/admin-pages.php:344 includes/admin-pages.php:351
+#: includes/admin-pages.php:358
+msgid "Example:"
+msgstr ""
+
+#: includes/admin-pages.php:263 includes/admin-pages.php:278
 #: includes/shortcodes.php:364
 #: templates/partials/reference/reference_type.php:71
 msgid "Filter 1"
 msgstr ""
 
+#: includes/admin-pages.php:264 includes/admin-pages.php:281
 #: includes/shortcodes.php:373
 #: templates/partials/reference/reference_type.php:126
 msgid "Filter 2"
+msgstr ""
+
+#: includes/admin-pages.php:272
+msgid "Filter Labels"
 msgstr ""
 
 #: templates/shortcodes/list.php:41
@@ -111,6 +207,14 @@ msgstr ""
 msgid "Gallery navigation"
 msgstr ""
 
+#: includes/admin-pages.php:304
+msgid "Generate Shortcode"
+msgstr ""
+
+#: includes/admin-pages.php:312
+msgid "Generated Shortcode"
+msgstr ""
+
 #: includes/media.php:78
 msgid "Header Image (Width 992 / Height 558)"
 msgstr ""
@@ -132,12 +236,40 @@ msgstr ""
 msgid "Image Gallery:"
 msgstr ""
 
+#: includes/admin-pages.php:190
+msgid "Images (Overlay)"
+msgstr ""
+
+#: includes/admin-pages.php:342
+msgid "Inline CSS"
+msgstr ""
+
+#: includes/admin-pages.php:279
+msgid "Label for Filter 1"
+msgstr ""
+
+#: includes/admin-pages.php:282
+msgid "Label for Filter 2"
+msgstr ""
+
+#: includes/admin-pages.php:276
+msgid "Label for Reference Type filter"
+msgstr ""
+
 #: includes/pagination.php:126
 msgid "Last Page"
 msgstr ""
 
+#: includes/admin-pages.php:184
+msgid "Layout"
+msgstr ""
+
 #: templates/shortcodes/list.php:121
 msgid "Layout template not found."
+msgstr ""
+
+#: includes/admin-pages.php:188
+msgid "List (Compact)"
 msgstr ""
 
 #: templates/partials/archive/reference_location.php:12
@@ -151,6 +283,10 @@ msgstr ""
 
 #: templates/archive-reference_location.php:19
 msgid "Locations overview"
+msgstr ""
+
+#: includes/admin-pages.php:203
+msgid "Maximum number of references to display (0 = all)."
 msgstr ""
 
 #: templates/partials/reference/reference_image_gallery_modal.php:66
@@ -194,9 +330,35 @@ msgstr ""
 msgid "No types found."
 msgstr ""
 
+#: includes/admin-pages.php:199
+msgid "Number of References"
+msgstr ""
+
 #: templates/partials/reference/reference_image_gallery.php:39
 #, php-format
 msgid "Open image %d of %d in lightbox"
+msgstr ""
+
+#: includes/admin-pages.php:238
+msgid "Optional CSS classes for styling (e.g., \"mb-5\")."
+msgstr ""
+
+#: includes/admin-pages.php:227
+msgid "Optional headline above the reference list."
+msgstr ""
+
+#: includes/admin-pages.php:149
+msgid ""
+"Optional: Specify a custom redirect URL. If empty, redirects to the "
+"homepage. Only applies when archive is disabled."
+msgstr ""
+
+#: includes/admin-pages.php:38 includes/admin-pages.php:39
+msgid "Options"
+msgstr ""
+
+#: includes/admin-pages.php:333
+msgid "Other Available Shortcodes"
 msgstr ""
 
 #: includes/pagination.php:101
@@ -236,14 +398,23 @@ msgstr ""
 msgid "Published yesterday"
 msgstr ""
 
+#: includes/admin-pages.php:123
+msgid "Redirect all access to the reference archive page (/references/)"
+msgstr ""
+
 #: includes/media.php:76
 msgid "Reference Image (16:9 / Width 576px)"
+msgstr ""
+
+#: includes/admin-pages.php:174
+msgid "Reference List Shortcode Generator"
 msgstr ""
 
 #: includes/media.php:77
 msgid "Reference Logo (Width 512 / Height 512)"
 msgstr ""
 
+#: includes/admin-pages.php:262 includes/admin-pages.php:275
 #: includes/shortcodes.php:355
 msgid "Reference Type"
 msgstr ""
@@ -265,6 +436,10 @@ msgstr ""
 msgid "Reset %s filter"
 msgstr ""
 
+#: includes/admin-pages.php:289
+msgid "Reset Button"
+msgstr ""
+
 #: templates/shortcodes/list.php:93
 msgid "Reset all"
 msgstr ""
@@ -273,14 +448,50 @@ msgstr ""
 msgid "Reset all filters"
 msgstr ""
 
+#: includes/admin-pages.php:350 includes/admin-pages.php:357
+msgid "Same as above"
+msgstr ""
+
+#: includes/admin-pages.php:223
+msgid "Section Title"
+msgstr ""
+
+#: includes/admin-pages.php:340
+msgid "Section headline"
+msgstr ""
+
 #: includes/class-plugin-updater.php:425
 #, php-format
 msgid ""
 "Security verification failed: Plugin checksum mismatch. Expected: %s, Got: %s"
 msgstr ""
 
+#: includes/admin-pages.php:265
+msgid "Select which filter dimensions to display."
+msgstr ""
+
+#: includes/admin-pages.php:380
+msgid "Settings saved successfully."
+msgstr ""
+
+#: includes/admin-pages.php:28 includes/admin-pages.php:29
+msgid "Shortcodes"
+msgstr ""
+
+#: includes/admin-pages.php:294
+msgid "Show \"Reset all filters\" button"
+msgstr ""
+
 #: templates/shortcodes/list.php:65
 msgid "Show all"
+msgstr ""
+
+#: includes/admin-pages.php:250
+msgid "Show filter dropdowns"
+msgstr ""
+
+#: includes/admin-pages.php:210
+msgid "Sort Order"
 msgstr ""
 
 #: templates/archive-reference_customer.php:67
@@ -313,6 +524,12 @@ msgstr ""
 #: templates/archive-reference_customer.php:51
 #: templates/archive-reference_location.php:51
 msgid "View details…"
+msgstr ""
+
+#: includes/admin-pages.php:126
+msgid ""
+"When enabled, visitors will be redirected from the archive page. Single "
+"reference pages remain accessible."
 msgstr ""
 
 #: templates/partials/reference/reference_year.php:20

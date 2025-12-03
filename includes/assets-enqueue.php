@@ -58,3 +58,38 @@ add_action( 'wp_enqueue_scripts', function(): void {
     );
 
 }, 20 );
+
+/**
+ * Enqueue admin scripts and styles
+ *
+ * @since 1.0.0
+ * @return void
+ */
+add_action( 'admin_enqueue_scripts', function( $hook ): void {
+
+    // Only load on our admin pages
+    if ( ! in_array( $hook, [ 'reference_page_jpkcom-acf-ref-shortcodes', 'reference_page_jpkcom-acf-ref-options' ] ) ) {
+        return;
+    }
+
+    // Enqueue admin CSS
+    wp_enqueue_style(
+        'jpkcom-acf-ref-admin-styles',
+        JPKCOM_ACFREFERENCES_PLUGIN_URL . 'assets/css/admin-styles.css',
+        [],
+        JPKCOM_ACFREFERENCES_VERSION,
+        'all'
+    );
+
+    // Enqueue shortcode generator JS only on shortcodes page
+    if ( $hook === 'reference_page_jpkcom-acf-ref-shortcodes' ) {
+        wp_enqueue_script(
+            'jpkcom-acf-ref-shortcode-generator',
+            JPKCOM_ACFREFERENCES_PLUGIN_URL . 'assets/js/shortcode-generator.js',
+            [],
+            JPKCOM_ACFREFERENCES_VERSION,
+            true
+        );
+    }
+
+}, 10 );

@@ -1,0 +1,76 @@
+/**
+ * JPKCom ACF References - Admin Styles
+ *
+ * @package   JPKCom_ACF_References
+ * @since     1.0.0
+ */
+
+/* Shortcode Generator */
+.jpkcom-acf-ref-shortcode-generator {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.jpkcom-acf-ref-shortcode-generator h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.jpkcom-acf-ref-shortcode-generator .form-table {
+    margin-top: 20px;
+}
+
+#sg_output {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    background: #f6f7f7;
+    border: 1px solid #c3c4c7;
+    padding: 10px;
+}
+
+#sg_output:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+#sg_copy_feedback {
+    font-weight: 600;
+}
+
+/* Other Shortcodes Section */
+.jpkcom-acf-ref-other-shortcodes {
+    margin-top: 30px;
+}
+
+.jpkcom-acf-ref-other-shortcodes h3 {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.jpkcom-acf-ref-other-shortcodes code {
+    background: #f0f0f1;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.jpkcom-acf-ref-other-shortcodes ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.jpkcom-acf-ref-other-shortcodes ul li {
+    margin-bottom: 5px;
+}
+
+/* Settings Page */
+.jpkcom-acf-ref-settings {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+}

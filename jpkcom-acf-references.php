@@ -322,3 +322,23 @@ if ( $jpkcomAcfReferenceAssets ) {
     require_once $jpkcomAcfReferenceAssets;
 
 }
+
+
+/**
+ * Load admin pages and settings
+ *
+ * Registers admin pages for shortcode generator and plugin options.
+ *
+ * @since 1.0.0
+ */
+if ( is_admin() ) {
+
+    $jpkcomAcfReferenceAdminPages = jpkcom_acfreferences_locate_file( filename: 'admin-pages.php' );
+
+    if ( $jpkcomAcfReferenceAdminPages ) {
+
+        require_once $jpkcomAcfReferenceAdminPages;
+
+    }
+
+}
