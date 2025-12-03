@@ -152,7 +152,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
                 </h5>
 
                 <?php if ( $short_description ) : ?>
-                    <p class="card-text"><?php echo esc_html( $short_description ); ?></p>
+                    <p class="card-text"><?php echo wp_kses_post( $short_description ); ?></p>
                 <?php endif; ?>
             </div>
 
@@ -179,7 +179,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
                 <?php endif; ?>
             </ul>
 
-            <div class="card-body">
+            <div class="card-footer text-body-secondary">
                 <p class="card-text">
                     <small class="text-body-secondary">
                         <time datetime="<?php echo esc_attr( $date_iso ); ?>" class="date-posted">
