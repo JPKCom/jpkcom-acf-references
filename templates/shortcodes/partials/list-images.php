@@ -79,7 +79,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
         $filter_attributes['data-reference-filter-2'] = implode( ',', $ref_filter_2_ids );
 
         // Get display data
-        $post_thumbnail = get_the_post_thumbnail( $post_item->ID, 'jpkcom-acf-reference-header', [ 'class' => 'card-img' ] );
+        $post_thumbnail = get_the_post_thumbnail( $post_item->ID, 'jpkcom-acf-reference-header', [ 'class' => 'card-img rounded-0' ] );
 
         // Check if this reference is featured
         $is_featured = get_field( 'reference_featured', $post_item->ID );
