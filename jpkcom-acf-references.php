@@ -3,7 +3,7 @@
 Plugin Name: JPKCom ACF References
 Plugin URI: https://github.com/JPKCom/jpkcom-acf-references
 Description: Reference gallery with filter function plugin for ACF
-Version: 1.0.0
+Version: 1.0.1
 Author: Jean Pierre Kolb <jpk@jpkc.com>
 Author URI: https://www.jpkc.com/
 Contributors: JPKCom
@@ -13,7 +13,7 @@ Requires at least: 6.8
 Tested up to: 6.9
 Requires PHP: 8.3
 Network: true
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 Text Domain: jpkcom-acf-references
@@ -32,7 +32,7 @@ if ( ! defined( constant_name: 'WPINC' ) ) {
  * @since 1.0.0
  */
 if ( ! defined( 'JPKCOM_ACFREFERENCES_VERSION' ) ) {
-	define( 'JPKCOM_ACFREFERENCES_VERSION', '1.0.0' );
+	define( 'JPKCOM_ACFREFERENCES_VERSION', '1.0.1' );
 }
 
 if ( ! defined( 'JPKCOM_ACFREFERENCES_BASENAME' ) ) {
@@ -288,6 +288,22 @@ $jpkcomAcfReferenceTemplateLoader = jpkcom_acfreferences_locate_file( filename: 
 if ( $jpkcomAcfReferenceTemplateLoader ) {
 
     require_once $jpkcomAcfReferenceTemplateLoader;
+
+}
+
+
+/**
+ * Load WPML + ACF field keys fix
+ *
+ * Ensures ACF field keys are copied to WPML translations for proper field formatting.
+ *
+ * @since 1.0.1
+ */
+$jpkcomAcfReferenceWpmlFix = jpkcom_acfreferences_locate_file( filename: 'wpml-acf-field-keys-fix.php' );
+
+if ( $jpkcomAcfReferenceWpmlFix ) {
+
+    require_once $jpkcomAcfReferenceWpmlFix;
 
 }
 

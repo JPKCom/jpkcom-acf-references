@@ -17,7 +17,7 @@
                 "name": "reference_customer_url",
                 "aria-label": "",
                 "type": "link",
-                "instructions": "Geben Sie hier eine Verlinkung\/URL zur Kundenwebseite an.",
+                "instructions": "Geben Sie hier eine Verlinkung/URL zur Kundenwebseite an.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -620,7 +620,7 @@
                 "show_column_weight": 1000,
                 "show_column_sortable": false,
                 "key": "field_673e70b4be3b7",
-                "label": "Region\/Bundesland",
+                "label": "Region/Bundesland",
                 "name": "reference_location_region",
                 "aria-label": "",
                 "type": "text",
@@ -796,7 +796,7 @@
         "show_in_nav_menus": 0,
         "show_in_rest": 1,
         "rest_base": "reference-filter-1",
-        "rest_namespace": "wp\/v2",
+        "rest_namespace": "wp/v2",
         "rest_controller_class": "WP_REST_Terms_Controller",
         "show_tagcloud": 0,
         "show_in_quick_edit": 1,
@@ -814,7 +814,8 @@
         "sort": 1,
         "meta_box": "disabled",
         "meta_box_cb": "",
-        "meta_box_sanitize_cb": ""
+        "meta_box_sanitize_cb": "",
+        "acfml_field_group_mode": "translation"
     },
     {
         "key": "taxonomy_6925c2d5627d8",
@@ -870,7 +871,7 @@
         "show_in_nav_menus": 0,
         "show_in_rest": 1,
         "rest_base": "reference-filter-2",
-        "rest_namespace": "wp\/v2",
+        "rest_namespace": "wp/v2",
         "rest_controller_class": "WP_REST_Terms_Controller",
         "show_tagcloud": 0,
         "show_in_quick_edit": 1,
@@ -888,7 +889,8 @@
         "sort": 1,
         "meta_box": "disabled",
         "meta_box_cb": "",
-        "meta_box_sanitize_cb": ""
+        "meta_box_sanitize_cb": "",
+        "acfml_field_group_mode": "translation"
     },
     {
         "key": "taxonomy_6925bf5f68541",
@@ -944,7 +946,7 @@
         "show_in_nav_menus": 0,
         "show_in_rest": 1,
         "rest_base": "reference-type",
-        "rest_namespace": "wp\/v2",
+        "rest_namespace": "wp/v2",
         "rest_controller_class": "WP_REST_Terms_Controller",
         "show_tagcloud": 0,
         "show_in_quick_edit": 1,
@@ -962,7 +964,8 @@
         "sort": 1,
         "meta_box": "disabled",
         "meta_box_cb": "",
-        "meta_box_sanitize_cb": ""
+        "meta_box_sanitize_cb": "",
+        "acfml_field_group_mode": "translation"
     },
     {
         "key": "post_type_68dcf6d00a103",
@@ -1020,7 +1023,7 @@
         "show_in_nav_menus": false,
         "show_in_rest": true,
         "rest_base": "reference_customer",
-        "rest_namespace": "wp\/v2",
+        "rest_namespace": "wp/v2",
         "rest_controller_class": "WP_REST_Posts_Controller",
         "menu_position": "",
         "menu_icon": "",
@@ -1045,7 +1048,8 @@
         "can_export": true,
         "delete_with_user": false,
         "register_meta_box_cb": "",
-        "enter_title_here": "Kundenname"
+        "enter_title_here": "Kundenname",
+        "acfml_field_group_mode": "translation"
     },
     {
         "key": "post_type_68dcefa2209d6",
@@ -1103,7 +1107,7 @@
         "show_in_nav_menus": false,
         "show_in_rest": true,
         "rest_base": "reference_location",
-        "rest_namespace": "wp\/v2",
+        "rest_namespace": "wp/v2",
         "rest_controller_class": "WP_REST_Posts_Controller",
         "menu_position": "",
         "menu_icon": "",
@@ -1128,7 +1132,8 @@
         "can_export": true,
         "delete_with_user": false,
         "register_meta_box_cb": "",
-        "enter_title_here": "Name des Ortes"
+        "enter_title_here": "Name des Ortes",
+        "acfml_field_group_mode": "translation"
     },
     {
         "key": "post_type_6925b283d6076",
@@ -1186,7 +1191,7 @@
         "show_in_nav_menus": true,
         "show_in_rest": true,
         "rest_base": "references",
-        "rest_namespace": "wp\/v2",
+        "rest_namespace": "wp/v2",
         "rest_controller_class": "WP_REST_Posts_Controller",
         "menu_position": "",
         "menu_icon": {
@@ -1218,6 +1223,7 @@
         "can_export": true,
         "delete_with_user": false,
         "register_meta_box_cb": "",
-        "enter_title_here": ""
+        "enter_title_here": "",
+        "acfml_field_group_mode": "translation"
     }
 ]

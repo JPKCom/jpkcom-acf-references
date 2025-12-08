@@ -14,8 +14,8 @@
     <!-- Reference Details -->
     <custom-field action="copy-once">reference_url</custom-field>
     <custom-field action="translate">reference_short_description</custom-field>
-    <custom-field action="copy-once">reference_customer</custom-field>
-    <custom-field action="copy-once">reference_location</custom-field>
+    <custom-field action="copy-once" translate_link_target="1">reference_customer</custom-field>
+    <custom-field action="copy-once" translate_link_target="1">reference_location</custom-field>
     <custom-field action="copy-once">reference_year</custom-field>
     <custom-field action="copy-once">reference_image_gallery</custom-field>
     <custom-field action="copy-once">reference_type</custom-field>
@@ -27,7 +27,7 @@
     <!-- Reference Customer (Company) Fields -->
     <custom-field action="copy-once">reference_customer_url</custom-field>
     <custom-field action="copy-once">reference_customer_logo</custom-field>
-    <custom-field action="copy-once">reference_customer_references</custom-field>
+    <custom-field action="copy-once" translate_link_target="1">reference_customer_references</custom-field>
 
     <!-- Reference Location Fields -->
     <custom-field action="translate">reference_location_place</custom-field>
@@ -35,16 +35,17 @@
     <custom-field action="translate">reference_location_street</custom-field>
     <custom-field action="translate">reference_location_region</custom-field>
     <custom-field action="translate">reference_location_country</custom-field>
-    <custom-field action="copy-once">reference_location_references</custom-field>
+    <custom-field action="copy-once" translate_link_target="1">reference_location_references</custom-field>
 
     <!-- ============================================ -->
     <!-- ACF Internal Fields - IGNORE THESE           -->
     <!-- These store field keys, not actual content   -->
+    <!-- EXCEPTION: Post Object fields need copy-once -->
     <!-- ============================================ -->
     <custom-field action="ignore">_reference_url</custom-field>
     <custom-field action="ignore">_reference_short_description</custom-field>
-    <custom-field action="ignore">_reference_customer</custom-field>
-    <custom-field action="ignore">_reference_location</custom-field>
+    <custom-field action="copy-once">_reference_customer</custom-field>
+    <custom-field action="copy-once">_reference_location</custom-field>
     <custom-field action="ignore">_reference_year</custom-field>
     <custom-field action="ignore">_reference_image_gallery</custom-field>
     <custom-field action="ignore">_reference_type</custom-field>
@@ -54,13 +55,13 @@
     <custom-field action="ignore">_reference_expiry_date</custom-field>
     <custom-field action="ignore">_reference_customer_url</custom-field>
     <custom-field action="ignore">_reference_customer_logo</custom-field>
-    <custom-field action="ignore">_reference_customer_references</custom-field>
+    <custom-field action="copy-once">_reference_customer_references</custom-field>
     <custom-field action="ignore">_reference_location_place</custom-field>
     <custom-field action="ignore">_reference_location_zip</custom-field>
     <custom-field action="ignore">_reference_location_street</custom-field>
     <custom-field action="ignore">_reference_location_region</custom-field>
     <custom-field action="ignore">_reference_location_country</custom-field>
-    <custom-field action="ignore">_reference_location_references</custom-field>
+    <custom-field action="copy-once">_reference_location_references</custom-field>
 
   </custom-fields>
 </wpml-config>

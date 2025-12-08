@@ -317,38 +317,80 @@ Multilingual configuration in `wpml-config.xml` provides comprehensive WPML inte
 
 **ACF Field Translation Strategy:**
 
+**CRITICAL:** The `wpml_cf_preferences` values in ACF field definitions MUST match the actions in `wpml-config.xml`:
+
+- `wpml_cf_preferences => 0` = `action="ignore"` (ACF internal fields only)
+- `wpml_cf_preferences => 1` = `action="copy-once"` (copied once, then independent)
+- `wpml_cf_preferences => 2` = `action="translate"` (content differs per language)
+- `wpml_cf_preferences => 3` = `action="copy"` (kept in sync across translations - RARELY USED)
+
+All field groups MUST include `'acfml_field_group_mode' => 'translation'` for proper WPML integration.
+
 Three action types control how fields are handled across languages:
 
-1. **`action="translate"`** - Content differs per language:
+1. **`action="translate"`** (`wpml_cf_preferences => 2`) - Content differs per language:
    - `reference_short_description`
    - `reference_location_place`
    - `reference_location_street`
    - `reference_location_region`
    - `reference_location_country`
 
-2. **`action="copy-once"`** - Copied once, then independent:
-   - `reference_url`, `reference_customer`, `reference_location`
+2. **`action="copy-once"`** (`wpml_cf_preferences => 1`) - Copied once, then independent:
+   - **IMPORTANT:** This is the default for most fields!
+   - `reference_url`
+   - `reference_customer`, `reference_location` (with `translate_link_target="1"` for auto Post-ID translation)
    - `reference_year`, `reference_image_gallery`
    - `reference_type`, `reference_filter_1`, `reference_filter_2`
    - `reference_featured`, `reference_expiry_date`
-   - All customer fields (`reference_customer_url`, `reference_customer_logo`)
+   - All customer fields (`reference_customer_url`, `reference_customer_logo`, `reference_customer_references`)
    - Location zip code (`reference_location_zip`)
+   - Bidirectional field `reference_location_references`
 
-3. **`action="copy"`** - Kept in sync across translations:
-   - (Not used in this plugin - no fields require permanent synchronization)
+3. **`action="copy"`** (`wpml_cf_preferences => 3`) - Kept in sync across translations:
+   - **NOT USED** in this plugin (causes issues with arrays and objects)
 
 **ACF Internal Fields (Prefixed with `_`):**
 
 WPML requires special handling of ACF's internal meta fields:
 
-- **Standard fields:** `action="ignore"` - These store field keys, not content (e.g., `_reference_type`, `_reference_url`)
-- All underscore-prefixed fields in `wpml-config.xml` are set to `ignore` as they contain ACF metadata, not user content
+- **Most fields:** `action="ignore"` - These store field keys, not content (e.g., `_reference_type`, `_reference_url`)
+- **Post Object fields:** `action="copy-once"` - EXCEPTION for fields that link to other posts
+  - `_reference_customer` - Must be copied for ACF to format the Post Object correctly
+  - `_reference_location` - Must be copied for ACF to format the Post Object correctly
+  - `_reference_customer_references` - Bidirectional field key
+  - `_reference_location_references` - Bidirectional field key
+
+Without these internal field keys copied to translations, ACF cannot properly format field values and will return raw database values (IDs instead of post objects).
 
 **Translation Files:**
 - Located in `languages/` directory
 - Format: `.l10n.php` (WordPress 6.8+ format), `.po` (source), `.mo` (compiled)
 - Text domain: `jpkcom-acf-references`
 - German translations included: `de_DE` and `de_DE_formal`
+
+**Important Notes:**
+
+**Bidirectional Post Object Fields:**
+- Fields like `reference_location` and `reference_customer` use `wpml_cf_preferences => 1` (copy-once) with `translate_link_target="1"` in wpml-config.xml
+- The `translate_link_target="1"` attribute is **CRITICAL** - it tells WPML to automatically translate Post IDs to their translated versions
+- Without this, the field would show the wrong post (e.g., showing the Reference title instead of Location/Customer title)
+- Example in wpml-config.xml:
+  ```xml
+  <custom-field action="copy-once" translate_link_target="1">reference_customer</custom-field>
+  <custom-field action="copy-once" translate_link_target="1">reference_location</custom-field>
+  ```
+
+**WPML + ACF Field Keys Automatic Fix:**
+- The plugin includes `includes/wpml-acf-field-keys-fix.php` which automatically copies ACF field keys to translations
+- This hook runs on `wpml_pro_translation_completed` and `wpml_translation_job_saved`
+- Without this fix, ACF fields in translations would show raw values (IDs, serialized strings) instead of formatted objects
+- The fix copies all `_field_name` meta keys from the original post to the translation
+- This is essential for Post Object fields, Gallery fields, and other complex ACF field types
+
+**Python Scripts:**
+- `update-json-from-wpml.py` - Syncs ACF JSON export with wpml-config.xml
+- Uses the correct mapping: ignore=0, copy-once=1, translate=2, copy=3
+- Automatically adds `acfml_field_group_mode => 'translation'` to all field groups
 
 **Updating Translation Files:**
 ```bash
