@@ -3,7 +3,7 @@
 **Plugin Name:** JPKCom ACF References  
 **Plugin URI:** https://github.com/JPKCom/jpkcom-acf-references  
 **Description:** Reference gallery with filter function plugin for ACF  
-**Version:** 1.0.1  
+**Version:** 1.0.2  
 **Author:** Jean Pierre Kolb <jpk@jpkc.com>  
 **Author URI:** https://www.jpkc.com/  
 **Contributors:** JPKCom  
@@ -13,7 +13,7 @@
 **Tested up to:** 6.9  
 **Requires PHP:** 8.3  
 **Network:** true  
-**Stable tag:** 1.0.1  
+**Stable tag:** 1.0.2  
 **License:** GPL-2.0+  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.txt  
 **Text Domain:** jpkcom-acf-references  
@@ -66,6 +66,13 @@ The following plugins are **required** for this plugin to work:
 - **CSS Animations** (`assets/css/reference-styles.css`) - Smooth fade-in/fade-out effects with `prefers-reduced-motion` support
 - **Translation Files** (`languages/`) - German translations included (de_DE, de_DE_formal) with .l10n.php format
 - **Automatic Updates** (`includes/class-plugin-updater.php`) - GitHub-based update system with SHA256 checksum verification
+
+### Documentation
+
+**API Documentation:** Complete PHPDoc-generated API documentation is available at:
+[https://jpkcom.github.io/jpkcom-acf-references/docs/](https://jpkcom.github.io/jpkcom-acf-references/docs/)
+
+The documentation includes detailed information about all functions, classes, hooks, and filters available in the plugin.
 
 ### Get Template Parts
 
@@ -481,6 +488,9 @@ This plugin is **network-compatible**. To install on a multisite network:
 
 
 ## Changelog
+
+### 1.0.2
+* Added check for "SitePress" class
 
 ### 1.0.1
 * Fix for incorrect database content caused by WPML

@@ -4,7 +4,7 @@
 https://github.com/JPKCom/jpkcom-acf-references<br />
 <strong>Description:</strong> Reference gallery with filter function
 plugin for ACF<br />
-<strong>Version:</strong> 1.0.1<br />
+<strong>Version:</strong> 1.0.2<br />
 <strong>Author:</strong> Jean Pierre Kolb <a href="mailto:jpk@jpkc.com"
 class="email">jpk@jpkc.com</a><br />
 <strong>Author URI:</strong> https://www.jpkc.com/<br />
@@ -16,7 +16,7 @@ acf-quickedit-fields<br />
 <strong>Tested up to:</strong> 6.9<br />
 <strong>Requires PHP:</strong> 8.3<br />
 <strong>Network:</strong> true<br />
-<strong>Stable tag:</strong> 1.0.1<br />
+<strong>Stable tag:</strong> 1.0.2<br />
 <strong>License:</strong> GPL-2.0+<br />
 <strong>License URI:</strong>
 http://www.gnu.org/licenses/gpl-2.0.txt<br />
@@ -113,6 +113,12 @@ format</li>
 (<code>includes/class-plugin-updater.php</code>) - GitHub-based update
 system with SHA256 checksum verification</li>
 </ul>
+<h3 id="documentation">Documentation</h3>
+<p><strong>API Documentation:</strong> Complete PHPDoc-generated API
+documentation is available at: <a
+href="https://jpkcom.github.io/jpkcom-acf-references/docs/">https://jpkcom.github.io/jpkcom-acf-references/docs/</a></p>
+<p>The documentation includes detailed information about all functions,
+classes, hooks, and filters available in the plugin.</p>
 <h3 id="get-template-parts">Get Template Parts</h3>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode php"><code class="sourceCode php"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Native WordPress:</span></span>
@@ -495,11 +501,15 @@ published (not draft) - Ensure the correct taxonomy slug is used -
 Confirm <code>show_filter</code> attribute includes the correct filter
 indexes (0, 1, or 2)</p>
 <h2 id="changelog">Changelog</h2>
-<h3 id="section">1.0.1</h3>
+<h3 id="section">1.0.2</h3>
+<ul>
+<li>Added check for “SitePress” class</li>
+</ul>
+<h3 id="section-1">1.0.1</h3>
 <ul>
 <li>Fix for incorrect database content caused by WPML</li>
 </ul>
-<h3 id="section-1">1.0.0</h3>
+<h3 id="section-2">1.0.0</h3>
 <ul>
 <li>Initial Release</li>
 </ul>
