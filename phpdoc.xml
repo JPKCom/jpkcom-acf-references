@@ -5,7 +5,7 @@
     xmlns="https://www.phpdoc.org"
     xsi:noNamespaceSchemaLocation="https://docs.phpdoc.org/latest/phpdoc.xsd"
 >
-    <title>JPKCom ACF References - API Documentation</title>
+    <title>JPKCom ACF References</title>
     <paths>
         <output>docs</output>
     </paths>
