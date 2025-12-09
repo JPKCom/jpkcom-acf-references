@@ -67,6 +67,13 @@ The following plugins are **required** for this plugin to work:
 - **Translation Files** (`languages/`) - German translations included (de_DE, de_DE_formal) with .l10n.php format
 - **Automatic Updates** (`includes/class-plugin-updater.php`) - GitHub-based update system with SHA256 checksum verification
 
+### Documentation
+
+**API Documentation:** Complete PHPDoc-generated API documentation is available at:
+[https://jpkcom.github.io/jpkcom-acf-references/docs/](https://jpkcom.github.io/jpkcom-acf-references/docs/)
+
+The documentation includes detailed information about all functions, classes, hooks, and filters available in the plugin.
+
 ### Get Template Parts
 
 ```php
