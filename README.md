@@ -3,7 +3,7 @@
 **Plugin Name:** JPKCom ACF References  
 **Plugin URI:** https://github.com/JPKCom/jpkcom-acf-references  
 **Description:** Reference gallery with filter function plugin for ACF  
-**Version:** 1.0.2  
+**Version:** 1.0.3  
 **Author:** Jean Pierre Kolb <jpk@jpkc.com>  
 **Author URI:** https://www.jpkc.com/  
 **Contributors:** JPKCom  
@@ -13,7 +13,7 @@
 **Tested up to:** 6.9  
 **Requires PHP:** 8.3  
 **Network:** true  
-**Stable tag:** 1.0.2  
+**Stable tag:** 1.0.3  
 **License:** GPL-2.0+  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.txt  
 **Text Domain:** jpkcom-acf-references  
@@ -488,6 +488,10 @@ This plugin is **network-compatible**. To install on a multisite network:
 
 
 ## Changelog
+
+### 1.0.3
+* Fixed updater checksum verification failing on manual ZIP uploads (local file paths mistaken for URLs)
+* Fixed release ZIP missing top-level directory, causing WordPress to not recognize plugin updates
 
 ### 1.0.2
 * Added check for "SitePress" class
