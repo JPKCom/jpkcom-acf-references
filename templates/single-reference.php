@@ -52,7 +52,7 @@ get_header();
 
                         <div class="entry-content">
 
-                            <h2><?php echo __( 'Description', 'jpkcom-acf-references' ); ?>:</h2>
+                            <h2><?php echo esc_html__( 'Description', 'jpkcom-acf-references' ); ?>:</h2>
 
                             <hr>
 
@@ -72,7 +72,7 @@ get_header();
 
                     <div class="flex-grow-1 p-4 rounded text-bg-secondary">
 
-                        <h2><?php echo __( 'Details', 'jpkcom-acf-references' ); ?>:</h2>
+                        <h2><?php echo esc_html__( 'Details', 'jpkcom-acf-references' ); ?>:</h2>
 
                         <hr>
 

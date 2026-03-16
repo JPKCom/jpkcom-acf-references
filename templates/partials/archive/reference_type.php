@@ -9,7 +9,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
 
 <?php if ( get_field( 'reference_type' ) ) { ?>
     <li class="d-block">
-        <strong><?php echo __( 'Type', 'jpkcom-acf-references' ); ?>:</strong><br>
+        <strong><?php echo esc_html__( 'Type', 'jpkcom-acf-references' ); ?>:</strong><br>
         <?php
         $types = get_field( 'reference_type' );
         if ( $types && is_array( value: $types ) ) {

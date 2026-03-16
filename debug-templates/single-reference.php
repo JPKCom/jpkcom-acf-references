@@ -40,7 +40,7 @@ if ( have_posts() ) :
                 }
             ?>
 
-            <p><a href="<?php echo get_post_type_archive_link( 'reference' ); ?>" class="btn btn-primary">&larr; <?php echo __( 'Back to overview', 'jpkcom-acf-references' ); ?></a></p>
+            <p><a href="<?php echo esc_url( get_post_type_archive_link( 'reference' ) ); ?>" class="btn btn-primary">&larr; <?php echo esc_html__( 'Back to overview', 'jpkcom-acf-references' ); ?></a></p>
         </div>
     </div>
 </div>

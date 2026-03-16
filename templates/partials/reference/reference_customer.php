@@ -9,7 +9,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
 
 <?php if ( get_field( 'reference_customer' ) ) { ?>
 
-    <h3 class="fs-4"><?php echo __( 'Customer', 'jpkcom-acf-references' ); ?></h3>
+    <h3 class="fs-4"><?php echo esc_html__( 'Customer', 'jpkcom-acf-references' ); ?></h3>
     <?php
 
     $customers = get_field( 'reference_customer' );
@@ -68,7 +68,7 @@ defined( constant_name: 'ABSPATH' ) || exit;
 
             echo '</div>';
             echo '<div class="col-10">';
-            echo '<p class="fs-5"><strong>' . $reference_customer_url_HTML_Before . $reference_customer_url . $reference_customer_url_HTML_After . get_the_title( $customer->ID ) . $reference_customer_url_HTML_Closing . '</strong></p>';
+            echo '<p class="fs-5"><strong>' . $reference_customer_url_HTML_Before . $reference_customer_url . $reference_customer_url_HTML_After . esc_html( get_the_title( $customer->ID ) ) . $reference_customer_url_HTML_Closing . '</strong></p>';
             echo '</div>';
             echo '</div>';
 

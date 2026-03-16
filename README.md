@@ -3,7 +3,7 @@
 **Plugin Name:** JPKCom ACF References  
 **Plugin URI:** https://github.com/JPKCom/jpkcom-acf-references  
 **Description:** Reference gallery with filter function plugin for ACF  
-**Version:** 1.0.3  
+**Version:** 1.0.4  
 **Author:** Jean Pierre Kolb <jpk@jpkc.com>  
 **Author URI:** https://www.jpkc.com/  
 **Contributors:** JPKCom  
@@ -13,7 +13,7 @@
 **Tested up to:** 6.9  
 **Requires PHP:** 8.3  
 **Network:** true  
-**Stable tag:** 1.0.3  
+**Stable tag:** 1.0.4  
 **License:** GPL-2.0+  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.txt  
 **Text Domain:** jpkcom-acf-references  
@@ -488,6 +488,12 @@ This plugin is **network-compatible**. To install on a multisite network:
 
 
 ## Changelog
+
+### 1.0.4
+* Fixed pagination layout not wrapping on small screens or with long post titles
+* Pagination items now use `flex-wrap` and consistent `page-link` styling
+* Previous/next links are hidden when no adjacent post exists
+* Improved output escaping across all templates: `__()` → `esc_html__()`, `get_the_title()` → `esc_html()`, `get_field()` → `esc_html()`, `get_the_date()` → `esc_attr()`, `get_post_type_archive_link()` → `esc_url()`
 
 ### 1.0.3
 * Fixed updater checksum verification failing on manual ZIP uploads (local file paths mistaken for URLs)
