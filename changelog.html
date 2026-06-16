@@ -1,4 +1,21 @@
-<h3 id="section">1.0.4</h3>
+<h3 id="section">1.0.5</h3>
+<ul>
+<li>Security: updater prefers an exact match against the manifest
+<code>download_url</code> over the slug heuristic, so a tampered
+manifest can no longer bypass the checksum gate</li>
+<li>Security: timing-safe checksum comparison
+(<code>hash_equals()</code>) with an <code>is_string()</code> guard
+against <code>hash_file()</code> failures</li>
+<li>Security: manifest fetch via <code>wp_safe_remote_get()</code> (SSRF
+defense-in-depth)</li>
+<li>Fixed PHP warning and missing contributor names in the plugin detail
+popup (<code>display_name</code> now provided)</li>
+<li>Fixed PHP warning/deprecation on <code>wp plugin list</code> by
+completing the <code>no_update</code> transient entry
+(<code>new_version</code>, <code>package</code>, <code>tested</code>,
+<code>requires_php</code>)</li>
+</ul>
+<h3 id="section-1">1.0.4</h3>
 <ul>
 <li>Fixed pagination layout not wrapping on small screens or with long
 post titles</li>
@@ -12,22 +29,22 @@ post titles</li>
 <code>esc_attr()</code>, <code>get_post_type_archive_link()</code> →
 <code>esc_url()</code></li>
 </ul>
-<h3 id="section-1">1.0.3</h3>
+<h3 id="section-2">1.0.3</h3>
 <ul>
 <li>Fixed updater checksum verification failing on manual ZIP uploads
 (local file paths mistaken for URLs)</li>
 <li>Fixed release ZIP missing top-level directory, causing WordPress to
 not recognize plugin updates</li>
 </ul>
-<h3 id="section-2">1.0.2</h3>
+<h3 id="section-3">1.0.2</h3>
 <ul>
 <li>Added check for “SitePress” class</li>
 </ul>
-<h3 id="section-3">1.0.1</h3>
+<h3 id="section-4">1.0.1</h3>
 <ul>
 <li>Fix for incorrect database content caused by WPML</li>
 </ul>
-<h3 id="section-4">1.0.0</h3>
+<h3 id="section-5">1.0.0</h3>
 <ul>
 <li>Initial Release</li>
 </ul>
