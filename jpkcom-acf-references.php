@@ -3,19 +3,19 @@
 Plugin Name: JPKCom ACF References
 Plugin URI: https://github.com/JPKCom/jpkcom-acf-references
 Description: Reference gallery with filter function plugin for ACF
-Version: 1.0.5
+Version: 1.0.6
 Author: Jean Pierre Kolb <jpk@jpkc.com>
 Author URI: https://www.jpkc.com/
 Contributors: JPKCom
 Tags: ACF, Fields, CPT, CTT, Taxonomy, Images
 Requires Plugins: advanced-custom-fields-pro, acf-quickedit-fields
-Requires at least: 6.8
-Tested up to: 6.9
+Requires at least: 6.9
+Tested up to: 7.0
 Requires PHP: 8.3
 Network: true
-Stable tag: 1.0.5
-License: GPL-2.0+
-License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+Stable tag: 1.0.6
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: jpkcom-acf-references
 Domain Path: /languages
 */
@@ -32,7 +32,7 @@ if ( ! defined( constant_name: 'WPINC' ) ) {
  * @since 1.0.0
  */
 if ( ! defined( 'JPKCOM_ACFREFERENCES_VERSION' ) ) {
-	define( 'JPKCOM_ACFREFERENCES_VERSION', '1.0.5' );
+	define( 'JPKCOM_ACFREFERENCES_VERSION', '1.0.6' );
 }
 
 if ( ! defined( 'JPKCOM_ACFREFERENCES_BASENAME' ) ) {
