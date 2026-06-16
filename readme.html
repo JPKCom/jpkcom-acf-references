@@ -4,7 +4,7 @@
 https://github.com/JPKCom/jpkcom-acf-references<br />
 <strong>Description:</strong> Reference gallery with filter function
 plugin for ACF<br />
-<strong>Version:</strong> 1.0.5<br />
+<strong>Version:</strong> 1.0.6<br />
 <strong>Author:</strong> Jean Pierre Kolb <a href="mailto:jpk@jpkc.com"
 class="email">jpk@jpkc.com</a><br />
 <strong>Author URI:</strong> https://www.jpkc.com/<br />
@@ -12,14 +12,14 @@ class="email">jpk@jpkc.com</a><br />
 <strong>Tags:</strong> ACF, Fields, CPT, CTT, Taxonomy, Images<br />
 <strong>Requires Plugins:</strong> advanced-custom-fields-pro,
 acf-quickedit-fields<br />
-<strong>Requires at least:</strong> 6.8<br />
-<strong>Tested up to:</strong> 6.9<br />
+<strong>Requires at least:</strong> 6.9<br />
+<strong>Tested up to:</strong> 7.0<br />
 <strong>Requires PHP:</strong> 8.3<br />
 <strong>Network:</strong> true<br />
-<strong>Stable tag:</strong> 1.0.5<br />
-<strong>License:</strong> GPL-2.0+<br />
+<strong>Stable tag:</strong> 1.0.6<br />
+<strong>License:</strong> GPL-2.0-or-later<br />
 <strong>License URI:</strong>
-http://www.gnu.org/licenses/gpl-2.0.txt<br />
+https://www.gnu.org/licenses/gpl-2.0.html<br />
 <strong>Text Domain:</strong> jpkcom-acf-references<br />
 <strong>Domain Path:</strong> /languages</p>
 <p>A plugin to provide a reference gallery with filter function tool for
@@ -501,7 +501,14 @@ published (not draft) - Ensure the correct taxonomy slug is used -
 Confirm <code>show_filter</code> attribute includes the correct filter
 indexes (0, 1, or 2)</p>
 <h2 id="changelog">Changelog</h2>
-<h3 id="section">1.0.5</h3>
+<h3 id="section">1.0.6</h3>
+<ul>
+<li>Raised the minimum WordPress version to 6.9 and “Tested up to” to
+WordPress 7.0</li>
+<li>Switched license metadata to the SPDX identifier
+<code>GPL-2.0-or-later</code> with the HTTPS license URI</li>
+</ul>
+<h3 id="section-1">1.0.5</h3>
 <ul>
 <li>Security: updater prefers an exact match against the manifest
 <code>download_url</code> over the slug heuristic, so a tampered
@@ -518,7 +525,7 @@ completing the <code>no_update</code> transient entry
 (<code>new_version</code>, <code>package</code>, <code>tested</code>,
 <code>requires_php</code>)</li>
 </ul>
-<h3 id="section-1">1.0.4</h3>
+<h3 id="section-2">1.0.4</h3>
 <ul>
 <li>Fixed pagination layout not wrapping on small screens or with long
 post titles</li>
@@ -532,22 +539,22 @@ post titles</li>
 <code>esc_attr()</code>, <code>get_post_type_archive_link()</code> →
 <code>esc_url()</code></li>
 </ul>
-<h3 id="section-2">1.0.3</h3>
+<h3 id="section-3">1.0.3</h3>
 <ul>
 <li>Fixed updater checksum verification failing on manual ZIP uploads
 (local file paths mistaken for URLs)</li>
 <li>Fixed release ZIP missing top-level directory, causing WordPress to
 not recognize plugin updates</li>
 </ul>
-<h3 id="section-3">1.0.2</h3>
+<h3 id="section-4">1.0.2</h3>
 <ul>
 <li>Added check for “SitePress” class</li>
 </ul>
-<h3 id="section-4">1.0.1</h3>
+<h3 id="section-5">1.0.1</h3>
 <ul>
 <li>Fix for incorrect database content caused by WPML</li>
 </ul>
-<h3 id="section-5">1.0.0</h3>
+<h3 id="section-6">1.0.0</h3>
 <ul>
 <li>Initial Release</li>
 </ul>
