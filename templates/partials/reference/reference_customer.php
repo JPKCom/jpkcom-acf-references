@@ -45,22 +45,21 @@ defined( constant_name: 'ABSPATH' ) || exit;
                 $size = 'jpkcom-acf-reference-logo';
 
                 echo $reference_customer_url_HTML_Before . $reference_customer_url . $reference_customer_url_HTML_After;
-                echo wp_get_attachment_image( $reference_customer_logo, $size );
 
-                    if ( is_array( value: $reference_customer_logo ) && isset( $reference_customer_logo['ID'] ) ) {
+                if ( is_array( value: $reference_customer_logo ) && isset( $reference_customer_logo['ID'] ) ) {
 
-                        echo wp_get_attachment_image( $reference_customer_logo['ID'], $size, false, [
-                            'class' => 'img-fluid rounded shadow-sm',
-                            'alt'   => esc_attr( $reference_customer_logo['alt'] ?? get_the_title( $customer->ID ) ),
-                        ] );
+                    echo wp_get_attachment_image( $reference_customer_logo['ID'], $size, false, [
+                        'class' => 'img-fluid rounded shadow-sm',
+                        'alt'   => esc_attr( $reference_customer_logo['alt'] ?? get_the_title( $customer->ID ) ),
+                    ] );
 
-                    } elseif ( is_numeric( value: $reference_customer_logo ) ) {
+                } elseif ( is_numeric( value: $reference_customer_logo ) ) {
 
-                        echo wp_get_attachment_image( $reference_customer_logo, $size, false, [
-                            'class' => 'img-fluid rounded shadow-sm',
-                        ] );
+                    echo wp_get_attachment_image( $reference_customer_logo, $size, false, [
+                        'class' => 'img-fluid rounded shadow-sm',
+                    ] );
 
-                    }
+                }
 
                 echo $reference_customer_url_HTML_Closing;
 
