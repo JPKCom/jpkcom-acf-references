@@ -3,7 +3,7 @@
 **Plugin Name:** JPKCom ACF References  
 **Plugin URI:** https://github.com/JPKCom/jpkcom-acf-references  
 **Description:** Reference gallery with filter function plugin for ACF  
-**Version:** 1.0.6  
+**Version:** 1.0.7  
 **Author:** Jean Pierre Kolb <jpk@jpkc.com>  
 **Author URI:** https://www.jpkc.com/  
 **Contributors:** JPKCom  
@@ -13,7 +13,7 @@
 **Tested up to:** 7.0  
 **Requires PHP:** 8.3  
 **Network:** true  
-**Stable tag:** 1.0.6  
+**Stable tag:** 1.0.7  
 **License:** GPL-2.0-or-later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 **Text Domain:** jpkcom-acf-references  
@@ -488,6 +488,9 @@ This plugin is **network-compatible**. To install on a multisite network:
 
 
 ## Changelog
+
+### 1.0.7
+* Fixed a leftover duplicate logo call in the reference customer partial that passed the ACF field array where an attachment ID is expected, which could render an unrelated image before every customer logo
 
 ### 1.0.6
 * Raised the minimum WordPress version to 6.9 and "Tested up to" to WordPress 7.0
