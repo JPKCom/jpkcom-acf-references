@@ -3,7 +3,7 @@
 **Plugin Name:** JPKCom ACF References  
 **Plugin URI:** https://github.com/JPKCom/jpkcom-acf-references  
 **Description:** Reference gallery with filter function plugin for ACF  
-**Version:** 1.0.8  
+**Version:** 1.0.9  
 **Author:** Jean Pierre Kolb <jpk@jpkc.com>  
 **Author URI:** https://www.jpkc.com/  
 **Contributors:** JPKCom  
@@ -13,7 +13,7 @@
 **Tested up to:** 7.0  
 **Requires PHP:** 8.3  
 **Network:** true  
-**Stable tag:** 1.0.8  
+**Stable tag:** 1.0.9  
 **License:** GPL-2.0-or-later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 **Text Domain:** jpkcom-acf-references  
@@ -488,6 +488,12 @@ This plugin is **network-compatible**. To install on a multisite network:
 
 
 ## Changelog
+
+### 1.0.9
+* **Fixed:** reference expiry was compared against the UTC date. WordPress sets the PHP timezone to UTC, so `date( 'Y-m-d' )` returns the UTC day and expired references stayed visible for the length of the site's UTC offset after local midnight (1–2 hours for Europe/Berlin). All three comparison sites now use `current_time( 'Y-m-d' )`
+* **Fixed:** the single-reference redirect checked `current_user_can( 'administrator' )`, passing a role name where a capability belongs. That works only because the role is a key in the capability array, bypassing `map_meta_cap` and missing differently named roles with the same rights. Now checks `manage_options`, consistent with the sibling handlers in the same file
+* **Added:** `tools/check-term-sync.php` — a read-only checker that reports whether the serialised ACF meta values and the real taxonomy term assignments agree. Required groundwork before the shortcode filters can move from unindexed `meta_query` + `LIKE` to indexed `tax_query`
+* **Added:** `tests/test-conventions.php` — regression guards so neither the UTC date form nor a role-as-capability check can return unnoticed. Run in CI on every pull request
 
 ### 1.0.8
 * Security: update packages are now verified *before* installation — the verified file is handed to WordPress instead of being downloaded a second time, so the bytes that were checked are the bytes that get installed
