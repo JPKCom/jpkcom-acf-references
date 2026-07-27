@@ -566,7 +566,7 @@ Gallery images include all standard WordPress image sizes and metadata (title, a
 
 Defined in `jpkcom-acf-references.php`:
 
-- `JPKCOM_ACFREFERENCES_VERSION` - Plugin version (currently `1.0.8`)
+- `JPKCOM_ACFREFERENCES_VERSION` - Plugin version (currently `1.0.9`)
 - `JPKCOM_ACFREFERENCES_BASENAME` - Plugin basename for WordPress hooks
 - `JPKCOM_ACFREFERENCES_PLUGIN_PATH` - Absolute path to plugin directory
 - `JPKCOM_ACFREFERENCES_PLUGIN_URL` - URL to plugin directory
@@ -737,6 +737,25 @@ This will:
 - User input is sanitized before database queries
 - Nonces are used for form submissions (if applicable)
 - File paths are validated before inclusion
+- **Dates:** use `current_time( 'Y-m-d' )`, never `date( 'Y-m-d' )`. WordPress sets the PHP timezone to UTC in `wp-settings.php`, so `date()` returns the UTC date — expiry comparisons then lag the site timezone by its offset and keep expired references visible for 1–2 hours after local midnight. Guarded by `tests/test-conventions.php`.
+- **Capabilities:** never pass a role name to `current_user_can()`. It works only because the role is a key in the capability array, which bypasses `map_meta_cap` and misses differently named roles holding the same rights. Check a capability (`manage_options`, `edit_post`). Also guarded by `tests/test-conventions.php`.
+- **By design, worth knowing:** anyone who can edit a reference can point `reference_url` at any external target, and `redirects.php` 307s the reference URL there using `wp_redirect()` (deliberately not `wp_safe_redirect()`). That is the plugin's purpose, but it does mean a non-admin editor can use the site's own domain as a redirector.
+
+---
+
+## Filtering: meta LIKE vs. tax_query
+
+The list shortcode filters via `meta_query` with `LIKE '%"5"%'` over the serialised ACF values (`includes/shortcodes.php`). A leading wildcard cannot use an index, so each clause scans the meta rows for that key; a fully populated filter (3 groups × 2 terms + customer + location) produces **8 such clauses**, plus 4 more meta clauses.
+
+All three taxonomy fields are configured with `save_terms => 1`, so ACF *also* writes real term relationships, which are indexed — `tax_query` would be far cheaper. `tax_query` is currently used nowhere in the plugin.
+
+**Do not switch blindly.** Identical results require meta and term assignments to agree for every existing post, and they can drift: an import, a direct DB write, or a WPML duplication that never ran ACF's save routine leaves the meta set and the relationship missing. Run the read-only checker first:
+
+```bash
+wp eval-file wp-content/plugins/jpkcom-acf-references/tools/check-term-sync.php
+```
+
+Exit code 0 means the two stores agree everywhere and the switch is safe; exit code 1 lists the diverging posts with edit links (re-saving a post makes ACF rewrite both stores). Note that `reference_customer` and `reference_location` are post-object fields, not taxonomies — they stay meta-based either way.
 - Database queries use WordPress prepared statements
 - Plugin updater verifies SHA256 checksums before installation
 

@@ -167,7 +167,10 @@ add_action( 'init', function(): void {
                 'relation' => 'OR',
                 [
                     'key'     => 'reference_expiry_date',
-                    'value'   => date( format: 'Y-m-d' ),
+                    // Site timezone, not UTC: WordPress sets the PHP timezone to UTC
+                    // (wp-settings.php), so date() would keep an expired reference
+                    // visible for the length of the UTC offset after local midnight.
+                    'value'   => current_time( 'Y-m-d' ),
                     'compare' => '>=',
                     'type'    => 'DATE',
                 ],
