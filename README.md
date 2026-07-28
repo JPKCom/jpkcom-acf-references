@@ -3,7 +3,7 @@
 **Plugin Name:** JPKCom ACF References  
 **Plugin URI:** https://github.com/JPKCom/jpkcom-acf-references  
 **Description:** Reference gallery with filter function plugin for ACF  
-**Version:** 1.0.9  
+**Version:** 1.1.0  
 **Author:** Jean Pierre Kolb <jpk@jpkc.com>  
 **Author URI:** https://www.jpkc.com/  
 **Contributors:** JPKCom  
@@ -13,7 +13,7 @@
 **Tested up to:** 7.0  
 **Requires PHP:** 8.3  
 **Network:** true  
-**Stable tag:** 1.0.9  
+**Stable tag:** 1.1.0  
 **License:** GPL-2.0-or-later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 **Text Domain:** jpkcom-acf-references  
@@ -488,6 +488,13 @@ This plugin is **network-compatible**. To install on a multisite network:
 
 
 ## Changelog
+
+### 1.1.0
+* Changed: the three taxonomy filters of the list shortcode use `tax_query` instead of `meta_query` with `LIKE` over the serialised ACF values. A leading wildcard cannot use an index, so each clause scanned every meta row for that key; the term relations ACF already writes are indexed. Verified against real data: identical results in all 14 filter combinations tested
+* Fixed: on a multilingual site (WPML) the filter returned nothing in every secondary language. A shortcode carries the default-language term ID, the old clause searched for it in translations whose meta holds the translated ID, and found nothing. Measured: 0 results before, 6 after
+* Fixed: `tools/check-term-sync.php` could not run at all. A `declare(strict_types=1)` sat halfway down the file, and `wp eval-file` evaluates the contents — so the documented invocation ended in a fatal error every time
+* Fixed: the same script reported every translated post as drifted, because it compared raw meta against `wp_get_object_terms()`, which WPML rewrites to the current language
+* Changed: non-numeric values in `type`, `filter_1` and `filter_2` now produce no filter rather than one that matches nothing
 
 ### 1.0.9
 * **Fixed:** reference expiry was compared against the UTC date. WordPress sets the PHP timezone to UTC, so `date( 'Y-m-d' )` returns the UTC day and expired references stayed visible for the length of the site's UTC offset after local midnight (1–2 hours for Europe/Berlin). All three comparison sites now use `current_time( 'Y-m-d' )`
