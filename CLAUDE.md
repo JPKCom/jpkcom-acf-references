@@ -743,19 +743,45 @@ This will:
 
 ---
 
-## Filtering: meta LIKE vs. tax_query
+## Filtering: tax_query (was: meta LIKE)
 
-The list shortcode filters via `meta_query` with `LIKE '%"5"%'` over the serialised ACF values (`includes/shortcodes.php`). A leading wildcard cannot use an index, so each clause scans the meta rows for that key; a fully populated filter (3 groups × 2 terms + customer + location) produces **8 such clauses**, plus 4 more meta clauses.
+The three taxonomy filters of the list shortcode run through `tax_query`
+(`includes/shortcodes.php`). They previously used `meta_query` with
+`LIKE '%"5"%'` over the serialised ACF values; a leading wildcard cannot use an
+index, so each clause scanned every meta row for that key — a fully populated
+filter produced six such scans. All three ACF fields are configured with
+`save_terms => 1`, so ACF also writes real term relationships, and those are
+indexed.
 
-All three taxonomy fields are configured with `save_terms => 1`, so ACF *also* writes real term relationships, which are indexed — `tax_query` would be far cheaper. `tax_query` is currently used nowhere in the plugin.
+Three details are load-bearing and are pinned by `tests/test-tax-query.php`:
 
-**Do not switch blindly.** Identical results require meta and term assignments to agree for every existing post, and they can drift: an import, a direct DB write, or a WPML duplication that never ran ACF's save routine leaves the meta set and the relationship missing. Run the read-only checker first:
+- **`include_children => false`.** These taxonomies are hierarchical, and
+  `tax_query` defaults this to `true`. The meta LIKE variant matched only the
+  exact term IDs stored in the field, so the default would silently widen
+  results to posts filed under child terms.
+- **`absint()` instead of `sanitize_text_field()`.** `field => 'term_id'` needs
+  integers, and dropping the resulting zeros means non-numeric junk produces no
+  clause rather than one that matches nothing.
+- **`reference_customer` and `reference_location` stay meta-based.** They are ACF
+  post-object fields, not taxonomies — there is no term relationship to query.
+
+**Before deploying this against existing data,** meta and term assignments must
+agree for every existing post. They can drift: an import, a direct DB write, or
+a WPML duplication that never ran ACF's save routine leaves the meta set and the
+relationship missing. Run the read-only checker:
 
 ```bash
 wp eval-file wp-content/plugins/jpkcom-acf-references/tools/check-term-sync.php
 ```
 
-Exit code 0 means the two stores agree everywhere and the switch is safe; exit code 1 lists the diverging posts with edit links (re-saving a post makes ACF rewrite both stores). Note that `reference_customer` and `reference_location` are post-object fields, not taxonomies — they stay meta-based either way.
+Exit code 0 means the two stores agree everywhere; exit code 1 lists the
+diverging posts with edit links (re-saving a post makes ACF rewrite both
+stores). Re-save those posts before the release goes out, otherwise the switch
+quietly changes which references are listed.
+
+One behavioural difference is worth knowing under WPML: `tax_query` goes through
+WPML's term-ID adjustment, the meta LIKE did not. On a multilingual site this
+makes the filter follow the current language where it previously did not.
 - Database queries use WordPress prepared statements
 - Plugin updater verifies SHA256 checksums before installation
 
