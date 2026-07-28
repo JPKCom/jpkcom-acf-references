@@ -779,6 +779,25 @@ diverging posts with edit links (re-saving a post makes ACF rewrite both
 stores). Re-save those posts before the release goes out, otherwise the switch
 quietly changes which references are listed.
 
+Two things about this script were broken until 2026-07-28, and both made it
+useless as a gate:
+
+- **It could not run at all.** A `declare(strict_types=1)` sat halfway down the
+  file. `wp eval-file` evaluates the file contents, and there the declaration
+  must be the very first statement — so the documented invocation ended in a
+  fatal error, every time.
+- **It reported every translated post as drifted.** It compared raw meta against
+  `wp_get_object_terms()`, which WPML rewrites to the *current* language. Running
+  in the default language, a Hungarian post with a correct Hungarian relation
+  came back carrying the German term while its meta held the Hungarian ID.
+  `jpkcom_acfref_object_term_ids()` now reads each post's terms in that post's own
+  language; on a monolingual site it is a no-op. Verified both ways on a
+  multilingual production copy: 62 posts clean, and an injected mismatch on a
+  translated post still reported, with the correct Hungarian IDs.
+
+Also worth knowing: on an empty site exit 0 is trivially true. Run it against
+the data you intend to ship against.
+
 ### Verified on a live installation (2026-07-28)
 
 DDEV instance, 12 references seeded through `update_field()` so ACF writes both
@@ -808,25 +827,30 @@ nothing** while the list renders as if no reference qualified. Observed here: an
 integer-seeded data set returned 0 results for all 13 filtered cases and 12 for
 the unfiltered one. `tax_query` is immune — it never looks at the meta value.
 
-### WPML: mechanism confirmed, behaviour not reproduced
+### WPML: measured — the switch *fixes* the secondary language
+
+Measured on a production copy (WPML 4.9.5, de/hu/pl, 62 references of which 6
+translated into Hungarian). Both query variants were rendered by one shortcode
+in the same frontend request, so the language context is identical for both.
+The filter asks for the **German** term ID 22 — which is what a shortcode with a
+hardcoded `type="22"` does on every page, in every language:
+
+| Language | `meta_query` + `LIKE` (old) | `tax_query` (new) |
+|---|---|---|
+| de | 34 references | 34 references, identical set |
+| hu | **0 references** | **6 references** (the Hungarian ones) |
 
 `WPML_Query_Parser::adjust_taxonomy_query()` rewrites the `terms` of every
-`tax_query` condition to the current language, recursively, whenever
-`suppress_filters` is empty (`classes/query-filtering/class-wpml-query-parser.php`).
-There is no counterpart for `meta_query`, and there cannot be: WPML has no way
-to know that a serialised meta value holds a term ID. So on a multilingual site
-this switch makes the filter follow the active language where it previously did
-not — that is a real behavioural change, independent of whether the checker is
-clean.
+`tax_query` condition to the current language
+(`classes/query-filtering/class-wpml-query-parser.php`). There is no counterpart
+for `meta_query` and there cannot be — WPML has no way to know a serialised meta
+value holds a term ID. So the old filter looked for `"22"` in posts whose meta
+holds `"43"` and found nothing.
 
-**This was not demonstrated end-to-end.** The verification instance runs an
-unregistered WPML copy (no site key); languages activate and term translations
-link correctly (`wpml_object_id( 10, 'reference-type', false, 'en' )` returns the
-English term), but the frontend never switches — `/en/…` still renders
-`<html lang="de">`. Both variants therefore returned identical results in both
-languages, which proves nothing either way. Treat the paragraph above as read
-from WPML's source, not as measured. **Before releasing this to a multilingual
-site, check what the reference list shows in the secondary language.**
+**On a multilingual site the old behaviour is a silently empty list in every
+secondary language.** This migration is not a risk there, it is the fix. Verify
+the secondary language after deploying — but expect it to gain content, not lose
+it.
 - Database queries use WordPress prepared statements
 - Plugin updater verifies SHA256 checksums before installation
 
