@@ -566,7 +566,7 @@ Gallery images include all standard WordPress image sizes and metadata (title, a
 
 Defined in `jpkcom-acf-references.php`:
 
-- `JPKCOM_ACFREFERENCES_VERSION` - Plugin version (currently `1.0.9`)
+- `JPKCOM_ACFREFERENCES_VERSION` - Plugin version (currently `1.1.0`)
 - `JPKCOM_ACFREFERENCES_BASENAME` - Plugin basename for WordPress hooks
 - `JPKCOM_ACFREFERENCES_PLUGIN_PATH` - Absolute path to plugin directory
 - `JPKCOM_ACFREFERENCES_PLUGIN_URL` - URL to plugin directory
