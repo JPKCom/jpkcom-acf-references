@@ -743,19 +743,114 @@ This will:
 
 ---
 
-## Filtering: meta LIKE vs. tax_query
+## Filtering: tax_query (was: meta LIKE)
 
-The list shortcode filters via `meta_query` with `LIKE '%"5"%'` over the serialised ACF values (`includes/shortcodes.php`). A leading wildcard cannot use an index, so each clause scans the meta rows for that key; a fully populated filter (3 groups × 2 terms + customer + location) produces **8 such clauses**, plus 4 more meta clauses.
+The three taxonomy filters of the list shortcode run through `tax_query`
+(`includes/shortcodes.php`). They previously used `meta_query` with
+`LIKE '%"5"%'` over the serialised ACF values; a leading wildcard cannot use an
+index, so each clause scanned every meta row for that key — a fully populated
+filter produced six such scans. All three ACF fields are configured with
+`save_terms => 1`, so ACF also writes real term relationships, and those are
+indexed.
 
-All three taxonomy fields are configured with `save_terms => 1`, so ACF *also* writes real term relationships, which are indexed — `tax_query` would be far cheaper. `tax_query` is currently used nowhere in the plugin.
+Three details are load-bearing and are pinned by `tests/test-tax-query.php`:
 
-**Do not switch blindly.** Identical results require meta and term assignments to agree for every existing post, and they can drift: an import, a direct DB write, or a WPML duplication that never ran ACF's save routine leaves the meta set and the relationship missing. Run the read-only checker first:
+- **`include_children => false`.** These taxonomies are hierarchical, and
+  `tax_query` defaults this to `true`. The meta LIKE variant matched only the
+  exact term IDs stored in the field, so the default would silently widen
+  results to posts filed under child terms.
+- **`absint()` instead of `sanitize_text_field()`.** `field => 'term_id'` needs
+  integers, and dropping the resulting zeros means non-numeric junk produces no
+  clause rather than one that matches nothing.
+- **`reference_customer` and `reference_location` stay meta-based.** They are ACF
+  post-object fields, not taxonomies — there is no term relationship to query.
+
+**Before deploying this against existing data,** meta and term assignments must
+agree for every existing post. They can drift: an import, a direct DB write, or
+a WPML duplication that never ran ACF's save routine leaves the meta set and the
+relationship missing. Run the read-only checker:
 
 ```bash
 wp eval-file wp-content/plugins/jpkcom-acf-references/tools/check-term-sync.php
 ```
 
-Exit code 0 means the two stores agree everywhere and the switch is safe; exit code 1 lists the diverging posts with edit links (re-saving a post makes ACF rewrite both stores). Note that `reference_customer` and `reference_location` are post-object fields, not taxonomies — they stay meta-based either way.
+Exit code 0 means the two stores agree everywhere; exit code 1 lists the
+diverging posts with edit links (re-saving a post makes ACF rewrite both
+stores). Re-save those posts before the release goes out, otherwise the switch
+quietly changes which references are listed.
+
+Two things about this script were broken until 2026-07-28, and both made it
+useless as a gate:
+
+- **It could not run at all.** A `declare(strict_types=1)` sat halfway down the
+  file. `wp eval-file` evaluates the file contents, and there the declaration
+  must be the very first statement — so the documented invocation ended in a
+  fatal error, every time.
+- **It reported every translated post as drifted.** It compared raw meta against
+  `wp_get_object_terms()`, which WPML rewrites to the *current* language. Running
+  in the default language, a Hungarian post with a correct Hungarian relation
+  came back carrying the German term while its meta held the Hungarian ID.
+  `jpkcom_acfref_object_term_ids()` now reads each post's terms in that post's own
+  language; on a monolingual site it is a no-op. Verified both ways on a
+  multilingual production copy: 62 posts clean, and an injected mismatch on a
+  translated post still reported, with the correct Hungarian IDs.
+
+Also worth knowing: on an empty site exit 0 is trivially true. Run it against
+the data you intend to ship against.
+
+### Verified on a live installation (2026-07-28)
+
+DDEV instance, 12 references seeded through `update_field()` so ACF writes both
+stores, 3 reference-types × 2 × 2 filter terms. Both query variants were built
+in the same process against the same data and their result sets compared over 14
+filter combinations (single term, several terms in one group, across groups, and
+unfiltered):
+
+| Data | `tools/check-term-sync.php` | Diverging filter cases |
+|---|---|---|
+| clean | exit 0 | **0 of 14** |
+| drift injected into 3 of 12 posts | exit 1, naming exactly those 3 | **6 of 14** |
+
+That is the whole argument for the gate: on clean data the switch is invisible,
+on drifted data it silently changes which references are listed, and the checker
+identifies precisely the posts responsible. Drift was produced three ways — meta
+kept while the term relation was removed, meta overwritten via
+`update_post_meta()` while the relation stayed, and meta deleted with the
+relation intact.
+
+**Serialisation matters, and this is a point in favour of the switch.** The LIKE
+clause searches for `"10"` — with the quotes — which only appears when the term
+ID was serialised as a *string* (`s:2:"10"`). The admin form always submits
+strings, so that is the normal case. But `update_field( 'reference_type', [ 10 ]
+)` with integers stores `i:10`, and then **every LIKE clause silently matches
+nothing** while the list renders as if no reference qualified. Observed here: an
+integer-seeded data set returned 0 results for all 13 filtered cases and 12 for
+the unfiltered one. `tax_query` is immune — it never looks at the meta value.
+
+### WPML: measured — the switch *fixes* the secondary language
+
+Measured on a production copy (WPML 4.9.5, de/hu/pl, 62 references of which 6
+translated into Hungarian). Both query variants were rendered by one shortcode
+in the same frontend request, so the language context is identical for both.
+The filter asks for the **German** term ID 22 — which is what a shortcode with a
+hardcoded `type="22"` does on every page, in every language:
+
+| Language | `meta_query` + `LIKE` (old) | `tax_query` (new) |
+|---|---|---|
+| de | 34 references | 34 references, identical set |
+| hu | **0 references** | **6 references** (the Hungarian ones) |
+
+`WPML_Query_Parser::adjust_taxonomy_query()` rewrites the `terms` of every
+`tax_query` condition to the current language
+(`classes/query-filtering/class-wpml-query-parser.php`). There is no counterpart
+for `meta_query` and there cannot be — WPML has no way to know a serialised meta
+value holds a term ID. So the old filter looked for `"22"` in posts whose meta
+holds `"43"` and found nothing.
+
+**On a multilingual site the old behaviour is a silently empty list in every
+secondary language.** This migration is not a risk there, it is the fix. Verify
+the secondary language after deploying — but expect it to gain content, not lose
+it.
 - Database queries use WordPress prepared statements
 - Plugin updater verifies SHA256 checksums before installation
 

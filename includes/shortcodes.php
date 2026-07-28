@@ -186,84 +186,57 @@ add_action( 'init', function(): void {
             ],
         ];
 
-        // reference_type: CSV of term IDs (e.g. 1,5,12)
-        if ( $type_csv !== '' ) {
+        // The three taxonomy filters run over the real term relationships, not over
+        // the serialised ACF meta. The meta variant needed LIKE '%"5"%', and a
+        // leading wildcard cannot use an index, so every clause scanned all meta
+        // rows for that key — a fully populated filter produced six such scans.
+        // All three ACF fields are configured with save_terms => 1, so the term
+        // relationships exist and are indexed. See tools/check-term-sync.php: the
+        // two stores can drift (import, direct DB write, WPML duplication that
+        // never ran ACF's save routine), and that checker must be clean before
+        // this is deployed against existing data.
+        $tax_query = [ 'relation' => 'AND' ];
 
-            $want = array_filter( array: array_map( callback: 'trim', array: explode( separator: ',', string: $type_csv ) ) );
+        $taxonomy_filters = [
+            'reference-type'     => $type_csv,
+            'reference-filter-1' => $filter_1_csv,
+            'reference-filter-2' => $filter_2_csv,
+        ];
 
-            if ( ! empty( $want ) ) {
+        foreach ( $taxonomy_filters as $taxonomy => $csv ) {
 
-                // We add a meta_query clause for each wanted value with LIKE on serialized value.
-                $type_clauses = [ 'relation' => 'OR' ];
+            if ( $csv === '' ) {
 
-                foreach ( $want as $val ) {
-
-                    // Serialized arrays will contain "...\"VALUE\"..." so match with quotes.
-                    $type_clauses[] = [
-                        'key'     => 'reference_type',
-                        'value'   => '"' . sanitize_text_field( $val ) . '"',
-                        'compare' => 'LIKE',
-                    ];
-
-                }
-
-                $meta_query[] = $type_clauses;
-
-            }
-
-        }
-
-        // reference_filter_1: CSV of term IDs (e.g. 2,7)
-        if ( $filter_1_csv !== '' ) {
-
-            $want = array_filter( array: array_map( callback: 'trim', array: explode( separator: ',', string: $filter_1_csv ) ) );
-
-            if ( ! empty( $want ) ) {
-
-                // We add a meta_query clause for each wanted value with LIKE on serialized value.
-                $filter_1_clauses = [ 'relation' => 'OR' ];
-
-                foreach ( $want as $val ) {
-
-                    // Serialized arrays will contain "...\"VALUE\"..." so match with quotes.
-                    $filter_1_clauses[] = [
-                        'key'     => 'reference_filter_1',
-                        'value'   => '"' . sanitize_text_field( $val ) . '"',
-                        'compare' => 'LIKE',
-                    ];
-
-                }
-
-                $meta_query[] = $filter_1_clauses;
+                continue;
 
             }
 
-        }
+            // absint() rather than the previous sanitize_text_field(): the
+            // documented input is a CSV of term IDs, and 'field' => 'term_id'
+            // requires integers. array_filter drops the zeros that absint()
+            // produces from non-numeric junk, so garbage no longer becomes a
+            // clause that silently matches nothing.
+            $term_ids = array_filter( array: array_map( callback: 'absint', array: explode( separator: ',', string: $csv ) ) );
 
-        // reference_filter_2: CSV of term IDs (e.g. 3,9)
-        if ( $filter_2_csv !== '' ) {
+            if ( empty( $term_ids ) ) {
 
-            $want = array_filter( array: array_map( callback: 'trim', array: explode( separator: ',', string: $filter_2_csv ) ) );
-
-            if ( ! empty( $want ) ) {
-
-                // We add a meta_query clause for each wanted value with LIKE on serialized value.
-                $filter_2_clauses = [ 'relation' => 'OR' ];
-
-                foreach ( $want as $val ) {
-
-                    // Serialized arrays will contain "...\"VALUE\"..." so match with quotes.
-                    $filter_2_clauses[] = [
-                        'key'     => 'reference_filter_2',
-                        'value'   => '"' . sanitize_text_field( $val ) . '"',
-                        'compare' => 'LIKE',
-                    ];
-
-                }
-
-                $meta_query[] = $filter_2_clauses;
+                continue;
 
             }
+
+            // IN is the OR-within-one-taxonomy the LIKE clauses provided; the
+            // outer relation AND keeps the across-taxonomy behaviour.
+            // include_children is false on purpose: these taxonomies are
+            // hierarchical, and tax_query would otherwise also match posts in
+            // child terms. The LIKE variant matched only the exact term IDs
+            // stored in the field, so defaulting to true would widen results.
+            $tax_query[] = [
+                'taxonomy'         => $taxonomy,
+                'field'            => 'term_id',
+                'terms'            => array_values( $term_ids ),
+                'operator'         => 'IN',
+                'include_children' => false,
+            ];
 
         }
 
@@ -318,6 +291,14 @@ add_action( 'init', function(): void {
         if ( count( value: $meta_query ) > 1 ) {
 
             $query_args['meta_query'] = $meta_query;
+
+        }
+
+        // Same guard for tax_query: a bare [ 'relation' => 'AND' ] is not an
+        // empty filter to WP_Query, it is a malformed one.
+        if ( count( value: $tax_query ) > 1 ) {
+
+            $query_args['tax_query'] = $tax_query;
 
         }
 
