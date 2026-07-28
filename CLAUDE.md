@@ -779,9 +779,54 @@ diverging posts with edit links (re-saving a post makes ACF rewrite both
 stores). Re-save those posts before the release goes out, otherwise the switch
 quietly changes which references are listed.
 
-One behavioural difference is worth knowing under WPML: `tax_query` goes through
-WPML's term-ID adjustment, the meta LIKE did not. On a multilingual site this
-makes the filter follow the current language where it previously did not.
+### Verified on a live installation (2026-07-28)
+
+DDEV instance, 12 references seeded through `update_field()` so ACF writes both
+stores, 3 reference-types × 2 × 2 filter terms. Both query variants were built
+in the same process against the same data and their result sets compared over 14
+filter combinations (single term, several terms in one group, across groups, and
+unfiltered):
+
+| Data | `tools/check-term-sync.php` | Diverging filter cases |
+|---|---|---|
+| clean | exit 0 | **0 of 14** |
+| drift injected into 3 of 12 posts | exit 1, naming exactly those 3 | **6 of 14** |
+
+That is the whole argument for the gate: on clean data the switch is invisible,
+on drifted data it silently changes which references are listed, and the checker
+identifies precisely the posts responsible. Drift was produced three ways — meta
+kept while the term relation was removed, meta overwritten via
+`update_post_meta()` while the relation stayed, and meta deleted with the
+relation intact.
+
+**Serialisation matters, and this is a point in favour of the switch.** The LIKE
+clause searches for `"10"` — with the quotes — which only appears when the term
+ID was serialised as a *string* (`s:2:"10"`). The admin form always submits
+strings, so that is the normal case. But `update_field( 'reference_type', [ 10 ]
+)` with integers stores `i:10`, and then **every LIKE clause silently matches
+nothing** while the list renders as if no reference qualified. Observed here: an
+integer-seeded data set returned 0 results for all 13 filtered cases and 12 for
+the unfiltered one. `tax_query` is immune — it never looks at the meta value.
+
+### WPML: mechanism confirmed, behaviour not reproduced
+
+`WPML_Query_Parser::adjust_taxonomy_query()` rewrites the `terms` of every
+`tax_query` condition to the current language, recursively, whenever
+`suppress_filters` is empty (`classes/query-filtering/class-wpml-query-parser.php`).
+There is no counterpart for `meta_query`, and there cannot be: WPML has no way
+to know that a serialised meta value holds a term ID. So on a multilingual site
+this switch makes the filter follow the active language where it previously did
+not — that is a real behavioural change, independent of whether the checker is
+clean.
+
+**This was not demonstrated end-to-end.** The verification instance runs an
+unregistered WPML copy (no site key); languages activate and term translations
+link correctly (`wpml_object_id( 10, 'reference-type', false, 'en' )` returns the
+English term), but the frontend never switches — `/en/…` still renders
+`<html lang="de">`. Both variants therefore returned identical results in both
+languages, which proves nothing either way. Treat the paragraph above as read
+from WPML's source, not as measured. **Before releasing this to a multilingual
+site, check what the reference list shows in the secondary language.**
 - Database queries use WordPress prepared statements
 - Plugin updater verifies SHA256 checksums before installation
 
