@@ -3,7 +3,7 @@
 **Plugin Name:** JPKCom ACF References  
 **Plugin URI:** https://github.com/JPKCom/jpkcom-acf-references  
 **Description:** Reference gallery with filter function plugin for ACF  
-**Version:** 1.1.0  
+**Version:** 1.1.1  
 **Author:** Jean Pierre Kolb <jpk@jpkc.com>  
 **Author URI:** https://www.jpkc.com/  
 **Contributors:** JPKCom  
@@ -13,7 +13,7 @@
 **Tested up to:** 7.0  
 **Requires PHP:** 8.3  
 **Network:** true  
-**Stable tag:** 1.1.0  
+**Stable tag:** 1.1.1  
 **License:** GPL-2.0-or-later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 **Text Domain:** jpkcom-acf-references  
@@ -488,6 +488,9 @@ This plugin is **network-compatible**. To install on a multisite network:
 
 
 ## Changelog
+
+### 1.1.1
+* Changed: the plugin banners (`assets/banner-1544x500.avif`, `assets/banner-772x250.avif`) are now a plain `#3c4955` surface with no lettering
 
 ### 1.1.0
 * Changed: the three taxonomy filters of the list shortcode use `tax_query` instead of `meta_query` with `LIKE` over the serialised ACF values. A leading wildcard cannot use an index, so each clause scanned every meta row for that key; the term relations ACF already writes are indexed. Verified against real data: identical results in all 14 filter combinations tested
