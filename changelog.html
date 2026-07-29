@@ -1,11 +1,25 @@
-<h3 id="section">1.1.1</h3>
+<h3 id="section">1.1.2</h3>
+<ul>
+<li>Changed: <code>Tested up to</code> raised to WordPress 7.1</li>
+<li>Changed: the bundled updater’s runtime floor now matches the
+plugin’s own minimum. It bailed out below WordPress 6.8 while the plugin
+header has required 6.9 for several releases, so the check could never
+fire on a supported installation</li>
+<li>Docs: the remaining “WordPress 6.8” requirement statements now say
+6.9, matching the plugin header</li>
+<li>CI: the release manifest’s fallback values for <code>requires</code>
+and <code>tested</code> now say 6.9 and 7.1. They only apply when the
+README metadata cannot be read, but a stale fallback would have
+published a minimum the plugin no longer supports</li>
+</ul>
+<h3 id="section-1">1.1.1</h3>
 <ul>
 <li>Changed: the plugin banners
 (<code>assets/banner-1544x500.avif</code>,
 <code>assets/banner-772x250.avif</code>) are now a plain
 <code>#3c4955</code> surface with no lettering</li>
 </ul>
-<h3 id="section-1">1.1.0</h3>
+<h3 id="section-2">1.1.0</h3>
 <ul>
 <li>Changed: the three taxonomy filters of the list shortcode use
 <code>tax_query</code> instead of <code>meta_query</code> with
@@ -29,7 +43,7 @@ which WPML rewrites to the current language</li>
 <code>filter_1</code> and <code>filter_2</code> now produce no filter
 rather than one that matches nothing</li>
 </ul>
-<h3 id="section-2">1.0.9</h3>
+<h3 id="section-3">1.0.9</h3>
 <ul>
 <li><strong>Fixed:</strong> reference expiry was compared against the
 UTC date. WordPress sets the PHP timezone to UTC, so
@@ -53,7 +67,7 @@ the shortcode filters can move from unindexed <code>meta_query</code> +
 regression guards so neither the UTC date form nor a role-as-capability
 check can return unnoticed. Run in CI on every pull request</li>
 </ul>
-<h3 id="section-3">1.0.8</h3>
+<h3 id="section-4">1.0.8</h3>
 <ul>
 <li>Security: update packages are now verified <em>before</em>
 installation — the verified file is handed to WordPress instead of being
@@ -80,21 +94,21 @@ check, YAML validation, action-pinning guard)</li>
 <li>Housekeeping: removed an unused <code>messages.mo</code> from the
 release package</li>
 </ul>
-<h3 id="section-4">1.0.7</h3>
+<h3 id="section-5">1.0.7</h3>
 <ul>
 <li>Fixed a leftover duplicate logo call in the reference customer
 partial that passed the ACF field array where an attachment ID is
 expected, which could render an unrelated image before every customer
 logo</li>
 </ul>
-<h3 id="section-5">1.0.6</h3>
+<h3 id="section-6">1.0.6</h3>
 <ul>
 <li>Raised the minimum WordPress version to 6.9 and “Tested up to” to
 WordPress 7.0</li>
 <li>Switched license metadata to the SPDX identifier
 <code>GPL-2.0-or-later</code> with the HTTPS license URI</li>
 </ul>
-<h3 id="section-6">1.0.5</h3>
+<h3 id="section-7">1.0.5</h3>
 <ul>
 <li>Security: updater prefers an exact match against the manifest
 <code>download_url</code> over the slug heuristic, so a tampered
@@ -111,7 +125,7 @@ completing the <code>no_update</code> transient entry
 (<code>new_version</code>, <code>package</code>, <code>tested</code>,
 <code>requires_php</code>)</li>
 </ul>
-<h3 id="section-7">1.0.4</h3>
+<h3 id="section-8">1.0.4</h3>
 <ul>
 <li>Fixed pagination layout not wrapping on small screens or with long
 post titles</li>
@@ -125,22 +139,22 @@ post titles</li>
 <code>esc_attr()</code>, <code>get_post_type_archive_link()</code> →
 <code>esc_url()</code></li>
 </ul>
-<h3 id="section-8">1.0.3</h3>
+<h3 id="section-9">1.0.3</h3>
 <ul>
 <li>Fixed updater checksum verification failing on manual ZIP uploads
 (local file paths mistaken for URLs)</li>
 <li>Fixed release ZIP missing top-level directory, causing WordPress to
 not recognize plugin updates</li>
 </ul>
-<h3 id="section-9">1.0.2</h3>
+<h3 id="section-10">1.0.2</h3>
 <ul>
 <li>Added check for “SitePress” class</li>
 </ul>
-<h3 id="section-10">1.0.1</h3>
+<h3 id="section-11">1.0.1</h3>
 <ul>
 <li>Fix for incorrect database content caused by WPML</li>
 </ul>
-<h3 id="section-11">1.0.0</h3>
+<h3 id="section-12">1.0.0</h3>
 <ul>
 <li>Initial Release</li>
 </ul>
