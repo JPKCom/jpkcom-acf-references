@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a WordPress plugin called **JPKCom ACF References** - a reference gallery system with filter functions built on Advanced Custom Fields Pro. It provides custom post types (references, locations, customers), custom taxonomies, and a complete template system for displaying reference projects, portfolios, and case studies.
 
 **Requirements:**
-- WordPress 6.8+
+- WordPress 6.9+
 - PHP 8.3+
 - Advanced Custom Fields Pro (required dependency)
 - ACF Quick Edit Fields (required dependency)
