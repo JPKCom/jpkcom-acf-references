@@ -263,87 +263,29 @@ define('WP_DEBUG', true);
 
 ### API Documentation
 
-The plugin includes comprehensive PHPDoc documentation for all functions, classes, and hooks.
-
-**Configuration:** `phpdoc.xml` in the plugin root directory configures phpDocumentor to:
-- Document files: `jpkcom-acf-references.php` and `includes/*.php`
-- Output to: `docs/` directory (excluded from git via `.gitignore`)
-- Exclude: templates, assets, languages, and build artifacts
-
-**Local Documentation Generation:**
-```bash
-# Download phpDocumentor (if not already available)
-wget https://phpdoc.org/phpDocumentor.phar -O phpDocumentor.phar
-chmod +x phpDocumentor.phar
-
-# Generate documentation
-./phpDocumentor.phar run --config=phpdoc.xml
-```
-
-**Published Documentation:**
-API documentation is automatically generated during the release process and published to:
-`https://jpkcom.github.io/jpkcom-acf-references/docs/`
-
-**Git Exclusions (.gitignore):**
-- `.phpdoc/` - phpDocumentor cache directory
-- `docs/` - Generated documentation (rebuilt on each release)
-- `phpDocumentor.phar` - PHAR executable (downloaded in CI/CD)
+`phpdoc.xml` configures phpDocumentor to document `jpkcom-acf-references.php` and `includes/*.php` into `docs/`. The release workflow generates it and publishes to `https://jpkcom.github.io/jpkcom-acf-references/docs/`. `.phpdoc/`, `docs/` and `phpDocumentor.phar` are gitignored — locally: `./phpDocumentor.phar run --config=phpdoc.xml`.
 
 ### Version Management
 
-Version number appears in THREE locations and must be kept in sync:
-1. `jpkcom-acf-references.php` - Plugin header (line 6)
-2. `jpkcom-acf-references.php` - Updater initialization (line 68)
-3. `README.md` - Multiple locations in header metadata
+The version appears in five places and must be kept in sync:
+
+1. `jpkcom-acf-references.php` — header `Version:`
+2. `jpkcom-acf-references.php` — header `Stable tag:`
+3. `jpkcom-acf-references.php` — `JPKCOM_ACFREFERENCES_VERSION`
+4. `phpdoc.xml` — `<version number="…">`
+5. `README.md` — `**Version:**`, `**Stable tag:**`, plus a new `### x.y.z` changelog block
 
 ### Release Process
 
-**Supply-chain: GitHub Actions sind auf Commit-SHAs gepinnt.** Alle `uses:`-Zeilen in `.github/workflows/` referenzieren einen 40-stelligen Commit-SHA statt eines Tags (`@v4`), mit der Version als Kommentar dahinter. Grund: ein Tag ist ein beweglicher Zeiger und lässt sich umhängen, ein SHA nicht. Da dieser Workflow die Plugin-ZIP **und** die SHA256-Summe erzeugt, der der Auto-Updater vertraut, würde eine kompromittierte Action ein manipuliertes ZIP samt passender Prüfsumme ausliefern — die Prüfsumme sichert den Transportweg, das Pinning den Build. `.github/dependabot.yml` hält die Pins wöchentlich aktuell (ein gesammelter PR). Beim Aktualisieren immer SHA *und* Versionskommentar zusammen ändern.
+**Actions are pinned to commit SHAs.** Every `uses:` line in `.github/workflows/` references a 40-character commit SHA instead of a tag (`@v4`), with the version as a trailing comment. A tag is a movable pointer and can be repointed; a SHA cannot. Since the release workflow builds the plugin ZIP **and** the SHA256 checksum the auto-updater trusts, a compromised action would ship a tampered ZIP together with a matching checksum — the checksum secures the transport, the pinning secures the build. `.github/dependabot.yml` keeps the pins current weekly in one combined PR; when updating, always change the SHA *and* the version comment together.
 
-**CI & Dependabot-Auto-Merge.** Zwei zusätzliche Workflows:
+**CI** (`.github/workflows/ci.yml`) runs on every pull request *and* on every push to `main` — a required status check only covers pull requests, so a direct push with bypass rights would otherwise skip the checks entirely. It runs `php -l` over all PHP files; flags invalid named arguments to internal PHP functions (catches `sprintf(format:, values:)` → `ArgumentCountError`, which `php -l` does not see); validates the YAML of every `.github` file; asserts every action is pinned to a 40-character commit SHA; and executes `tests/test-*.php` where present.
 
-- `.github/workflows/ci.yml` — läuft auf jedem `pull_request`. Prüft: `php -l` über alle PHP-Dateien; ungültige benannte Argumente an internen PHP-Funktionen (fängt die Klasse `sprintf(format:, values:)` → `ArgumentCountError`, die `php -l` nicht sieht); YAML-Validität aller `.github`-Dateien; und dass jede Action auf einem 40-stelligen Commit-SHA gepinnt ist (beide YAML-Formen, `uses:` und `- uses:`).
-- `.github/workflows/dependabot-auto-merge.yml` — merged Dependabot-PRs automatisch, aber nur `semver-patch` und `semver-minor`. Major-Updates bekommen stattdessen einen Kommentar und bleiben manuell. Greift nur bei PRs von `dependabot[bot]` aus diesem Repo, nie aus Forks.
+**Dependabot auto-merge** (`.github/workflows/dependabot-auto-merge.yml`) merges only `semver-patch` and `semver-minor`, and only PRs from `dependabot[bot]` in this repo — never from forks. Major updates get a comment and stay manual. Two repo settings are prerequisites, otherwise this is useless or outright dangerous: "Allow auto-merge" must be enabled, and branch protection must list `CI / Lint & Guards` as a **required status check** — without it `gh pr merge --auto` merges *immediately*, since there is nothing left to wait for. Together with `cooldown: default-days: 7` no action release is adopted during its first week.
 
-> **Zwei Repo-Einstellungen sind Voraussetzung, sonst ist der Auto-Merge wirkungslos oder gefährlich:**
-> 1. **„Allow auto-merge"** muss in den Repo-Settings aktiv sein.
-> 2. Der Branch-Schutz muss den CI-Job als **Required status check** führen (`CI / Lint & Guards`). Fehlt das, merged `gh pr merge --auto` **sofort** — es gibt dann nichts, worauf es warten müsste, und die CI wäre reine Dekoration.
+**Releasing.** Bump the five version locations, add the changelog block, commit, then push a `v*` tag — that tag push is the only trigger. `.github/workflows/release.yml` creates the GitHub release itself; do **not** create it by hand first. Pipeline: README metadata via Pandoc → slug-named ZIP (excludes `.git`, `.github`, `CLAUDE.md`, `tests`, `tools`, `docs`, build artefacts) → SHA256 → upload ZIP + `.sha256` → `plugin_jpkcom-acf-references.json` manifest → PHPDoc → deploy to `gh-pages`.
 
-Zusammen mit `cooldown: default-days: 7` in der `dependabot.yml` heißt das: kein Action-Release wird in seiner ersten Woche übernommen, patch/minor laufen danach automatisch durch (sofern CI grün), major bleibt eine bewusste Entscheidung.
-
-
-Releases are automated via GitHub Actions (`.github/workflows/release.yml`):
-
-1. Create a new Git tag: `git tag v1.x.x && git push --tags`
-2. Create GitHub release from the tag on GitHub
-3. Workflow automatically (triggered by `release: [published]` event):
-   - **Sets up PHP 8.3** for phpDocumentor execution
-   - **Extracts metadata** from `README.md` using Pandoc and bash
-   - **Builds plugin ZIP** excluding git files, CLAUDE.md, docs/, and workflow files
-   - **Generates SHA256 checksum** of the ZIP file (via `sha256sum`)
-   - **Creates `.sha256` file** for manual verification
-   - **Uploads both ZIP and `.sha256`** to the GitHub release
-   - **Generates manifest JSON** (Python script) with:
-     - Plugin metadata extracted from README.md
-     - `download_url` pointing to GitHub release ZIP
-     - `checksum_sha256` field containing the SHA256 hash
-     - HTML sections (description, installation, changelog, FAQ) converted from Markdown
-   - **Generates PHPDoc API documentation** using phpDocumentor
-   - **Deploys to gh-pages** branch (manifest, HTML docs, API documentation, assets)
-
-**Key Workflow Steps:**
-- Step 3: `Setup PHP` - Installs PHP 8.3 with composer
-- Step 7: `Create plugin ZIP` - Builds release archive (excludes docs/, phpdoc.xml, phpDocumentor.phar)
-- Step 7.1: `Generate SHA256 checksum` - Creates hash for security verification
-- Step 8: `Upload ZIP and checksum` - Attaches files to release
-- Step 9: `Generate plugin manifest JSON` - Python script builds manifest with checksum
-- Step 10: `Generate PHPDoc API documentation` - Downloads phpDocumentor.phar and generates docs/
-- Step 11: `Prepare gh-pages deployment` - Copies docs/ to deployment directory
-- Step 12: `Deploy to gh-pages` - Publishes manifest, HTML docs, and API documentation
-
-**Important:** The SHA256 checksum in the manifest is automatically verified during plugin updates via `includes/class-plugin-updater.php`
-
-**Documentation Publishing:** API documentation is automatically published to `https://jpkcom.github.io/jpkcom-acf-references/docs/` with each release.
+The manifest's `checksum_sha256` is what `includes/class-plugin-updater.php` verifies on every update, so the ZIP and the manifest must come from the same run — which is why the manifest is only rebuilt on a tag push.
 
 ### Adding Custom Filters
 
@@ -709,37 +651,17 @@ $thumbnail = get_the_post_thumbnail( $post_id, 'jpkcom-acf-reference-card-overla
 $thumbnail = get_the_post_thumbnail( $post_id, 'jpkcom-acf-reference-16x9', [ 'class' => 'card-img rounded-0' ] );
 ```
 
-## Performance Considerations
-
-- ACF fields are registered programmatically (faster than JSON import)
-- Template caching is handled by WordPress template hierarchy
-- Gallery images should be properly sized (use WordPress image sizes)
-- Consider implementing lazy loading for image galleries
-- Use transients for expensive queries in custom implementations
-
 ## Debugging
 
-Enable WordPress debug mode in `wp-config.php`:
-```php
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', false);
-```
+`WP_DEBUG` does double duty here: besides the usual error logging it switches template loading to `debug-templates/` and turns on the plugin updater's detailed logging.
 
-This will:
-- Load templates from `debug-templates/` instead of `templates/`
-- Enable detailed error logging for the plugin updater
-- Log PHP errors to `/wp-content/debug.log`
+## Security & Correctness
 
-## Security Best Practices
+Beyond the usual escaping and sanitising, the first two rules below have a guard behind them in `tests/test-conventions.php`, which CI runs on every pull request and push to `main`:
 
-- All output is properly escaped (`esc_html()`, `esc_url()`, `esc_attr()`)
-- User input is sanitized before database queries
-- Nonces are used for form submissions (if applicable)
-- File paths are validated before inclusion
-- **Dates:** use `current_time( 'Y-m-d' )`, never `date( 'Y-m-d' )`. WordPress sets the PHP timezone to UTC in `wp-settings.php`, so `date()` returns the UTC date — expiry comparisons then lag the site timezone by its offset and keep expired references visible for 1–2 hours after local midnight. Guarded by `tests/test-conventions.php`.
-- **Capabilities:** never pass a role name to `current_user_can()`. It works only because the role is a key in the capability array, which bypasses `map_meta_cap` and misses differently named roles holding the same rights. Check a capability (`manage_options`, `edit_post`). Also guarded by `tests/test-conventions.php`.
-- **By design, worth knowing:** anyone who can edit a reference can point `reference_url` at any external target, and `redirects.php` 307s the reference URL there using `wp_redirect()` (deliberately not `wp_safe_redirect()`). That is the plugin's purpose, but it does mean a non-admin editor can use the site's own domain as a redirector.
+- **Dates:** use `current_time( 'Y-m-d' )`, never `date( 'Y-m-d' )`. WordPress sets the PHP timezone to UTC in `wp-settings.php`, so `date()` returns the UTC date — expiry comparisons then lag the site timezone by its offset and keep expired references visible for 1–2 hours after local midnight.
+- **Capabilities:** never pass a role name to `current_user_can()`. It works only because the role is a key in the capability array, which bypasses `map_meta_cap` and misses differently named roles holding the same rights. Check a capability (`manage_options`, `edit_post`).
+- **By design, worth knowing** (not guarded, and not a bug): anyone who can edit a reference can point `reference_url` at any external target, and `redirects.php` 307s the reference URL there using `wp_redirect()` — deliberately not `wp_safe_redirect()`. That is the plugin's purpose, but it does mean a non-admin editor can use the site's own domain as a redirector.
 
 ---
 
@@ -853,31 +775,3 @@ the secondary language after deploying — but expect it to gain content, not lo
 it.
 - Database queries use WordPress prepared statements
 - Plugin updater verifies SHA256 checksums before installation
-
-## Common Troubleshooting
-
-**Issue: References not displaying**
-- Verify ACF Pro is installed and activated
-- Check permalink settings (resave permalinks in Settings > Permalinks)
-- Ensure references are published (not draft)
-
-**Issue: Images not showing in gallery**
-- Check that images are uploaded via the ACF Gallery field
-- Verify image files exist in the media library
-- Ensure proper image size generation (regenerate thumbnails if needed)
-
-**Issue: Shortcode not working**
-- Verify shortcode syntax is correct
-- Check that template files exist in `templates/shortcodes/`
-- Enable `WP_DEBUG` to see any PHP errors
-
-**Issue: Taxonomies not filtering**
-- Ensure taxonomy terms are assigned to references
-- Check that taxonomy slugs match in queries
-- Verify WPML translation settings if using multilingual
-
-**Issue: Template overrides not loading**
-- Check file path matches exactly (case-sensitive)
-- Ensure override file has correct filename
-- Clear any caching plugins
-- Verify directory permissions (755 for directories, 644 for files)
