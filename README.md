@@ -3,7 +3,7 @@
 **Plugin Name:** JPKCom ACF References  
 **Plugin URI:** https://github.com/JPKCom/jpkcom-acf-references  
 **Description:** Reference gallery with filter function plugin for ACF  
-**Version:** 1.2.0  
+**Version:** 1.2.1  
 **Author:** Jean Pierre Kolb <jpk@jpkc.com>  
 **Author URI:** https://www.jpkc.com/  
 **Contributors:** JPKCom  
@@ -13,7 +13,7 @@
 **Tested up to:** 7.1  
 **Requires PHP:** 8.3  
 **Network:** true  
-**Stable tag:** 1.2.0  
+**Stable tag:** 1.2.1  
 **License:** GPL-2.0-or-later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 **Text Domain:** jpkcom-acf-references  
@@ -489,10 +489,14 @@ This plugin is **network-compatible**. To install on a multisite network:
 
 ## Changelog
 
+### 1.2.1
+
+* Fixed: two 1.2.0 release notes described `includes/references-data.php` as the single home of the visibility rule — one of them saying the abilities apply the shortcode's rule "not a copy of it". That is not what shipped. `jpkcom_acf_references_build_reference_query_args()` is called from `includes/abilities.php` and from nowhere else, while `includes/shortcodes.php` still assembles the same clauses inline. The two agree, and that was verified by comparing the generated SQL and the returned post IDs — but agreeing is not sharing, and two implementations can drift apart the moment either is edited. The claim mattered because it was the reason to trust that the abilities cannot disagree with the site's own listing; that trust now rests on a measurement rather than on a shared function. Both notes have been corrected and marked, and the developer documentation now records that a change to the rule has to be made in both files until the shortcode is moved over. No behaviour is affected
+
 ### 1.2.0
 * Added: three read-only WordPress Abilities — `jpkcom-acf-references/list-filters`, `jpkcom-acf-references/query-references` and `jpkcom-acf-references/get-reference` — so AI assistants, MCP clients and REST automation can read your references as structured data instead of scraping the page. They are on by default for logged-in users with the `read` capability and can be switched off entirely with `define( 'JPKCOM_ACFREFERENCES_ABILITIES', false )`
-* Added: the abilities return only references your site's own listing shows, and they apply exactly the same rule the `[jpkcom_acf_references_list]` shortcode applies — not a copy of it. The short description and the image gallery are returned **only** for a reference whose page a visitor could actually open: one that redirects to an external URL and one whose expiry date has passed both have no public detail page, so those fields are withheld and the reason is stated in the answer
-* Added: `includes/references-data.php`, which now holds the visibility rule and the projection of a reference into plain data. The list shortcode was its only home before. The shortcode returns exactly what it returned previously — verified by comparing the generated SQL and the returned post IDs before and after the change
+* Added: the abilities return only references your site's own listing shows, and they apply the same visibility rule the `[jpkcom_acf_references_list]` shortcode applies. The short description and the image gallery are returned **only** for a reference whose page a visitor could actually open: one that redirects to an external URL and one whose expiry date has passed both have no public detail page, so those fields are withheld and the reason is stated in the answer. **This entry as originally published added "not a copy of it" about the shared rule. That was wrong — there are two implementations; see 1.2.1**
+* Added: `includes/references-data.php`, which holds the visibility rule and the projection of a reference into plain data for the abilities. The shortcode returns exactly what it returned previously — verified by comparing the generated SQL and the returned post IDs before and after the change. **This entry as originally published read as though the rule had moved out of the shortcode. It did not; see 1.2.1**
 * Added: `jpkcom_acf_references_ability_meta` and `jpkcom_acf_references_ability_capability` filters, so a site can change which abilities are exposed and who may run them
 * Changed: WordPress 7.0 is now the minimum. Up to 6.9 an unexpected error inside an ability callback ended the whole request with a blank page instead of a readable message. From 7.0 WordPress catches it itself
 * Note: filtering by a value that does not exist on this site returns **no** references and names the value under `unknown`, rather than quietly returning everything. A filter that is partly recognisable still narrows by the part that was
