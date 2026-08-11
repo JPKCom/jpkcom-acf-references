@@ -424,9 +424,18 @@ the sibling plugins share. Categories are global and **first-wins**, so registra
 | `jpkcom-acf-references/query-references` | A filtered, paginated list of compact reference records |
 | `jpkcom-acf-references/get-reference` | One reference, with a `detail` block when its page actually renders |
 
-Everything reads through `includes/references-data.php`. **The visibility rule is not restated
-there or here** — it has one home, and the extraction was verified against the running site by
-comparing the generated SQL and the returned IDs with the shortcode's own arguments.
+Everything in `includes/abilities.php` reads through `includes/references-data.php`, and the rule is
+not restated inside the ability callbacks.
+
+> **But it does not yet have one home, and an earlier version of this section claimed it did.**
+> `jpkcom_acf_references_build_reference_query_args()` is called from `includes/abilities.php` and
+> from nowhere else; `includes/shortcodes.php` still assembles the same `post_type`, `meta_query` and
+> `tax_query` clauses inline (`:147` onwards). They agree today — the extraction was verified against
+> the running site by comparing the generated SQL and the returned IDs with the shortcode's own
+> arguments — but agreeing is not sharing, and the two can drift the moment either side is edited.
+> Treat a change to the visibility rule as a change to **both** files until the shortcode is moved
+> over. The sibling `jpkcom-acf-jobs` is the finished shape of this: there the shortcode, the archive
+> and the abilities all call one builder.
 
 ### What will bite
 

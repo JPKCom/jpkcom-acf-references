@@ -7,8 +7,14 @@
  * of scraping the rendered page.
  *
  * Everything here reads through includes/references-data.php. The visibility rule
- * lives there and is not restated, because a second statement of a rule becomes a
- * second rule the moment either side is touched.
+ * is not restated in these callbacks, because a second statement of a rule becomes
+ * a second rule the moment either side is touched.
+ *
+ * That applies WITHIN this file only. references-data.php is not yet the single
+ * home of the rule: its builder is called from here and nowhere else, while
+ * includes/shortcodes.php still assembles the same clauses inline. The two were
+ * verified to agree, but they are two implementations — a change to the rule has
+ * to be made in both until the shortcode is moved over.
  *
  * @package   JPKCom_ACF_References
  * @author    Jean Pierre Kolb <jpk@jpkc.com>
