@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a WordPress plugin called **JPKCom ACF References** - a reference gallery system with filter functions built on Advanced Custom Fields Pro. It provides custom post types (references, locations, customers), custom taxonomies, and a complete template system for displaying reference projects, portfolios, and case studies.
 
 **Requirements:**
-- WordPress 6.9+
+- WordPress 7.0+
 - PHP 8.3+
 - Advanced Custom Fields Pro (required dependency)
 - ACF Quick Edit Fields (required dependency)
@@ -385,6 +385,18 @@ Without these internal field keys copied to translations, ACF cannot properly fo
 - Uses the correct mapping: ignore=0, copy-once=1, translate=2, copy=3
 - Automatically adds `acfml_field_group_mode => 'translation'` to all field groups
 
+> **Project decision: the Abilities API stays English, in every language.** All 75 strings from
+> `includes/abilities.php` are in the catalogue and all 75 are untranslated, deliberately. They are
+> read by MCP clients and agents, not by people in wp-admin, and their wording is the feature — a
+> message that names the accepted keys is what lets a caller correct itself in one turn. **Do not
+> "complete" them**, and do not read an empty `msgstr` on an `abilities.php` string as a backlog.
+
+> **`tests/test-i18n.php` fails the build when the catalogue falls behind the code**, and also when
+> the compiled `.l10n.php` and its `.po` disagree. Since WordPress 6.5 the `.l10n.php` is the format
+> core loads FIRST and is not a by-product of the `.po`: `wp i18n make-php` writes it FROM the `.po`
+> and therefore deletes anything only the compiled file carries. In the sibling plugin that destroyed
+> 27 German translations. Compare the entry counts before running it.
+
 **Updating Translation Files:**
 ```bash
 # Extract strings from all PHP files
@@ -399,6 +411,115 @@ msgfmt languages/jpkcom-acf-references-de_DE.po -o languages/jpkcom-acf-referenc
 # Generate .l10n.php (WordPress 6.8+ performance optimization)
 wp i18n make-php languages/
 ```
+
+## Abilities API (since 1.2.0)
+
+`includes/abilities.php` registers three **read-only** abilities in the `jpkcom-content` category
+the sibling plugins share. Categories are global and **first-wins**, so registration goes through
+`wp_has_ability_category()` rather than assuming.
+
+| Ability | Returns |
+|---|---|
+| `jpkcom-acf-references/list-filters` | The three taxonomies with their terms, plus customers and locations, and how many published references the listing rule excludes |
+| `jpkcom-acf-references/query-references` | A filtered, paginated list of compact reference records |
+| `jpkcom-acf-references/get-reference` | One reference, with a `detail` block when its page actually renders |
+
+Everything reads through `includes/references-data.php`. **The visibility rule is not restated
+there or here** — it has one home, and the extraction was verified against the running site by
+comparing the generated SQL and the returned IDs with the shortcode's own arguments.
+
+### What will bite
+
+**1. `get_field()` is not a read operation on `reference_short_description`.** ACF pipes wysiwyg
+values through `acf_the_content`, which carries `do_shortcode` at priority 11 and
+`WP_Embed::autoembed` at 8. In an ability callback there is no post context, so `WP_Embed::shortcode()`
+fetches the remote URL and calls `wp_insert_post()` with `post_type => 'oembed_cache'` — a declared
+read-only ability writing rows and making outbound requests, triggerable by any subscriber. A bare
+URL alone on one line of a description is enough.
+
+Measured on this plugin, not argued: the formatted read wrote a row and executed the shortcode
+(`posts 61 → 62`, `oembed_cache 0 → 1`); `get-reference` on the same record as a subscriber changed
+nothing. The measurement is only meaningful because the ability demonstrably READ the field — the
+bare URL came back as a literal and the `[gallery]` shortcode unexecuted. `tests/test-abilities.php`
+fails the build if that read loses its `, false`.
+
+**2. The two visibility counts are DIFFERENCES.** Never a second statement of what "expired" means.
+The rule's expiry clause is an OR group of three branches — at or after today, no row, and the
+empty string — and negating only the first is not its complement: MariaDB casts `''` to
+`'0000-00-00'`, and `''` is the ordinary case because ACF writes it rather than deleting the row.
+
+    hidden_expired          = ( published + featured row ) - listed
+    hidden_missing_featured = published - ( published + featured row )
+
+Two independent causes exclude a reference with no `reference_featured` row — the `EXISTS` clause
+**and** the `meta_key` used for ordering, whose own condition lands in the WHERE clause — so the
+count of references carrying the row cannot be read off the listing query and needs one of its own.
+
+**3. A filter value that resolves to nothing must return nothing.** Skipping the clause answers with
+the complete unfiltered corpus behind an HTTP 200 while `unknown` names the reason only in passing,
+and a caller reading `total` gets the whole site as a filtered answer. This shipped in the first
+draft here and is guarded by the runtime checks; a partly recognisable filter still narrows by the
+part that resolved.
+
+**4. `listed` is answered BY the rule, not by a paraphrase of it.** `get-reference` runs the listing
+query restricted to that one ID. A PHP re-derivation disagreed with the SQL in the sibling plugin for
+a stored date of `'2025-11-30 00:00:00'`, because `CAST(... AS DATE)` parses it and
+`DateTimeImmutable` does not.
+
+**5. The unknown-key guard is on ALL THREE abilities.** A guard on a subset is a trap: a caller that
+learned the refusal on one assumes it everywhere, and the ability that silently accepts is the one it
+will trust. The sibling plugin shipped exactly that gap for a whole release with a green suite,
+because every assertion written for the guard targeted an ability that had it. The checks here are
+structural for that reason.
+
+**6. `additionalProperties` is deliberately NOT declared** on the two schemas that carry
+`properties`. Measured on WP 7.0.3: it is safe, but `validate_input()` runs **before** the execute
+callback, so it preempts the guard and the reply degrades from a message naming the accepted keys to
+core's "not a valid property of the object". `list-filters` is the exception and must stay one — it
+declares no `properties` at all (an empty `stdClass` there is an anonymous fatal, an empty array is
+invalid JSON Schema), so `additionalProperties => false` is the only thing that can refuse a key.
+
+**7. Every parameter is optional, and that still needs a top-level `default`.**
+`normalize_input()` substitutes the schema's top-level default only when the input is exactly `null`,
+and it must be an **object** — the MCP adapter publishes `get_input_schema()` verbatim. The callbacks
+therefore accept a `stdClass` and read it.
+
+**8. The search limit counts BYTES.** `WP_Query::parse_query()` empties `s` over 1600 bytes using
+`strlen()`, inside the query and past every check on the arguments. A `maxLength` in the schema counts
+characters and would leave the hole open for exactly the input most likely to hit it.
+
+### Exposure
+
+Three switches in `meta`: `show_in_rest`, `public` (WP 7.1; inert before), and `mcp.public` — the MCP
+adapter's own gate for discovery *and* execution. `JPKCOM_ACFREFERENCES_ABILITIES = false` in
+`wp-config.php` suppresses registration entirely; per-ability control goes through
+`jpkcom_acf_references_ability_meta` and `jpkcom_acf_references_ability_capability` (default `read`).
+
+Listing abilities over REST is gated only by `current_user_can( 'read' )`, so **every logged-in user
+can read all three abilities' labels, descriptions and full schemas.** Execution is gated by the
+permission callback, and every query is hard-scoped to `post_status => 'publish'`.
+
+**The Abilities API messages stay English, in every language** — see the note in the translation
+section. They are read by MCP clients and agents, and their wording is the feature.
+
+### Verifying against a real installation
+
+`wp ability` needs WP-CLI >= 2.13 and DDEV ships 2.12, so use `ddev wp eval-file <file>.php` with the
+file inside the DDEV project root. Over HTTP, with an application password:
+
+```bash
+BASE=https://your-site.test/wp-json/wp-abilities/v1/abilities
+curl -skg -u "$USER:$APP_PW" "$BASE/jpkcom-acf-references/list-filters/run"
+curl -skg -u "$USER:$APP_PW" "$BASE/jpkcom-acf-references/query-references/run"
+curl -skg -u "$USER:$APP_PW" "$BASE/jpkcom-acf-references/get-reference/run?input[id]=165"
+```
+
+The checks that matter, and none of them is a code read: filtering must **narrow** (compare the
+filtered `total` against the unfiltered one); the three visibility numbers must add up to
+`published` exactly; a caller mistake must be 4xx and never 5xx; `POST` on a run route must be 405;
+and the read-only claim must be measured with a **mutation control** — count `oembed_cache` rows
+around an unguarded `get_field()` read first, to prove the probe can see a write at all, before
+concluding that the ability does not write.
 
 ## Common Patterns
 
