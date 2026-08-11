@@ -141,6 +141,39 @@ function jpkcom_acfreferences_locate_file( string $filename ): ?string {
 
 
 /**
+ * Load the shared reference data layer
+ *
+ * Holds the visibility rule and the projection of a reference into plain data.
+ * Loaded before the readers that use it.
+ *
+ * @since 1.2.0
+ */
+$jpkcomAcfReferenceData = jpkcom_acfreferences_locate_file( filename: 'references-data.php' );
+
+if ( $jpkcomAcfReferenceData ) {
+
+    require_once $jpkcomAcfReferenceData;
+
+}
+
+
+/**
+ * Load the Abilities API integration
+ *
+ * Loaded after references-data.php, which it reads through.
+ *
+ * @since 1.2.0
+ */
+$jpkcomAcfReferenceAbilities = jpkcom_acfreferences_locate_file( filename: 'abilities.php' );
+
+if ( $jpkcomAcfReferenceAbilities ) {
+
+    require_once $jpkcomAcfReferenceAbilities;
+
+}
+
+
+/**
  * Load media functions
  *
  * @since 1.0.0
