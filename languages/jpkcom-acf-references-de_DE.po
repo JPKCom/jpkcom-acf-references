@@ -2,8 +2,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: JPKCom ACF References 1.0.0\n"
-"Report-Msgid-Bugs-To: jpk@jpkc.com\n"
-"POT-Creation-Date: 2025-12-03 15:28+0100\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jpkcom-acf-"
+"references\n"
+"POT-Creation-Date: 2026-08-11T11:55:41+02:00\n"
 "PO-Revision-Date: 2025-10-17 16:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
@@ -16,375 +17,457 @@ msgstr ""
 "X-Loco-Version: 2.8.0; wp-6.8.3; php-8.3.25\n"
 "X-Domain: jpkcom-acf-references\n"
 
-#: includes/admin-pages.php:259
-msgid "Active Filters"
-msgstr "Aktive Filter"
+#. Plugin Name of the plugin
+#: jpkcom-acf-references.php
+msgid "JPKCom ACF References"
+msgstr ""
 
-#: includes/admin-pages.php:252
-msgid "Allow visitors to filter references interactively."
-msgstr "Besucher können Referenzen interaktiv filtern."
+#. Plugin URI of the plugin
+#: jpkcom-acf-references.php
+msgid "https://github.com/JPKCom/jpkcom-acf-references"
+msgstr ""
 
-#: includes/admin-pages.php:98
-msgid "Archive Redirect URL"
-msgstr "Archiv-Weiterleitungs-URL"
+#. Description of the plugin
+#: jpkcom-acf-references.php
+msgid "Reference gallery with filter function plugin for ACF"
+msgstr ""
+
+#. Author of the plugin
+#: jpkcom-acf-references.php
+msgid "Jean Pierre Kolb <jpk@jpkc.com>"
+msgstr ""
+
+#. Author URI of the plugin
+#: jpkcom-acf-references.php
+msgid "https://www.jpkc.com/"
+msgstr ""
+
+#: includes/abilities.php:276
+msgid ""
+"This site holds a stored value for one of the requested references that "
+"cannot be read. This is a data condition on the site, not a problem with the "
+"request, so repeating the call unchanged will not help; the details are in "
+"the site error log. Other references are unaffected."
+msgstr ""
+
+#. translators: 1: comma-separated rejected keys, 2: comma-separated accepted keys.
+#: includes/abilities.php:435
+#, php-format
+msgid ""
+"Unknown input key: %1$s. This ability accepts: %2$s. A key it does not "
+"declare is never read, so the request would be answered as though that key "
+"had not been sent — on the filtering ability that means an unfiltered result "
+"set that looks like a filtered one."
+msgstr ""
+
+#: includes/abilities.php:437
+msgid "no input at all"
+msgstr ""
+
+#. translators: 1: length of the submitted term in bytes, 2: the limit in bytes.
+#: includes/abilities.php:609
+#, php-format
+msgid ""
+"The search term is %1$d bytes long; WordPress applies no search term over "
+"%2$d bytes and discards it inside the query without reporting anything. "
+"Shorten it and call again. The limit counts bytes, so accented characters "
+"and emoji cost more than one each."
+msgstr ""
+
+#: includes/abilities.php:949
+msgid "This ability takes no parameters. Call it with no input at all."
+msgstr ""
+
+#: includes/abilities.php:1008
+msgid ""
+"The input has to be an object, for example {\"type\": [\"web-design\"], "
+"\"per_page\": 5}. Every parameter is optional; calling this ability with no "
+"input at all returns the first page of all listed references."
+msgstr ""
+
+#: includes/abilities.php:1342
+msgid ""
+"The input has to be an object carrying an \"id\" property, for example "
+"{\"id\": 42}."
+msgstr ""
+
+#: includes/abilities.php:1362
+msgid ""
+"The \"id\" parameter is required and names the reference to return. It is a "
+"reference post ID as returned by jpkcom-acf-references/query-references, not "
+"a title and not a slug."
+msgstr ""
+
+#: includes/abilities.php:1375 includes/abilities.php:1386
+msgid "The \"id\" parameter has to be a positive whole number."
+msgstr ""
+
+#: includes/abilities.php:1400
+msgid ""
+"That id does not resolve to a reference that can be read. The answer is "
+"deliberately identical for an id that does not exist, one that is not a "
+"reference, and one that is not publicly readable."
+msgstr ""
+
+#: includes/abilities.php:1510
+msgid "Term slug. Use this value as filter input, never the name."
+msgstr ""
+
+#: includes/abilities.php:1514
+msgid ""
+"Human-readable term name. Locale-dependent, and not valid as filter input."
+msgstr ""
+
+#: includes/abilities.php:1518
+msgid ""
+"Number of posts carrying this term across the whole site. NOT narrowed by "
+"any other filter, so it does not describe the size of a combined result set, "
+"and it counts every post status the taxonomy is attached to."
+msgstr ""
+
+#: includes/abilities.php:1528
+msgid ""
+"Post ID. This is the value the \"customer\" and \"location\" filters take."
+msgstr ""
+
+#: includes/abilities.php:1532
+msgid "Human-readable title."
+msgstr ""
+
+#: includes/abilities.php:1538
+msgid "Reference post ID. Pass this to jpkcom-acf-references/get-reference."
+msgstr ""
+
+#: includes/abilities.php:1539
+msgid "Reference title."
+msgstr ""
+
+#: includes/abilities.php:1540
+msgid ""
+"Where this reference sends a visitor: the editor-supplied external URL when "
+"one is set, otherwise the permalink. Check \"redirects\" to tell the two "
+"apart."
+msgstr ""
+
+#: includes/abilities.php:1541
+msgid ""
+"True when an external URL is set. The reference page then answers every "
+"visitor with a 307 redirect instead of rendering, so no detail data was ever "
+"published for it."
+msgstr ""
+
+#: includes/abilities.php:1542
+msgid "Publication date in ISO 8601, UTC."
+msgstr ""
+
+#: includes/abilities.php:1543
+msgid "Project year as stored, empty when unset."
+msgstr ""
+
+#: includes/abilities.php:1544
+msgid ""
+"True when the stored expiry date lies before today in the site timezone."
+msgstr ""
+
+#: includes/abilities.php:1545
+msgid "Linked customers, published ones only."
+msgstr ""
+
+#: includes/abilities.php:1546
+msgid "Linked locations, published ones only."
+msgstr ""
+
+#: includes/abilities.php:1547
+msgid "Assigned reference-type terms."
+msgstr ""
+
+#: includes/abilities.php:1548
+msgid "Assigned reference-filter-1 terms."
+msgstr ""
+
+#: includes/abilities.php:1549
+msgid "Assigned reference-filter-2 terms."
+msgstr ""
+
+#: includes/abilities.php:1555
+msgid "List available reference filters"
+msgstr ""
+
+#: includes/abilities.php:1556
+msgid ""
+"Returns the values this site can filter references by: the three taxonomies "
+"with their terms, plus the customers and locations. Call this before jpkcom-"
+"acf-references/query-references so term slugs and post IDs never have to be "
+"guessed. Also reports how many published references the public listing rule "
+"excludes and why."
+msgstr ""
+
+#: includes/abilities.php:1586
+msgid ""
+"Every reference-type term, whether or not a reference currently uses it. "
+"Filter with the slug."
+msgstr ""
+
+#: includes/abilities.php:1587
+msgid "Every reference-filter-1 term."
+msgstr ""
+
+#: includes/abilities.php:1588
+msgid "Every reference-filter-2 term."
+msgstr ""
+
+#: includes/abilities.php:1589
+msgid "Published customers, as accepted by the \"customer\" filter."
+msgstr ""
+
+#: includes/abilities.php:1590
+msgid "Published locations, as accepted by the \"location\" filter."
+msgstr ""
+
+#: includes/abilities.php:1591
+msgid ""
+"True when at least one list above was cut off at this site's reporting "
+"limit, so it is not the complete vocabulary."
+msgstr ""
+
+#: includes/abilities.php:1592
+msgid ""
+"Front-end archive URL for references, empty when the post type has none."
+msgstr ""
+
+#: includes/abilities.php:1595
+msgid ""
+"Site-level counts, not counts for any particular query. published = all "
+"published references; listed = those the public listing shows; the two "
+"hidden_* numbers are the difference and partition the remainder exactly."
+msgstr ""
+
+#: includes/abilities.php:1597
+msgid "Published references, regardless of the listing rule."
+msgstr ""
+
+#: includes/abilities.php:1598
+msgid "References the public listing shows."
+msgstr ""
+
+#: includes/abilities.php:1599
+msgid "Excluded because their expiry date has passed."
+msgstr ""
+
+#: includes/abilities.php:1600
+msgid ""
+"Excluded because they carry no reference_featured meta row at all. The row's "
+"value is irrelevant; a stored 0 is listed, a missing row is not."
+msgstr ""
+
+#: includes/abilities.php:1603
+msgid "Locale these labels were read in."
+msgstr ""
+
+#: includes/abilities.php:1613
+msgid "Query references"
+msgstr ""
+
+#: includes/abilities.php:1614
+msgid ""
+"Runs a filtered, paginated query over the references this site lists "
+"publicly and returns compact records. Only values reported by jpkcom-acf-"
+"references/list-filters are accepted; anything else is reported back under "
+"\"unknown\" rather than silently ignored."
+msgstr ""
+
+#: includes/abilities.php:1626
+msgid ""
+"reference-type slugs to filter by, as returned by list-filters. Several "
+"slugs in one axis are combined with OR; different axes with AND."
+msgstr ""
+
+#: includes/abilities.php:1632
+msgid "reference-filter-1 slugs to filter by."
+msgstr ""
+
+#: includes/abilities.php:1638
+msgid "reference-filter-2 slugs to filter by."
+msgstr ""
+
+#: includes/abilities.php:1644
+msgid "Customer post IDs to filter by, as returned by list-filters."
+msgstr ""
+
+#: includes/abilities.php:1650
+msgid "Location post IDs to filter by, as returned by list-filters."
+msgstr ""
+
+#: includes/abilities.php:1656
+msgid ""
+"Free-text search over the reference TITLE only. It is WordPress core search, "
+"which reads post_title, post_excerpt and post_content — and this plugin "
+"holds the descriptive text in ACF fields with post_content empty, so a term "
+"appearing in the short description will NOT be found here, and an empty "
+"result is not evidence that nothing matches. To search those, filter by the "
+"axes that are indexed."
+msgstr ""
+
+#: includes/abilities.php:1660
+msgid "Page number, starting at 1."
+msgstr ""
+
+#: includes/abilities.php:1666
+msgid "References per page."
+msgstr ""
+
+#: includes/abilities.php:1673
+msgid ""
+"Direction of the date component of the sort. Featured references always sort "
+"first."
+msgstr ""
+
+#: includes/abilities.php:1683
+msgid ""
+"The filters as REQUESTED, after normalisation. This describes the request, "
+"not the executed query: a site callback on pre_get_posts can rewrite paging, "
+"ordering or the search term afterwards, and this ability cannot vouch for a "
+"window it did not see."
+msgstr ""
+
+#: includes/abilities.php:1684
+msgid ""
+"Requested values that match nothing on this site, keyed by axis. A non-empty "
+"value explains why a result set is empty."
+msgstr ""
+
+#: includes/abilities.php:1685
+msgid "Total number of listed references matching the filters."
+msgstr ""
+
+#: includes/abilities.php:1686
+msgid "The page that was returned."
+msgstr ""
+
+#: includes/abilities.php:1687
+msgid "The page size that was applied after clamping."
+msgstr ""
+
+#: includes/abilities.php:1688
+msgid "Number of pages available for these filters."
+msgstr ""
+
+#: includes/abilities.php:1689
+msgid "Front-end archive URL for references, empty when there is none."
+msgstr ""
+
+#: includes/abilities.php:1690 includes/abilities.php:1724
+msgid "Locale this answer was read in."
+msgstr ""
+
+#: includes/abilities.php:1691
+msgid "The matching references for the requested page."
+msgstr ""
+
+#: includes/abilities.php:1692
+msgid ""
+"How many records on this page were dropped because their stored data could "
+"not be read. Normally 0; a non-zero value means the page holds fewer records "
+"than per_page for a site-side reason."
+msgstr ""
+
+#: includes/abilities.php:1702
+msgid "Get one reference"
+msgstr ""
+
+#: includes/abilities.php:1703
+msgid ""
+"Returns one reference by ID, including the detail data its page publishes: "
+"the short description and the image gallery. A reference that no listing "
+"contains is still resolvable here, together with whether it is listed."
+msgstr ""
+
+#: includes/abilities.php:1714
+msgid ""
+"Reference post ID, as returned by jpkcom-acf-references/query-references."
+msgstr ""
+
+#: includes/abilities.php:1723
+msgid ""
+"Whether the public listing contains this reference. Answered by running the "
+"listing rule restricted to this one ID, not by re-deriving it, so it cannot "
+"disagree with jpkcom-acf-references/query-references."
+msgstr ""
+
+#: includes/abilities.php:1727
+msgid ""
+"Why no detail block is present. \"redirects_externally\" when an external "
+"URL sends every visitor away before the page renders, \"expired\" when the "
+"page redirects to the archive. In both states the description and the "
+"gallery of this reference were never published to anybody, so they are "
+"withheld here too."
+msgstr ""
+
+#: includes/abilities.php:1731
+msgid ""
+"Detail data, present only for a reference whose page actually renders for an "
+"anonymous visitor."
+msgstr ""
+
+#: includes/abilities.php:1733
+msgid "The short description as plain text."
+msgstr ""
+
+#: includes/abilities.php:1736
+msgid "Gallery images, as URL and alt text."
+msgstr ""
+
+#: includes/abilities.php:1740
+msgid "Image URL."
+msgstr ""
+
+#: includes/abilities.php:1741
+msgid "Alt text stored on the attachment, empty when none is set."
+msgstr ""
+
+#: includes/abilities.php:1793
+msgid "JPKCom Content"
+msgstr ""
+
+#: includes/abilities.php:1794
+msgid "Read-only access to content managed by the JPKCom content plugins."
+msgstr ""
+
+#: includes/admin-pages.php:28 includes/admin-pages.php:29
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+#: includes/admin-pages.php:38 includes/admin-pages.php:39
+msgid "Options"
+msgstr "Optionen"
 
 #: includes/admin-pages.php:79
 msgid "Archive Settings"
 msgstr "Archiv-Einstellungen"
 
-#: includes/admin-pages.php:215
-msgid "Ascending (Oldest First)"
-msgstr "Aufsteigend (Älteste zuerst)"
-
-#: includes/admin-pages.php:392 includes/admin-pages.php:405
-#: includes/admin-pages.php:412
-msgid "Attributes:"
-msgstr "Attribute"
-
-#: templates/partials/layout/pagination-page.php:13
-msgid "Back to overview"
-msgstr "Zurück zur Übersicht"
-
-#: includes/breadcrumb.php:40
-msgid "Breadcrumb"
-msgstr "Brotkrumen"
-
-#: includes/admin-pages.php:234
-msgid "CSS Class"
-msgstr "CSS-Klasse"
-
-#: includes/admin-pages.php:396
-msgid "CSS classes"
-msgstr "CSS-Klassen"
-
-#: includes/media.php:79
-msgid "Card Overlay Image (4:3 / Width 800 / Height 600)"
-msgstr "Karten-Overlay-Bild (4:3 / Breite 800 / Höhe 600)"
-
-#: includes/admin-pages.php:189
-msgid "Cards (with Thumbnails)"
-msgstr "Karten (mit Vorschaubildern)"
-
-#: includes/admin-pages.php:192
-msgid "Choose the display layout for references."
-msgstr "Wählen Sie das Anzeigelayout für Referenzen."
-
-#: templates/partials/reference/reference_image_gallery_modal.php:38
-#: templates/partials/reference/reference_image_gallery_modal.php:71
-msgid "Close"
-msgstr "Schließen"
-
-#: includes/admin-pages.php:317
-msgid "Comma-separated list of Filter 1 term IDs (optional). Example: 2,8,15"
-msgstr "Kommagetrennte Liste von Filter-1 Term-IDs (optional). Beispiel: 2,8,15"
-
-#: includes/admin-pages.php:328
-msgid "Comma-separated list of Filter 2 term IDs (optional). Example: 3,7,10"
-msgstr "Kommagetrennte Liste von Filter-2 Term-IDs (optional). Beispiel: 3,7,10"
-
-#: includes/admin-pages.php:339
-msgid ""
-"Comma-separated list of customer post IDs (optional). Example: 42,87,123"
-msgstr "Kommagetrennte Liste von Kunden Post-IDs (optional). Beispiel: 42,87,123"
-
-#: includes/admin-pages.php:350
-msgid "Comma-separated list of location post IDs (optional). Example: 5,18,33"
-msgstr "Kommagetrennte Liste von Standort Post-IDs (optional). Beispiel: 5,18,33"
-
-#: includes/admin-pages.php:306
-msgid ""
-"Comma-separated list of reference type term IDs (optional). Example: 1,5,12"
-msgstr "Kommagetrennte Liste von Referenz-Typ Term-IDs (optional). Beispiel: 1,5,12"
-
-#: includes/admin-pages.php:394
-msgid "Comma-separated list of term IDs (optional, shows all if omitted)"
-msgstr "Kommagetrennte Liste von Term-IDs (optional, zeigt alle)"
-
-#: includes/admin-pages.php:176
-msgid "Configure the options below to generate your shortcode."
-msgstr "Konfigurieren Sie die Optionen, um Ihren Shortcode zu generieren."
-
 #: includes/admin-pages.php:81
 msgid "Configure the reference archive page behavior."
 msgstr "Konfigurieren Sie das Verhalten der Referenz-Archivseite."
-
-#: includes/admin-pages.php:376
-msgid "Copied!"
-msgstr "Kopiert!"
-
-#: includes/admin-pages.php:373
-msgid "Copy to Clipboard"
-msgstr "In Zwischenablage kopieren"
-
-#: includes/pagination.php:100
-msgid "Current Page"
-msgstr "Aktuelle Seite"
-
-#: templates/archive-reference.php:19
-msgid "Current reference offers"
-msgstr "Aktuelle Referenzen"
-
-#: templates/partials/archive/reference_customer.php:12
-#: templates/partials/reference/reference_customer.php:12
-msgid "Customer"
-msgstr "Kunde"
-
-#: templates/archive-reference_customer.php:19
-msgid "Customer overview"
-msgstr "Kundenübersicht"
-
-#: templates/shortcodes/partials/list-cards.php:169
-msgid "Customer:"
-msgstr "Kunde:"
-
-#: includes/admin-pages.php:214
-msgid "Descending (Newest First)"
-msgstr "Absteigend (Neueste zuerst)"
-
-#: templates/single-reference.php:55
-msgid "Description"
-msgstr "Beschreibung"
-
-#: templates/single-reference.php:75
-msgid "Details"
-msgstr "Details"
 
 #: includes/admin-pages.php:89
 msgid "Disable Reference Archive"
 msgstr "Referenz-Archiv deaktivieren"
 
-#: includes/admin-pages.php:404
-msgid "Displays Filter 1 taxonomy terms as expandable details elements."
-msgstr "Zeigt Filter-1-Taxonomie-Begriffe als ausklappbare Details-Elemente."
+#: includes/admin-pages.php:98
+msgid "Archive Redirect URL"
+msgstr "Archiv-Weiterleitungs-URL"
 
-#: includes/admin-pages.php:411
-msgid "Displays Filter 2 taxonomy terms as expandable details elements."
-msgstr "Zeigt Filter-2-Taxonomie-Begriffe als ausklappbare Details-Elemente."
+#: includes/admin-pages.php:123
+msgid "Redirect all access to the reference archive page (/references/)"
+msgstr "Alle Zugriffe auf die Referenz-Archivseite (/references/) umleiten"
 
-#: includes/admin-pages.php:391
-msgid "Displays reference types as expandable details elements."
-msgstr "Zeigt Referenztypen als ausklappbare Details-Elemente."
-
-#: includes/class-plugin-updater.php:409
-#, php-format
-msgid "Download failed: %s"
-msgstr "Download fehlgeschlagen: %s"
-
-#: templates/single-reference_customer.php:31
-msgid "Edit customer"
-msgstr "Kunde bearbeiten"
-
-#: templates/single-reference_location.php:31
-msgid "Edit location"
-msgstr "Standort bearbeiten"
-
-#: includes/admin-pages.php:245
-msgid "Enable Filters"
-msgstr "Filter aktivieren"
-
-#: includes/admin-pages.php:399 includes/admin-pages.php:406
-#: includes/admin-pages.php:413
-msgid "Example:"
-msgstr "Beispiel:"
-
-#: includes/admin-pages.php:263 includes/admin-pages.php:278
-#: includes/shortcodes.php:364
-#: templates/partials/reference/reference_type.php:71
-msgid "Filter 1"
-msgstr "Filter 1"
-
-#: includes/admin-pages.php:264 includes/admin-pages.php:281
-#: includes/shortcodes.php:373
-#: templates/partials/reference/reference_type.php:126
-msgid "Filter 2"
-msgstr "Filter 2"
-
-#: includes/admin-pages.php:272
-msgid "Filter Labels"
-msgstr "Filter-Beschriftungen"
-
-#: templates/shortcodes/list.php:41
-msgid "Filter button group"
-msgstr "Filter-Schaltflächengruppe"
-
-#: templates/shortcodes/list.php:50 templates/shortcodes/list.php:77
-#, php-format
-msgid "Filter by %s"
-msgstr "Filtern nach %s"
-
-#: includes/admin-pages.php:335
-msgid "Filter by Customer"
-msgstr "Nach Kunde filtern"
-
-#: includes/admin-pages.php:313
-msgid "Filter by Filter 1"
-msgstr "Nach Filter 1 filtern"
-
-#: includes/admin-pages.php:324
-msgid "Filter by Filter 2"
-msgstr "Nach Filter 2 filtern"
-
-#: includes/admin-pages.php:346
-msgid "Filter by Location"
-msgstr "Nach Standort filtern"
-
-#: includes/admin-pages.php:302
-msgid "Filter by Reference Type"
-msgstr "Nach Referenz-Typ filtern"
-
-#: includes/pagination.php:66
-msgid "First Page"
-msgstr "Erste Seite"
-
-#: includes/media.php:81
-msgid "Gallery Modal Image (Width 1400px)"
-msgstr "Galerie-Modal-Bild (Breite 1400px)"
-
-#: includes/media.php:80
-msgid "Gallery Thumbnail (Square / 200x200)"
-msgstr "Galerie-Vorschaubild (Quadratisch / 200x200)"
-
-#: templates/partials/reference/reference_image_gallery_modal.php:50
-msgid "Gallery navigation"
-msgstr "Galerie-Navigation"
-
-#: includes/admin-pages.php:359
-msgid "Generate Shortcode"
-msgstr "Shortcode generieren"
-
-#: includes/admin-pages.php:367
-msgid "Generated Shortcode"
-msgstr "Generierter Shortcode"
-
-#: includes/media.php:78
-msgid "Header Image (Width 992 / Height 558)"
-msgstr "Kopfzeilenbild (Breite 992 / Höhe 558)"
-
-#: includes/breadcrumb.php:43
-msgid "Home"
-msgstr "Home"
-
-#: templates/partials/reference/reference_image_gallery_modal.php:35
-#, php-format
-msgid "Image %d of %d"
-msgstr "Bild %d von %d"
-
-#: templates/partials/reference/reference_image_gallery.php:21
-msgid "Image Gallery"
-msgstr "Bildergalerie"
-
-#: templates/partials/reference/reference_image_gallery_modal.php:33
-msgid "Image Gallery:"
-msgstr "Bildergalerie:"
-
-#: includes/admin-pages.php:190
-msgid "Images (Overlay)"
-msgstr "Bildergalerie"
-
-#: includes/admin-pages.php:397
-msgid "Inline CSS"
-msgstr "Inline-CSS"
-
-#: includes/admin-pages.php:279
-msgid "Label for Filter 1"
-msgstr "Filter 1"
-
-#: includes/admin-pages.php:282
-msgid "Label for Filter 2"
-msgstr "Filter 2"
-
-#: includes/admin-pages.php:276
-msgid "Label for Reference Type filter"
-msgstr "Referenz-Filter"
-
-#: includes/pagination.php:126
-msgid "Last Page"
-msgstr "Letzte Seite"
-
-#: includes/admin-pages.php:184
-msgid "Layout"
-msgstr "Layout"
-
-#: templates/shortcodes/list.php:121
-msgid "Layout template not found."
-msgstr "Layout-Vorlage nicht gefunden."
-
-#: includes/admin-pages.php:188
-msgid "List (Compact)"
-msgstr "Liste (Kompakt)"
-
-#: templates/partials/archive/reference_location.php:12
-#: templates/partials/reference/reference_location.php:12
-msgid "Location"
-msgstr "Standort"
-
-#: templates/shortcodes/partials/list-cards.php:176
-msgid "Location:"
-msgstr "Standort:"
-
-#: templates/archive-reference_location.php:19
-msgid "Locations overview"
-msgstr "Standorte Übersicht"
-
-#: templates/partials/reference/reference_image_gallery_modal.php:66
-msgid "Next"
-msgstr "Weiter"
-
-#: includes/pagination.php:110
-msgid "Next Page"
-msgstr "Nächste Seite"
-
-#: templates/partials/reference/reference_image_gallery_modal.php:64
-msgid "Next image"
-msgstr "Nächstes Bild"
-
-#: includes/shortcodes.php:652 includes/shortcodes.php:784
-#: includes/shortcodes.php:916 templates/shortcodes/filter-1.php:37
-#: templates/shortcodes/filter-2.php:37 templates/shortcodes/types.php:37
-msgid "No description."
-msgstr "Keine Beschreibung."
-
-#: includes/shortcodes.php:752 includes/shortcodes.php:884
-#: templates/shortcodes/filter-1.php:18 templates/shortcodes/filter-2.php:18
-msgid "No filter terms found."
-msgstr "Keine Filter-Begriffe gefunden."
-
-#: templates/shortcodes/list.php:101
+#: includes/admin-pages.php:126
 msgid ""
-"No references found matching your filter criteria. Please adjust your "
-"filters."
+"When enabled, visitors will be redirected from the archive page. Single "
+"reference pages remain accessible."
 msgstr ""
-"Keine Referenzen gefunden, die Ihren Filterkriterien entsprechen. Bitte "
-"passen Sie Ihre Filter an."
-
-#: includes/shortcodes.php:523
-msgid "No references found."
-msgstr "Keine Referenzen gefunden."
-
-#: templates/shortcodes/list.php:23
-msgid "No references to display."
-msgstr "Keine Referenzen vorhanden."
-
-#: includes/shortcodes.php:620 templates/shortcodes/types.php:18
-msgid "No types found."
-msgstr "Keine Typen gefunden."
-
-#: includes/admin-pages.php:199
-msgid "Number of References"
-msgstr "Anzahl der Referenzen"
-
-#: templates/partials/reference/reference_image_gallery.php:39
-#, php-format
-msgid "Open image %d of %d in lightbox"
-msgstr "Bild %d von %d in Lightbox öffnen"
-
-#: includes/admin-pages.php:238
-msgid "Optional CSS classes for styling (e.g., \"mb-5\")."
-msgstr "Optionale CSS-Klassen (z.B. \"mb-5\")."
-
-#: includes/admin-pages.php:227
-msgid "Optional headline above the reference list."
-msgstr "Optionale Überschrift über der Referenzliste."
+"Wenn aktiviert, werden Besucher von der Archivseite weitergeleitet. Einzelne "
+"Referenzseiten bleiben zugänglich."
 
 #: includes/admin-pages.php:149
 msgid ""
@@ -395,38 +478,280 @@ msgstr ""
 "leer, wird zur Startseite weitergeleitet. Gilt nur, wenn das Archiv "
 "deaktiviert ist."
 
-#: includes/admin-pages.php:38 includes/admin-pages.php:39
-msgid "Options"
-msgstr "Optionen"
+#: includes/admin-pages.php:174
+msgid "Reference List Shortcode Generator"
+msgstr "Referenzlisten-Shortcode-Generator"
+
+#: includes/admin-pages.php:176
+msgid "Configure the options below to generate your shortcode."
+msgstr "Konfigurieren Sie die Optionen, um Ihren Shortcode zu generieren."
+
+#: includes/admin-pages.php:184
+msgid "Layout"
+msgstr "Layout"
+
+#: includes/admin-pages.php:188
+msgid "List (Compact)"
+msgstr "Liste (Kompakt)"
+
+#: includes/admin-pages.php:189
+msgid "Cards (with Thumbnails)"
+msgstr "Karten (mit Vorschaubildern)"
+
+#: includes/admin-pages.php:190
+msgid "Images (Overlay)"
+msgstr "Bildergalerie"
+
+#: includes/admin-pages.php:192
+msgid "Choose the display layout for references."
+msgstr "Wählen Sie das Anzeigelayout für Referenzen."
+
+#: includes/admin-pages.php:199
+msgid "Number of References"
+msgstr "Anzahl der Referenzen"
+
+#: includes/admin-pages.php:203
+msgid "Select the number of references to display. 0 = all"
+msgstr "Wähle die Anzahl der darzustellenden Referenzen. 0 = alle"
+
+#: includes/admin-pages.php:210
+msgid "Sort Order"
+msgstr "Sortierreihenfolge"
+
+#: includes/admin-pages.php:214
+msgid "Descending (Newest First)"
+msgstr "Absteigend (Neueste zuerst)"
+
+#: includes/admin-pages.php:215
+msgid "Ascending (Oldest First)"
+msgstr "Aufsteigend (Älteste zuerst)"
+
+#: includes/admin-pages.php:223
+msgid "Section Title"
+msgstr "Abschnittstitel"
+
+#: includes/admin-pages.php:227
+msgid "Optional headline above the reference list."
+msgstr "Optionale Überschrift über der Referenzliste."
+
+#: includes/admin-pages.php:234
+msgid "CSS Class"
+msgstr "CSS-Klasse"
+
+#: includes/admin-pages.php:238
+msgid "Optional CSS classes for styling (e.g., \"mb-5\")."
+msgstr "Optionale CSS-Klassen (z.B. \"mb-5\")."
+
+#: includes/admin-pages.php:245
+msgid "Enable Filters"
+msgstr "Filter aktivieren"
+
+#: includes/admin-pages.php:250
+msgid "Show filter dropdowns"
+msgstr "Filter-Dropdowns anzeigen"
+
+#: includes/admin-pages.php:252
+msgid "Allow visitors to filter references interactively."
+msgstr "Besucher können Referenzen interaktiv filtern."
+
+#: includes/admin-pages.php:259
+msgid "Active Filters"
+msgstr "Aktive Filter"
+
+#: includes/admin-pages.php:262 includes/admin-pages.php:275
+#: includes/shortcodes.php:339
+msgid "Reference Type"
+msgstr "Referenz-Typ"
+
+#: includes/admin-pages.php:263 includes/admin-pages.php:278
+#: includes/shortcodes.php:348
+#: templates/partials/reference/reference_type.php:71
+msgid "Filter 1"
+msgstr "Filter 1"
+
+#: includes/admin-pages.php:264 includes/admin-pages.php:281
+#: includes/shortcodes.php:357
+#: templates/partials/reference/reference_type.php:126
+msgid "Filter 2"
+msgstr "Filter 2"
+
+#: includes/admin-pages.php:265
+msgid "Select which filter dimensions to display."
+msgstr "Wählen Sie die anzuzeigenden Filterdimensionen."
+
+#: includes/admin-pages.php:272
+msgid "Filter Labels"
+msgstr "Filter-Beschriftungen"
+
+#: includes/admin-pages.php:276
+msgid "Label for Reference Type filter"
+msgstr "Referenz-Filter"
+
+#: includes/admin-pages.php:279
+msgid "Label for Filter 1"
+msgstr "Filter 1"
+
+#: includes/admin-pages.php:282
+msgid "Label for Filter 2"
+msgstr "Filter 2"
+
+#: includes/admin-pages.php:289
+msgid "Reset Button"
+msgstr "Zurücksetzen-Button"
+
+#: includes/admin-pages.php:294
+msgid "Show \"Reset all filters\" button"
+msgstr "Alle Filter zurücksetzen"
+
+#: includes/admin-pages.php:302
+msgid "Filter by Reference Type"
+msgstr "Nach Referenz-Typ filtern"
+
+#: includes/admin-pages.php:306
+msgid ""
+"Comma-separated list of reference type term IDs (optional). Example: 1,5,12"
+msgstr ""
+"Kommagetrennte Liste von Referenz-Typ Term-IDs (optional). Beispiel: 1,5,12"
+
+#: includes/admin-pages.php:313
+msgid "Filter by Filter 1"
+msgstr "Nach Filter 1 filtern"
+
+#: includes/admin-pages.php:317
+msgid "Comma-separated list of Filter 1 term IDs (optional). Example: 2,8,15"
+msgstr ""
+"Kommagetrennte Liste von Filter-1 Term-IDs (optional). Beispiel: 2,8,15"
+
+#: includes/admin-pages.php:324
+msgid "Filter by Filter 2"
+msgstr "Nach Filter 2 filtern"
+
+#: includes/admin-pages.php:328
+msgid "Comma-separated list of Filter 2 term IDs (optional). Example: 3,7,10"
+msgstr ""
+"Kommagetrennte Liste von Filter-2 Term-IDs (optional). Beispiel: 3,7,10"
+
+#: includes/admin-pages.php:335
+msgid "Filter by Customer"
+msgstr "Nach Kunde filtern"
+
+#: includes/admin-pages.php:339
+msgid ""
+"Comma-separated list of customer post IDs (optional). Example: 42,87,123"
+msgstr ""
+"Kommagetrennte Liste von Kunden Post-IDs (optional). Beispiel: 42,87,123"
+
+#: includes/admin-pages.php:346
+msgid "Filter by Location"
+msgstr "Nach Standort filtern"
+
+#: includes/admin-pages.php:350
+msgid "Comma-separated list of location post IDs (optional). Example: 5,18,33"
+msgstr ""
+"Kommagetrennte Liste von Standort Post-IDs (optional). Beispiel: 5,18,33"
+
+#: includes/admin-pages.php:359
+msgid "Generate Shortcode"
+msgstr "Shortcode generieren"
+
+#: includes/admin-pages.php:367
+msgid "Generated Shortcode"
+msgstr "Generierter Shortcode"
+
+#: includes/admin-pages.php:373
+msgid "Copy to Clipboard"
+msgstr "In Zwischenablage kopieren"
+
+#: includes/admin-pages.php:376
+msgid "Copied!"
+msgstr "Kopiert!"
 
 #: includes/admin-pages.php:388
 msgid "Other Available Shortcodes"
 msgstr "Weitere verfügbare Shortcodes"
 
-#: includes/pagination.php:101
-msgid "Page"
-msgstr "Seite"
+#: includes/admin-pages.php:391
+msgid "Displays reference types as expandable details elements."
+msgstr "Zeigt Referenztypen als ausklappbare Details-Elemente."
 
-#: includes/pagination.php:60
-msgid "Page navigation"
-msgstr "Seiten-Navigation"
+#: includes/admin-pages.php:392 includes/admin-pages.php:405
+#: includes/admin-pages.php:412
+msgid "Attributes:"
+msgstr "Attribute"
 
-#: templates/partials/reference/reference_image_gallery_modal.php:58
-msgid "Previous"
-msgstr "Zurück"
+#: includes/admin-pages.php:394
+msgid "Comma-separated list of term IDs (optional, shows all if omitted)"
+msgstr "Kommagetrennte Liste von Term-IDs (optional, zeigt alle)"
 
-#: includes/pagination.php:82
-msgid "Previous Page"
-msgstr "Vorherige Seite"
+#: includes/admin-pages.php:395
+msgid "Section headline"
+msgstr "Abschnitts-Überschrift"
 
-#: templates/partials/reference/reference_image_gallery_modal.php:55
-msgid "Previous image"
-msgstr "Vorheriges Bild"
+#: includes/admin-pages.php:396
+msgid "CSS classes"
+msgstr "CSS-Klassen"
 
-#: includes/helpers.php:392 includes/helpers.php:397 includes/helpers.php:402
-#: includes/helpers.php:407
-msgid "Published"
-msgstr "Veröffentlicht vor"
+#: includes/admin-pages.php:397
+msgid "Inline CSS"
+msgstr "Inline-CSS"
+
+#: includes/admin-pages.php:399 includes/admin-pages.php:406
+#: includes/admin-pages.php:413
+msgid "Example:"
+msgstr "Beispiel:"
+
+#: includes/admin-pages.php:404
+msgid "Displays Filter 1 taxonomy terms as expandable details elements."
+msgstr "Zeigt Filter-1-Taxonomie-Begriffe als ausklappbare Details-Elemente."
+
+#: includes/admin-pages.php:405 includes/admin-pages.php:412
+msgid "Same as above"
+msgstr "Wie oben"
+
+#: includes/admin-pages.php:411
+msgid "Displays Filter 2 taxonomy terms as expandable details elements."
+msgstr "Zeigt Filter-2-Taxonomie-Begriffe als ausklappbare Details-Elemente."
+
+#: includes/admin-pages.php:435
+msgid "Settings saved successfully."
+msgstr "Einstellungen erfolgreich gespeichert."
+
+#: includes/breadcrumb.php:40
+msgid "Breadcrumb"
+msgstr "Brotkrumen"
+
+#: includes/breadcrumb.php:43
+msgid "Home"
+msgstr "Home"
+
+#: includes/breadcrumb.php:51 includes/breadcrumb.php:59
+msgid "References"
+msgstr "Referenzen"
+
+#: includes/class-plugin-updater.php:475
+msgid ""
+"Security verification failed: the update manifest could not be loaded, so "
+"the package cannot be verified."
+msgstr ""
+
+#: includes/class-plugin-updater.php:482
+msgid ""
+"Security verification failed: the update manifest contains no SHA-256 "
+"checksum, so the package cannot be verified."
+msgstr ""
+
+#: includes/class-plugin-updater.php:492
+#, php-format
+msgid "Download failed: %s"
+msgstr "Download fehlgeschlagen: %s"
+
+#. translators: 1: expected SHA-256 hash, 2: calculated SHA-256 hash
+#: includes/class-plugin-updater.php:508
+#, php-format
+msgid ""
+"Security verification failed: Plugin checksum mismatch. Expected: %1$s, Got: "
+"%2$s"
+msgstr ""
 
 #: includes/helpers.php:379
 msgid "Published in the future"
@@ -440,156 +765,10 @@ msgstr "Heute veröffentlicht"
 msgid "Published yesterday"
 msgstr "Gestern veröffentlicht"
 
-#: includes/admin-pages.php:123
-msgid "Redirect all access to the reference archive page (/references/)"
-msgstr "Alle Zugriffe auf die Referenz-Archivseite (/references/) umleiten"
-
-#: includes/media.php:76
-msgid "Reference Image (16:9 / Width 576px)"
-msgstr "Referenzbild (16:9 / Breite 576px)"
-
-#: includes/admin-pages.php:174
-msgid "Reference List Shortcode Generator"
-msgstr "Referenzlisten-Shortcode-Generator"
-
-#: includes/media.php:77
-msgid "Reference Logo (Width 512 / Height 512)"
-msgstr "Referenz-Logo (Breite 512 / Höhe 512)"
-
-#: includes/admin-pages.php:262 includes/admin-pages.php:275
-#: includes/shortcodes.php:355
-msgid "Reference Type"
-msgstr "Referenz-Typ"
-
-#: templates/shortcodes/list.php:40
-msgid "Reference filters"
-msgstr "Referenz-Filter"
-
-#: templates/partials/layout/pagination-page.php:10
-msgid "Reference page navigation"
-msgstr "Navigation auf der Referenzseite"
-
-#: includes/breadcrumb.php:51 includes/breadcrumb.php:59
-msgid "References"
-msgstr "Referenzen"
-
-#: templates/shortcodes/list.php:63
-#, php-format
-msgid "Reset %s filter"
-msgstr "%s-Filter zurücksetzen"
-
-#: includes/admin-pages.php:289
-msgid "Reset Button"
-msgstr "Zurücksetzen-Button"
-
-#: templates/shortcodes/list.php:93
-msgid "Reset all"
-msgstr "Alle zurücksetzen"
-
-#: templates/shortcodes/list.php:91
-msgid "Reset all filters"
-msgstr "Alle Filter zurücksetzen"
-
-#: includes/admin-pages.php:405 includes/admin-pages.php:412
-msgid "Same as above"
-msgstr "Wie oben"
-
-#: includes/admin-pages.php:223
-msgid "Section Title"
-msgstr "Abschnittstitel"
-
-#: includes/admin-pages.php:395
-msgid "Section headline"
-msgstr "Abschnitts-Überschrift"
-
-#: includes/class-plugin-updater.php:425
-#, php-format
-msgid ""
-"Security verification failed: Plugin checksum mismatch. Expected: %s, Got: %s"
-msgstr ""
-"Sicherheitsüberprüfung fehlgeschlagen: Plugin-Prüfsumme stimmt nicht "
-"überein. Erwartet: %s, Erhalten: %s"
-
-#: includes/admin-pages.php:203
-msgid "Select the number of references to display. 0 = all"
-msgstr "Wähle die Anzahl der darzustellenden Referenzen. 0 = alle"
-
-#: includes/admin-pages.php:265
-msgid "Select which filter dimensions to display."
-msgstr "Wählen Sie die anzuzeigenden Filterdimensionen."
-
-#: includes/admin-pages.php:435
-msgid "Settings saved successfully."
-msgstr "Einstellungen erfolgreich gespeichert."
-
-#: includes/admin-pages.php:28 includes/admin-pages.php:29
-msgid "Shortcodes"
-msgstr "Shortcodes"
-
-#: includes/admin-pages.php:294
-msgid "Show \"Reset all filters\" button"
-msgstr "Alle Filter zurücksetzen"
-
-#: templates/shortcodes/list.php:65
-msgid "Show all"
-msgstr "Alle anzeigen"
-
-#: includes/admin-pages.php:250
-msgid "Show filter dropdowns"
-msgstr "Filter-Dropdowns anzeigen"
-
-#: includes/admin-pages.php:210
-msgid "Sort Order"
-msgstr "Sortierreihenfolge"
-
-#: templates/archive-reference_customer.php:67
-msgid "There are currently no customers available."
-msgstr "Derzeit sind keine Kunden verfügbar."
-
-#: templates/archive-reference_location.php:67
-msgid "There are currently no locations available."
-msgstr "Derzeit sind keine Standorte verfügbar."
-
-#: templates/archive-reference.php:101
-msgid "There are currently no reference offers available."
-msgstr "Derzeit sind keine Referenzen verfügbar."
-
-#: templates/partials/archive/reference_type.php:12
-#: templates/partials/reference/reference_type.php:16
-msgid "Type"
-msgstr "Typ"
-
-#: templates/shortcodes/partials/list-cards.php:162
-msgid "Type:"
-msgstr "Typ:"
-
-#: templates/shortcodes/partials/list-cards.php:190
-#: templates/shortcodes/partials/list-images.php:108
-msgid "View detailed reference"
-msgstr "Detaillierte Referenz anzeigen"
-
-#: templates/archive-reference.php:85
-#: templates/archive-reference_customer.php:51
-#: templates/archive-reference_location.php:51
-msgid "View details…"
-msgstr "Details anzeigen…"
-
-#: includes/admin-pages.php:126
-msgid ""
-"When enabled, visitors will be redirected from the archive page. Single "
-"reference pages remain accessible."
-msgstr ""
-"Wenn aktiviert, werden Besucher von der Archivseite weitergeleitet. Einzelne "
-"Referenzseiten bleiben zugänglich."
-
-#: templates/partials/reference/reference_year.php:20
-msgid "Year"
-msgstr "Jahr"
-
 #: includes/helpers.php:392 includes/helpers.php:397 includes/helpers.php:402
 #: includes/helpers.php:407
-msgid "ago"
-msgstr "&nbsp;"
+msgid "Published"
+msgstr "Veröffentlicht vor"
 
 #: includes/helpers.php:392
 msgid "day"
@@ -599,13 +778,10 @@ msgstr "Tag"
 msgid "days"
 msgstr "Tagen"
 
-#: includes/helpers.php:402
-msgid "month"
-msgstr "Monat"
-
-#: includes/helpers.php:402
-msgid "months"
-msgstr "Monaten"
+#: includes/helpers.php:392 includes/helpers.php:397 includes/helpers.php:402
+#: includes/helpers.php:407
+msgid "ago"
+msgstr "&nbsp;"
 
 #: includes/helpers.php:397
 msgid "week"
@@ -615,6 +791,14 @@ msgstr "Woche"
 msgid "weeks"
 msgstr "Wochen"
 
+#: includes/helpers.php:402
+msgid "month"
+msgstr "Monat"
+
+#: includes/helpers.php:402
+msgid "months"
+msgstr "Monaten"
+
 #: includes/helpers.php:407
 msgid "year"
 msgstr "Jahr"
@@ -623,7 +807,265 @@ msgstr "Jahr"
 msgid "years"
 msgstr "Jahren"
 
+#: includes/media.php:76
+msgid "Reference Image (16:9 / Width 576px)"
+msgstr "Referenzbild (16:9 / Breite 576px)"
+
+#: includes/media.php:77
+msgid "Reference Logo (Width 512 / Height 512)"
+msgstr "Referenz-Logo (Breite 512 / Höhe 512)"
+
+#: includes/media.php:78
+msgid "Header Image (Width 992 / Height 558)"
+msgstr "Kopfzeilenbild (Breite 992 / Höhe 558)"
+
+#: includes/media.php:79
+msgid "Card Overlay Image (4:3 / Width 800 / Height 600)"
+msgstr "Karten-Overlay-Bild (4:3 / Breite 800 / Höhe 600)"
+
+#: includes/media.php:80
+msgid "Gallery Thumbnail (Square / 200x200)"
+msgstr "Galerie-Vorschaubild (Quadratisch / 200x200)"
+
+#: includes/media.php:81
+msgid "Gallery Modal Image (Width 1400px)"
+msgstr "Galerie-Modal-Bild (Breite 1400px)"
+
+#: includes/pagination.php:60
+msgid "Page navigation"
+msgstr "Seiten-Navigation"
+
+#: includes/pagination.php:66
+msgid "First Page"
+msgstr "Erste Seite"
+
+#: includes/pagination.php:82
+msgid "Previous Page"
+msgstr "Vorherige Seite"
+
+#: includes/pagination.php:100
+msgid "Current Page"
+msgstr "Aktuelle Seite"
+
+#: includes/pagination.php:101
+msgid "Page"
+msgstr "Seite"
+
+#: includes/pagination.php:110
+msgid "Next Page"
+msgstr "Nächste Seite"
+
+#: includes/pagination.php:126
+msgid "Last Page"
+msgstr "Letzte Seite"
+
+#: includes/shortcodes.php:507
+msgid "No references found."
+msgstr "Keine Referenzen gefunden."
+
+#: includes/shortcodes.php:604 templates/shortcodes/types.php:18
+msgid "No types found."
+msgstr "Keine Typen gefunden."
+
+#: includes/shortcodes.php:636 includes/shortcodes.php:768
+#: includes/shortcodes.php:900 templates/shortcodes/filter-1.php:37
+#: templates/shortcodes/filter-2.php:37 templates/shortcodes/types.php:37
+msgid "No description."
+msgstr "Keine Beschreibung."
+
+#: includes/shortcodes.php:736 includes/shortcodes.php:868
+#: templates/shortcodes/filter-1.php:18 templates/shortcodes/filter-2.php:18
+msgid "No filter terms found."
+msgstr "Keine Filter-Begriffe gefunden."
+
+#: templates/archive-reference.php:19
+msgid "Current reference offers"
+msgstr "Aktuelle Referenzen"
+
+#: templates/archive-reference.php:85
+#: templates/archive-reference_customer.php:51
+#: templates/archive-reference_location.php:51
+msgid "View details…"
+msgstr "Details anzeigen…"
+
+#: templates/archive-reference.php:101
+msgid "There are currently no reference offers available."
+msgstr "Derzeit sind keine Referenzen verfügbar."
+
+#: templates/archive-reference_customer.php:19
+msgid "Customer overview"
+msgstr "Kundenübersicht"
+
+#: templates/archive-reference_customer.php:67
+msgid "There are currently no customers available."
+msgstr "Derzeit sind keine Kunden verfügbar."
+
+#: templates/archive-reference_location.php:19
+msgid "Locations overview"
+msgstr "Standorte Übersicht"
+
+#: templates/archive-reference_location.php:67
+msgid "There are currently no locations available."
+msgstr "Derzeit sind keine Standorte verfügbar."
+
+#: templates/partials/archive/reference_customer.php:12
+#: templates/partials/reference/reference_customer.php:12
+msgid "Customer"
+msgstr "Kunde"
+
+#: templates/partials/archive/reference_location.php:12
+#: templates/partials/reference/reference_location.php:12
+msgid "Location"
+msgstr "Standort"
+
+#: templates/partials/archive/reference_type.php:12
+#: templates/partials/reference/reference_type.php:16
+msgid "Type"
+msgstr "Typ"
+
+#: templates/partials/layout/pagination-page.php:10
+msgid "Reference page navigation"
+msgstr "Navigation auf der Referenzseite"
+
+#: templates/partials/layout/pagination-page.php:13
+msgid "Back to overview"
+msgstr "Zurück zur Übersicht"
+
+#: templates/partials/reference/reference_image_gallery.php:21
+msgid "Image Gallery"
+msgstr "Bildergalerie"
+
+#: templates/partials/reference/reference_image_gallery.php:39
+#, php-format
+msgid "Open image %d of %d in lightbox"
+msgstr "Bild %d von %d in Lightbox öffnen"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:33
+msgid "Image Gallery:"
+msgstr "Bildergalerie:"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:35
+#, php-format
+msgid "Image %d of %d"
+msgstr "Bild %d von %d"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:38
+#: templates/partials/reference/reference_image_gallery_modal.php:71
+msgid "Close"
+msgstr "Schließen"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:50
+msgid "Gallery navigation"
+msgstr "Galerie-Navigation"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:55
+msgid "Previous image"
+msgstr "Vorheriges Bild"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:58
+msgid "Previous"
+msgstr "Zurück"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:64
+msgid "Next image"
+msgstr "Nächstes Bild"
+
+#: templates/partials/reference/reference_image_gallery_modal.php:66
+msgid "Next"
+msgstr "Weiter"
+
+#: templates/partials/reference/reference_year.php:20
+msgid "Year"
+msgstr "Jahr"
+
+#: templates/shortcodes/list.php:23
+msgid "No references to display."
+msgstr "Keine Referenzen vorhanden."
+
+#: templates/shortcodes/list.php:40
+msgid "Reference filters"
+msgstr "Referenz-Filter"
+
+#: templates/shortcodes/list.php:41
+msgid "Filter button group"
+msgstr "Filter-Schaltflächengruppe"
+
+#: templates/shortcodes/list.php:50 templates/shortcodes/list.php:77
+#, php-format
+msgid "Filter by %s"
+msgstr "Filtern nach %s"
+
+#: templates/shortcodes/list.php:63
+#, php-format
+msgid "Reset %s filter"
+msgstr "%s-Filter zurücksetzen"
+
+#: templates/shortcodes/list.php:65
+msgid "Show all"
+msgstr "Alle anzeigen"
+
+#: templates/shortcodes/list.php:91
+msgid "Reset all filters"
+msgstr "Alle Filter zurücksetzen"
+
+#: templates/shortcodes/list.php:93
+msgid "Reset all"
+msgstr "Alle zurücksetzen"
+
+#: templates/shortcodes/list.php:101
+msgid ""
+"No references found matching your filter criteria. Please adjust your "
+"filters."
+msgstr ""
+"Keine Referenzen gefunden, die Ihren Filterkriterien entsprechen. Bitte "
+"passen Sie Ihre Filter an."
+
+#: templates/shortcodes/list.php:121
+msgid "Layout template not found."
+msgstr "Layout-Vorlage nicht gefunden."
+
+#: templates/shortcodes/partials/list-cards.php:162
+msgid "Type:"
+msgstr "Typ:"
+
+#: templates/shortcodes/partials/list-cards.php:169
+msgid "Customer:"
+msgstr "Kunde:"
+
+#: templates/shortcodes/partials/list-cards.php:176
+msgid "Location:"
+msgstr "Standort:"
+
+#: templates/shortcodes/partials/list-cards.php:190
+#: templates/shortcodes/partials/list-images.php:108
+msgid "View detailed reference"
+msgstr "Detaillierte Referenz anzeigen"
+
 #: templates/shortcodes/partials/list-cards.php:191
 #: templates/shortcodes/partials/list-images.php:109
 msgid "→"
 msgstr "→"
+
+#: templates/single-reference.php:55
+msgid "Description"
+msgstr "Beschreibung"
+
+#: templates/single-reference.php:75
+msgid "Details"
+msgstr "Details"
+
+#: templates/single-reference_customer.php:31
+msgid "Edit customer"
+msgstr "Kunde bearbeiten"
+
+#: templates/single-reference_location.php:31
+msgid "Edit location"
+msgstr "Standort bearbeiten"
+
+#, php-format
+#~ msgid ""
+#~ "Security verification failed: Plugin checksum mismatch. Expected: %s, "
+#~ "Got: %s"
+#~ msgstr ""
+#~ "Sicherheitsüberprüfung fehlgeschlagen: Plugin-Prüfsumme stimmt nicht "
+#~ "überein. Erwartet: %s, Erhalten: %s"

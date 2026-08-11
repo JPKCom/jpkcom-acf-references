@@ -3,17 +3,17 @@
 Plugin Name: JPKCom ACF References
 Plugin URI: https://github.com/JPKCom/jpkcom-acf-references
 Description: Reference gallery with filter function plugin for ACF
-Version: 1.1.3
+Version: 1.2.0
 Author: Jean Pierre Kolb <jpk@jpkc.com>
 Author URI: https://www.jpkc.com/
 Contributors: JPKCom
 Tags: ACF, Fields, CPT, CTT, Taxonomy, Images
 Requires Plugins: advanced-custom-fields-pro, acf-quickedit-fields
-Requires at least: 6.9
+Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 8.3
 Network: true
-Stable tag: 1.1.3
+Stable tag: 1.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: jpkcom-acf-references
@@ -32,7 +32,7 @@ if ( ! defined( constant_name: 'WPINC' ) ) {
  * @since 1.0.0
  */
 if ( ! defined( 'JPKCOM_ACFREFERENCES_VERSION' ) ) {
-	define( 'JPKCOM_ACFREFERENCES_VERSION', '1.1.3' );
+	define( 'JPKCOM_ACFREFERENCES_VERSION', '1.2.0' );
 }
 
 if ( ! defined( 'JPKCOM_ACFREFERENCES_BASENAME' ) ) {
@@ -136,6 +136,39 @@ function jpkcom_acfreferences_locate_file( string $filename ): ?string {
     }
 
     return null;
+
+}
+
+
+/**
+ * Load the shared reference data layer
+ *
+ * Holds the visibility rule and the projection of a reference into plain data.
+ * Loaded before the readers that use it.
+ *
+ * @since 1.2.0
+ */
+$jpkcomAcfReferenceData = jpkcom_acfreferences_locate_file( filename: 'references-data.php' );
+
+if ( $jpkcomAcfReferenceData ) {
+
+    require_once $jpkcomAcfReferenceData;
+
+}
+
+
+/**
+ * Load the Abilities API integration
+ *
+ * Loaded after references-data.php, which it reads through.
+ *
+ * @since 1.2.0
+ */
+$jpkcomAcfReferenceAbilities = jpkcom_acfreferences_locate_file( filename: 'abilities.php' );
+
+if ( $jpkcomAcfReferenceAbilities ) {
+
+    require_once $jpkcomAcfReferenceAbilities;
 
 }
 
