@@ -1,11 +1,34 @@
-<h3 id="section">1.2.3</h3>
+<h3 id="section">1.2.4</h3>
+<ul>
+<li>Added: updates for inactive JPKCom plugins. WordPress never runs the
+code of a deactivated plugin, so its own updater never ran and it was
+never offered an update. Every JPKCom plugin now ships updater 1.5.0;
+one copy answers for all installed JPKCom plugins, active or not, with
+the update row, the icon and “View details”. The SHA-256 check applies
+to an inactive plugin exactly as to an active one. On multisite, at
+least one JPKCom plugin must be network-active or active on the main
+site</li>
+<li>Security: the stored list of plugin updates no longer contains
+JPKCom download URLs; they are added back only while a JPKCom updater is
+loaded, so a request without one cannot install an unverified package.
+The checksum check now also verifies a package another plugin supplied
+instead of accepting it, and recognises every GitHub address of a
+release file</li>
+<li>Changed: plugins installed as a Git (or other version-control)
+checkout or in a renamed folder are told about a new release but never
+updated automatically, because an update would delete the checkout or
+the renamed folder. Update information is fetched only for users who can
+update plugins, in WordPress’s update cron and in WP-CLI, never for
+anonymous visitors</li>
+</ul>
+<h3 id="section-1">1.2.3</h3>
 <ul>
 <li>Added: a plugin icon. The update manifest now points WordPress to
 the JPKCom logo, so the Updates screen (Dashboard → Updates) shows it
 next to this plugin instead of the generic pattern wordpress.org
 generates from the slug</li>
 </ul>
-<h3 id="section-1">1.2.2</h3>
+<h3 id="section-2">1.2.2</h3>
 <ul>
 <li>Security: the plugin header now carries
 <code>Update URI: https://github.com/JPKCom/jpkcom-acf-references</code>.
@@ -24,7 +47,7 @@ GitHub release and verifies its SHA-256 before running it, instead of
 executing whatever phpdoc.org serves that day. No effect on the shipped
 plugin</li>
 </ul>
-<h3 id="section-2">1.2.1</h3>
+<h3 id="section-3">1.2.1</h3>
 <ul>
 <li>Fixed: two 1.2.0 release notes described
 <code>includes/references-data.php</code> as the single home of the
@@ -43,7 +66,7 @@ corrected and marked, and the developer documentation now records that a
 change to the rule has to be made in both files until the shortcode is
 moved over. No behaviour is affected</li>
 </ul>
-<h3 id="section-3">1.2.0</h3>
+<h3 id="section-4">1.2.0</h3>
 <ul>
 <li>Added: three read-only WordPress Abilities —
 <code>jpkcom-acf-references/list-filters</code>,
@@ -82,7 +105,7 @@ itself</li>
 <code>unknown</code>, rather than quietly returning everything. A filter
 that is partly recognisable still narrows by the part that was</li>
 </ul>
-<h3 id="section-4">1.1.3</h3>
+<h3 id="section-5">1.1.3</h3>
 <ul>
 <li>Changed: the update manifest generator now defaults a missing
 <code>Network:</code> header to false instead of true, matching
@@ -96,7 +119,7 @@ repository are now English throughout, and the developer notes in
 <code>CLAUDE.md</code> were translated and trimmed. No effect on the
 shipped plugin</li>
 </ul>
-<h3 id="section-5">1.1.2</h3>
+<h3 id="section-6">1.1.2</h3>
 <ul>
 <li>Changed: <code>Tested up to</code> raised to WordPress 7.1</li>
 <li>Changed: the bundled updater’s runtime floor now matches the
@@ -110,14 +133,14 @@ and <code>tested</code> now say 6.9 and 7.1. They only apply when the
 README metadata cannot be read, but a stale fallback would have
 published a minimum the plugin no longer supports</li>
 </ul>
-<h3 id="section-6">1.1.1</h3>
+<h3 id="section-7">1.1.1</h3>
 <ul>
 <li>Changed: the plugin banners
 (<code>assets/banner-1544x500.avif</code>,
 <code>assets/banner-772x250.avif</code>) are now a plain
 <code>#3c4955</code> surface with no lettering</li>
 </ul>
-<h3 id="section-7">1.1.0</h3>
+<h3 id="section-8">1.1.0</h3>
 <ul>
 <li>Changed: the three taxonomy filters of the list shortcode use
 <code>tax_query</code> instead of <code>meta_query</code> with
@@ -141,7 +164,7 @@ which WPML rewrites to the current language</li>
 <code>filter_1</code> and <code>filter_2</code> now produce no filter
 rather than one that matches nothing</li>
 </ul>
-<h3 id="section-8">1.0.9</h3>
+<h3 id="section-9">1.0.9</h3>
 <ul>
 <li><strong>Fixed:</strong> reference expiry was compared against the
 UTC date. WordPress sets the PHP timezone to UTC, so
@@ -165,7 +188,7 @@ the shortcode filters can move from unindexed <code>meta_query</code> +
 regression guards so neither the UTC date form nor a role-as-capability
 check can return unnoticed. Run in CI on every pull request</li>
 </ul>
-<h3 id="section-9">1.0.8</h3>
+<h3 id="section-10">1.0.8</h3>
 <ul>
 <li>Security: update packages are now verified <em>before</em>
 installation — the verified file is handed to WordPress instead of being
@@ -192,21 +215,21 @@ check, YAML validation, action-pinning guard)</li>
 <li>Housekeeping: removed an unused <code>messages.mo</code> from the
 release package</li>
 </ul>
-<h3 id="section-10">1.0.7</h3>
+<h3 id="section-11">1.0.7</h3>
 <ul>
 <li>Fixed a leftover duplicate logo call in the reference customer
 partial that passed the ACF field array where an attachment ID is
 expected, which could render an unrelated image before every customer
 logo</li>
 </ul>
-<h3 id="section-11">1.0.6</h3>
+<h3 id="section-12">1.0.6</h3>
 <ul>
 <li>Raised the minimum WordPress version to 6.9 and “Tested up to” to
 WordPress 7.0</li>
 <li>Switched license metadata to the SPDX identifier
 <code>GPL-2.0-or-later</code> with the HTTPS license URI</li>
 </ul>
-<h3 id="section-12">1.0.5</h3>
+<h3 id="section-13">1.0.5</h3>
 <ul>
 <li>Security: updater prefers an exact match against the manifest
 <code>download_url</code> over the slug heuristic, so a tampered
@@ -223,7 +246,7 @@ completing the <code>no_update</code> transient entry
 (<code>new_version</code>, <code>package</code>, <code>tested</code>,
 <code>requires_php</code>)</li>
 </ul>
-<h3 id="section-13">1.0.4</h3>
+<h3 id="section-14">1.0.4</h3>
 <ul>
 <li>Fixed pagination layout not wrapping on small screens or with long
 post titles</li>
@@ -237,22 +260,22 @@ post titles</li>
 <code>esc_attr()</code>, <code>get_post_type_archive_link()</code> →
 <code>esc_url()</code></li>
 </ul>
-<h3 id="section-14">1.0.3</h3>
+<h3 id="section-15">1.0.3</h3>
 <ul>
 <li>Fixed updater checksum verification failing on manual ZIP uploads
 (local file paths mistaken for URLs)</li>
 <li>Fixed release ZIP missing top-level directory, causing WordPress to
 not recognize plugin updates</li>
 </ul>
-<h3 id="section-15">1.0.2</h3>
+<h3 id="section-16">1.0.2</h3>
 <ul>
 <li>Added check for “SitePress” class</li>
 </ul>
-<h3 id="section-16">1.0.1</h3>
+<h3 id="section-17">1.0.1</h3>
 <ul>
 <li>Fix for incorrect database content caused by WPML</li>
 </ul>
-<h3 id="section-17">1.0.0</h3>
+<h3 id="section-18">1.0.0</h3>
 <ul>
 <li>Initial Release</li>
 </ul>
